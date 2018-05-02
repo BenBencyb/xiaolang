@@ -1,0 +1,38 @@
+<view class="tips_view" style="height:{{height}};">
+ <text class="tips_content" style="font-size:{{fontsize}};">密码与确认密码不一致</text>
+ </view>
+ 
+ 
+ <view class="inputView top">
+
+    <view class="input_type_view">
+      <text class="input_type" >昵称</text>   
+    </view>
+  
+    <input class="input_area" value="{{nickname}}" bindinput="nickname_Input" /> 
+
+ </view> 
+
+  <view class="inputView">
+
+    <view class="input_type_view">
+      <label class="input_type" >邮箱</label>   
+    </view>
+  
+  <input class="input_area" value="{{email}}" bindinput="email_Input" /> 
+
+</view>
+
+  <view class="inputView">
+
+    <view class="input_type_view">
+      <label class="input_type" >手机号码</label>   
+    </view>
+  
+  <input class="input_area" value="{{phone}}" bindinput="phone_Input" /> 
+
+  </view>
+
+   <view class="modifyBtnView"> 
+  <button class="modifyBtn" bindtap="modify_click">修改</button>  
+ </view> 

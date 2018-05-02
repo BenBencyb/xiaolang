@@ -1,0 +1,36 @@
+<view class="listpanle">
+
+  <view class="list">
+    <text class="dataname">头像</text>
+    <image src='{{user.icon}}'></image>
+  </view>
+
+  <view class="list">
+    <text class="dataname">UID</text>
+    <text class="content">{{user.id}}</text>
+  </view>
+
+  <view class="list">
+    <text class="dataname">昵称</text>
+    <text class="content">{{user.nickname}}</text>
+  </view>
+
+  <view class="list">
+    <text class="dataname">电子邮箱</text>
+    <text class="content">{{user.email}}</text>
+  </view>
+
+  <view class="list">
+    <text class="dataname">手机号码</text>
+    <text class="content">{{user.phone}}</text>
+  </view>
+
+  <view class="modify_view" bindtap='gomodify_click'>
+    <text>修改资料</text>
+  </view>
+
+  <view class="modify_view" bindtap='changepassword_click'>
+    <text>修改密码</text>
+  </view>
+
+</view>

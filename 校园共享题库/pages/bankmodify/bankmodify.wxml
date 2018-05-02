@@ -1,0 +1,35 @@
+<view class="con">
+  <view class="inputview">
+    <text class="input_tips">题库名称</text>
+  </view>
+
+  <view class="inputview">
+    <input value='{{oldbanktitle}}' bindinput="banknameInput"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">题库简介</text>
+  </view>
+
+  <view class="inputview">
+    <textarea value='{{oldbankintro}}' bindinput="bankintroInput"></textarea>
+  </view>
+
+   <view class="inputview">
+    <text class="input_tips">题库类别</text>
+  </view>
+
+  <view class="inputview">
+      <picker range-key='name' bindchange="bindPickerChange" value='{{index}}' range="{{banktype}}">
+        <view class="picker">
+         {{banktype[index].name}}
+        </view>
+      </picker>
+  </view>
+
+  <view class="loginBtnView"> 
+  <button class="loginBtn"  bindtap="modify_click">修改</button>  
+ </view> 
+
+
+</view>

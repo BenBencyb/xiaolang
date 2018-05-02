@@ -1,0 +1,55 @@
+<view class="con">
+  <view class="inputview top">
+    <text class="input_tips"> 题目</text>
+    <input value="{{questionlist.question}}" bindinput="question_Input"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">选项A</text>
+    <input value="{{questionlist.choiceA}}" bindinput="choiceA_Input"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">选项B</text>
+    <input value="{{questionlist.choiceB}}"bindinput="choiceB_Input"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">选项C</text>
+    <input value="{{questionlist.choiceC}}" bindinput="choiceC_Input"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">选项D</text>
+    <input value="{{questionlist.choiceD}}" bindinput="choiceD_Input"></input>
+  </view>
+
+   <view class="inputview">
+    <text class="input_tips">答案</text>
+      <picker bindchange="bindPickerChange" value='{{index}}' range="{{answerarray}}">
+        <view class="picker">
+         {{answerarray[index]}}
+        </view>
+      </picker>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">解析</text>
+    <input value="{{questionlist.analysis}}" bindinput="analysis_Input"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">所属题库</text>
+      <picker range-key='title'bindchange="bindPickerChange_bank" value='{{bankindex}}' range="{{banklist}}">
+        <view class="picker">
+         {{banklist[bankindex].title}}
+        </view>
+      </picker>
+  </view>
+
+  <view class="loginBtnView"> 
+  <button class="loginBtn"  bindtap="uploadclick">修改</button>  
+ </view> 
+
+
+</view>

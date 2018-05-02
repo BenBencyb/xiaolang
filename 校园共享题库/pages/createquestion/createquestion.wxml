@@ -1,0 +1,61 @@
+<view class="con">
+
+<view class='tips'>
+<text>温馨提示：如果需要批量上传题目，请移步网页端https://test.myzqu.cn</text>
+</view>
+
+
+  <view class="inputview top">
+    <text class="input_tips"> 题目</text>
+    <input bindinput="question_Input"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">选项A</text>
+    <input bindinput="choiceA_Input"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">选项B</text>
+    <input bindinput="choiceB_Input"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">选项C</text>
+    <input bindinput="choiceC_Input"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">选项D</text>
+    <input bindinput="choiceD_Input"></input>
+  </view>
+
+   <view class="inputview">
+    <text class="input_tips">答案</text>
+      <picker bindchange="bindPickerChange" value='{{index}}' range="{{answerarray}}">
+        <view class="picker">
+         {{answerarray[index]}}
+        </view>
+      </picker>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">解析</text>
+    <input bindinput="analysis_Input"></input>
+  </view>
+
+  <view class="inputview">
+    <text class="input_tips">所属题库</text>
+      <picker range-key='title'bindchange="bindPickerChange_bank" value='{{bankindex}}' range="{{banklist}}">
+        <view class="picker">
+         {{banklist[bankindex].title}}
+        </view>
+      </picker>
+  </view>
+
+  <view class="loginBtnView"> 
+  <button class="loginBtn"  bindtap="uploadclick">上传</button>  
+ </view> 
+
+
+</view>

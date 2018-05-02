@@ -1,0 +1,78 @@
+<view class='con'>
+
+  <view class='head'>
+    <text>{{questionlist.title}}</text>
+    <text>{{index+2-1}}/{{errorquestionlist.length}}</text>
+  </view>
+
+
+  <view class='question_view'>
+    <text class='question_text'>{{questionlist.question}}</text>
+
+    <view class='option_view' data-id="A" bindtap="changeColor">
+
+      <view class="letter_view {{letterid=='A'?'active':''}} {{errorid=='A'?'error':''}}">
+        <text class='letter'>A</text>
+      </view>
+
+      <view class='option_text_view' >
+       <text class='option_text'>{{questionlist.choiceA}}</text> 
+      </view>
+    </view>
+
+    <view class='option_view'  data-id='B' bindtap="changeColor">
+
+      <view class="letter_view {{letterid=='B'?'active':''}} {{errorid=='B'?'error':''}}">
+        <text class='letter'>B</text>
+      </view>
+
+      <view class='option_text_view'>
+       <text class='option_text'>{{questionlist.choiceB}}</text>
+      </view>
+    </view>
+
+    <view class='option_view'  data-id='C' bindtap="changeColor">
+      <view class="letter_view  {{letterid=='C'?'active':''}} {{errorid=='C'?'error':''}}">
+        <text class='letter'>C</text>
+      </view>
+
+      <view class='option_text_view'>
+        <text class='option_text'>{{questionlist.choiceC}}</text>
+      </view>
+    </view>
+
+    <view class='option_view'  data-id='D' bindtap="changeColor">
+      <view class="letter_view {{letterid=='D'?'active':''}} {{errorid=='D'?'error':''}}">
+        <text class='letter'>D</text>
+      </view>
+
+      <view class='option_text_view'>
+        <text class='option_text'>{{questionlist.choiceD}}</text>
+      </view>
+    </view>
+    
+  </view>
+<!-- 答案解析 -->
+  <view class="analysis_view {{clickcheckid==1?'checked2':''}}">
+    <text>参考答案：{{questionlist.answer}}\n参考解析：{{questionlist.analysis}}</text>
+  </view>
+
+
+  <view class="checkanswer_view {{clickcheckid==1?'checked':''}}" bindtap='checkanswer_click'>
+    <text>查看答案</text>
+  </view>
+
+  <view class='leftandright'>
+    <view class='turn' bindtap='lastquestion_click'>
+      <text>上一题</text>
+    </view >
+    <view class='turn' bindtap='nextquestion_click'>
+      <text>下一题</text>
+    </view>
+
+
+  </view>
+
+
+</view>
+

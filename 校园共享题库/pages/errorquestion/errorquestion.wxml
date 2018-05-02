@@ -1,0 +1,22 @@
+<view wx:if="{{errorquestionlist.length==0}}" class="tips_view">
+  <text>你目前没有错题~</text>
+</view>
+
+<view wx:for="{{errorquestionlist}}" wx:key="id" class="bank_view">      
+        <view class="title_view">
+          <view><text class="title_text ellipsis">{{item.question}}</text></view>        
+          <view class="bank_message">
+            <text class='title_message_text'>所属题库：{{item.title}}</text>    
+          </view>
+          <view class="bank_message">
+            <text class='title_message_text'>类型：{{item.bankType}}</text>    
+          </view>
+          <view class="bank_message">
+            <text class='title_message_text'>做题时间：{{item.createtime}}</text>    
+          </view>
+        </view>
+        <view class="do_view"> 
+          <image data-sort="{{item.sort}}" data-id="{{item.questionId}}" data-sheetid="{{item.id}}" bindtap='gotrain' class="do_image" src="../images/do3.png"></image>
+         
+        </view>  
+      </view> 

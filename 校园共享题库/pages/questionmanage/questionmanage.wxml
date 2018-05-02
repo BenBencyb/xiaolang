@@ -1,0 +1,24 @@
+<view wx:if="{{questionlist.length==0}}" class="tips_view">
+  <text>这个题库目前没有题目~</text>
+</view>
+ <view wx:for="{{questionlist}}" wx:key="id" class="bank_view">      
+        <!-- <image class="title_image" src="../images/title.png"></image> -->
+        <view class="title_view">
+          <view><text class="title_text ellipsis">{{item.question}}</text></view>        
+          <view class="bank_message">
+            <text class='title_message_text intro ellipsis'>所属题库：{{item.title}}</text> 
+            <text class='title_message_text'>上传时间：{{item.createtime}}</text>    
+          </view>
+
+          <view class="allbutton_view">
+            <view data-id="{{item.id}}" bindtap='questionmodify_click' class="button_view">
+              <text>修改信息</text>
+            </view>
+            <view data-id="{{item.id}}" bindtap='delete_click' class="button_view delete">
+              <text>删除</text>
+            </view>
+          </view>
+
+        </view>
+        
+      </view> 

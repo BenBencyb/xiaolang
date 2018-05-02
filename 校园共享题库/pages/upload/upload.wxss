@@ -1,0 +1,23 @@
+.con{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 1000rpx;
+}
+
+.btnview {
+  padding: 25rpx;
+  margin-bottom: 0rpx;
+  margin-top: 60rpx;
+  width: 300rpx;
+  font-size: 35rpx;
+  color: #fff;
+  background-color: #55c5ac;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}

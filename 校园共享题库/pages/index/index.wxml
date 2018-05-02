@@ -1,0 +1,82 @@
+<!--index.wxml-->
+<view class="con"> 
+
+<!-- 搜索框 -->
+<view class="weui-search-bar">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input"  disabled='true' placeholder="搜索题库" bindtap="wxSearchTab"/>
+    </view>
+  </view>
+</view>
+
+<!-- Tab标签页 -->
+<view class="swiper-tab">  
+    <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">最新</view>  
+    <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">热门</view>  
+    <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">分类</view>  
+</view> 
+
+<view class="view11"></view> 
+  
+<swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight}}rpx" bindchange="bindChange">  
+   <!-- sa -->
+    <swiper-item>       
+
+
+  
+      <view wx:for="{{banklist}}" wx:key="id" class="bank_view">      
+        <image class="title_image" src="../images/title.png"></image>
+        <view class="title_view">
+          <view><text class="title_text ellipsis">{{item.title}}</text></view>        
+          <view class="bank_message">
+            <text class='title_message_text type'>{{item.bankType}}</text>
+            <text class='title_message_text'>上传时间：{{item.createtime}}</text>    
+          </view>
+        </view>
+        <view class="do_view"> 
+          <image data-text="{{item.id}}" data-title="{{item.title}}" bindtap='gotrain' class="do_image" src="../images/do3.png"></image>
+          <text class='title_message_text bankno'>共{{item.count}}题</text>
+        </view>  
+      </view> 
+ 
+
+    
+    </swiper-item>  
+   
+    <swiper-item>  
+     
+     <view wx:for="{{hotbanklist}}" wx:key="id" class="bank_view">
+        <image class="title_image" src="../images/title.png"></image>
+        <view class="title_view">
+          <view><text class="title_text ellipsis">{{item.title}}</text></view>        
+          <view class="bank_message">
+            <text class='title_message_text type'>{{item.bankType}}</text>
+            <text class='title_message_text'>练习人次：{{item.frequency}}</text>    
+          </view>
+        </view>
+        <view class="do_view">
+          <image data-text="{{item.id}}" data-title="{{item.title}}" bindtap='gotrain' class="do_image" src="../images/do3.png"></image>
+          <text class='title_message_text bankno'>共{{item.count}}题</text>
+        </view> 
+      </view> 
+
+    </swiper-item>  
+    
+    <swiper-item>  
+
+
+      <view class="typeview">
+        <view  data-text="{{item.name}}" wx:for="{{banktype}}" wx:key="id" class="bank_type_view" bindtap='searchtype'>
+          <text>{{item.name}}</text>
+        </view>
+      </view> 
+
+
+    </swiper-item>  
+
+</swiper>  
+
+
+</view> 

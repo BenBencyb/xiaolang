@@ -1,0 +1,20 @@
+<view class="typetext">
+<text class="typename">{{banktypename}}</text>
+</view>
+
+<view class="view11"></view> 
+
+<view wx:for="{{banklist}}" wx:key="id" class="bank_view">
+        <image class="title_image" src="../images/title.png"></image>
+        <view class="title_view">
+          <view><text class="title_text ellipsis">{{item.title}}</text></view>        
+          <view class="bank_message">
+            <text class='title_message_text type'>{{item.bankType}}</text>
+            <text class='title_message_text'>上传：{{item.userId}}</text>    
+          </view>
+        </view>
+        <view class="do_view">
+          <image data-text="{{item.id}}" data-title="{{item.title}}" bindtap='gotrain' class="do_image" src="../images/do3.png"></image>
+          <text class='title_message_text bankno'>共{{item.count}}题</text>
+        </view> 
+      </view> 

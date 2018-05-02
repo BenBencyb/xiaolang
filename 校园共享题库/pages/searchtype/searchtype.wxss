@@ -1,0 +1,131 @@
+page{
+  background-color: #F6F8F8;
+}
+
+.typetext{
+  background-color: #55c5ac;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 35rpx;
+}
+
+.typename{
+  color: #fff;
+}
+
+.view11{
+  width: 750rpx;
+  height: 6rpx;
+  /* margin: 10px auto; */
+  background: linear-gradient(#CECECE, #fff);
+}
+
+/* 单条题库显示 */
+
+.bank_view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* border-bottom: 6rpx solid #F6F8F8; */
+  padding: 8rpx 15rpx 15rpx 30rpx;
+  margin-bottom: 6rpx;
+  background-color: #fff;
+}
+
+/* 左边图标 */
+
+.title_image {
+  width: 72rpx;
+  height: 72rpx;
+}
+
+/* 中间部分 */
+
+.title_view {
+  width: 450rpx;
+  /* height: 140rpx; */
+  display: c;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  /* text-overflow: ellipsis;
+  white-space: nowrap; 
+  overflow: hidden; */
+}
+
+/* 题库标题文字 */
+
+.title_text {
+  width: 430rpx;
+  font-size: 32rpx;
+  /* color: #129379; */
+  color: #585858;
+  margin-top: 5rpx;
+  /* text-overflow: ellipsis;
+  white-space: nowrap; 
+  overflow: hidden; */
+}
+
+/*文字超出省略*/
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-align: left;
+}
+
+/* 题库信息 */
+
+.bank_message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* 题库信息文字（上传者） */
+
+.title_message_text {
+  font-size: 25rpx;
+  color: #878787;
+}
+
+/* 题库类别 */
+
+.type {
+  border: 1rpx solid #55c5ac;
+  border-radius: 12rpx;
+  padding: 5rpx 8rpx 5rpx 8rpx;
+  margin-bottom: 25rpx;
+  margin-top: 7rpx;
+  color: #55c5ac;
+  font-size: 22rpx;
+}
+
+/* 题目数量 */
+
+.bankno {
+  margin-top: 15rpx;
+}
+
+/* 右边部分 */
+
+.do_view {
+  width: 100rpx;
+  height: 130rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32rpx;
+}
+
+/* 做题图标 */
+
+.do_image {
+  width: 80rpx;
+  height: 80rpx;
+}

@@ -1,0 +1,42 @@
+ 
+ <view class="tips_view" style="height:{{height}};">
+ <text class="tips_content" style="font-size:{{fontsize}};">密码与确认密码不一致</text>
+ </view>
+ 
+ 
+ <view class="inputView top">
+
+    <view class="input_type_view">
+      <label class="input_type">账号</label>   
+    </view>
+  
+    <input class="input_area" placeholder="请输入账号" bindinput="username_Input" /> 
+
+ </view> 
+
+  <view class="inputView">
+
+    <view class="input_type_view">
+      <label class="input_type" >密码</label>   
+    </view>
+  
+  <input class="input_area" password="true" placeholder="请输入密码" bindinput="password_Input" /> 
+
+</view>
+
+  <view class="inputView">
+
+    <view class="input_type_view">
+      <label class="input_type" >确认密码</label>   
+    </view>
+  
+  <input class="input_area" password="true" placeholder="请再次输入密码" bindinput="password_confirm_Input" bindfocus="confirm_focus" /> 
+
+  </view>
+
+   <view class="registerBtnView"> 
+  <button class="registerBtn" bindtap="register_click">注册</button>  
+ </view> 
+
+
+

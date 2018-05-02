@@ -1,0 +1,57 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/login/login",
+    "pages/user/user",
+    "pages/upload/upload",
+    "pages/search/search",
+    "pages/userdata/userdata",
+    "pages/register/register",
+    "pages/searchtype/searchtype",
+    "pages/createbank/createbank",
+    "pages/createquestion/createquestion",
+    "pages/bankmanage/bankmanage",
+    "pages/train/train",
+    "pages/errorquestion/errorquestion",
+    "pages/trainhistory/trainhistory",
+    "pages/bankmodify/bankmodify",
+    "pages/doerrorquestion/doerrorquestion",
+    "pages/questionmanage/questionmanage",
+    "pages/userdatamodify/userdatamodify",
+    "pages/questionmodify/questionmodify",
+    "pages/lookhistoryquestion/lookhistoryquestion",
+    "pages/changepassword/changepassword"
+  ],
+  "window":{
+    "backgroundColor":"#55C5AC",
+    "onReachBottomDistance":0,
+    "backgroundTextStyle":"dark",
+    "navigationBarBackgroundColor": "#55C5AC",
+    "navigationBarTitleText": "小狼题库",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar": {
+    "backgroundColor":"white",
+    "selectedColor": "#55C5AC",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath":"pages/images/home1.png",
+        "selectedIconPath":"pages/images/home2.png"
+      },
+      {
+        "pagePath": "pages/upload/upload",
+        "text": "上传",
+        "iconPath": "pages/images/upload1.png",
+        "selectedIconPath": "pages/images/upload2.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "用户",
+        "iconPath": "pages/images/me1.png",
+        "selectedIconPath": "pages/images/me2.png"
+      }
+    ]
+  }
+}

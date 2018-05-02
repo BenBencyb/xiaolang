@@ -1,0 +1,88 @@
+.con {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 1000rpx; */
+}
+
+.tips{
+  margin-top: 20rpx;
+  width: 700rpx;
+  color: #aaa;
+  font-size: 30rpx;
+}
+
+.top {
+  margin-top: 50rpx;
+}
+
+.inputview {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 55rpx;
+  width: 570rpx;
+}
+
+.input_tips {
+  color: #585555;
+  margin-right: 25rpx;
+  font-size: 35rpx;
+}
+
+input {
+  border: 1rpx solid #aaa;
+  width: 420rpx;
+  color: #909090;
+  padding: 15rpx;
+  /* text-align: center; */
+  font-size: 35rpx;
+  border-radius: 12rpx;
+}
+
+textarea {
+  border: 1rpx solid #aaa;
+  width: 420rpx;
+  padding: 15rpx;
+  font-size: 35rpx;
+  color: #909090;
+  height: 200rpx;
+  border-radius: 12rpx;
+}
+
+.picker {
+  width: 420rpx;
+  border: 1rpx solid #aaa;
+  color: #909090;
+  padding: 15rpx;
+  font-size: 35rpx;
+  border-radius: 12rpx;
+}
+
+picker {
+  height: 85rpx;
+}
+
+/*按钮*/
+
+.loginBtnView {
+  width: 100%;
+  height: auto;
+  margin-top: 0rpx;
+  margin-bottom: 70rpx;
+  padding-bottom: 0rpx;
+}
+
+.loginBtn {
+  color: #fff;
+  background-color: #55c5ac;
+  width: 75%;
+  margin-top: 20rpx;
+  border-width: 0rpx;
+}
+
+.button-hover {
+  background-color: #48a593;
+}

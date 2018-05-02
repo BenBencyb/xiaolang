@@ -1,0 +1,141 @@
+/* 页面总体 */
+
+page {
+  background-color: #f2f2f2;
+}
+
+.view11{
+  width: 750rpx;
+  height: 6rpx;
+  /* margin: 10px auto; */
+  background: linear-gradient(#CECECE, #fff);
+}
+
+/* 用户信息面板 */
+
+.userpanle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 250rpx;
+  background-color: #55c5ac;
+}
+
+/* 用户头像 */
+
+.userinfo-image {
+  width: 120rpx;
+  height: 120rpx;
+  margin-top: 0rpx;
+  border-radius: 50%;
+  border: 13rpx solid #95dbce;
+}
+
+/* 用户昵称 */
+
+.userinfo-nickname {
+  margin-top: 30rpx;
+  color: #fff;
+}
+
+/* 整个数据面板 */
+
+.datapanle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  height: 150rpx;
+  background-color: #55c5ac;
+  border-bottom: 12rpx solid #55c5ac;
+}
+
+/* 单个数据面板 */
+
+.testdata {
+  background-color: #55c5ac;
+  height: 150rpx;
+  width: 375rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 左边的数据面板 */
+
+.left {
+  border-right: 0rpx solid #fff;
+}
+
+/* 数据面板的数字部分 */
+
+.data_no {
+  color: white;
+  font-size: 60rpx;
+}
+
+/* 数据面板的文字部分 */
+
+.data_text {
+  color: #e0f0ed;
+  font-size: 35rpx;
+}
+
+/* 整个功能面板 */
+
+.funtionpanle {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 750rpx;
+  height: 420rpx;
+  /* margin-top: 6rpx; */
+}
+
+/* 单个功能面板 */
+
+.funtion {
+  width: 374rpx;
+  height: 210rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+/* 左边第一个功能面板 */
+
+.left1 {
+  border-right: 1rpx solid #e3e3e3;
+  border-bottom: 1rpx solid #e3e3e3;
+}
+
+/* 右边第一个功能面板 */
+
+.right1 {
+  border-bottom: 1rpx solid #e3e3e3;
+}
+
+/* 左边第二个功能面板 */
+
+.left2 {
+  border-right: 1rpx solid #e3e3e3;
+}
+
+/* 功能图标 */
+
+.funtion image {
+  height: 65rpx;
+  width: 65rpx;
+}
+
+/* 功能文字 */
+
+.funtion text {
+  margin-top: 5rpx;
+  color: #505050;
+  font-size: 30rpx;
+  border-top: 10rpx solid #fff;
+}

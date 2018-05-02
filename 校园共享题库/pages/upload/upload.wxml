@@ -1,0 +1,11 @@
+<view class="con">
+
+  <view class='btnview' bindtap='createbank'>
+    <text>创建题库</text>
+  </view>
+
+  <view class='btnview' bindtap='createquestion'>
+    <text>上传题目</text>
+  </view>
+
+</view>

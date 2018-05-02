@@ -1,0 +1,54 @@
+<view class="userpanle">
+  <!-- 头像 -->
+  <image bindtap="userdata_click" class="userinfo-image" src="{{userimg}}"></image>
+  <!-- 昵称 -->
+  <text class="userinfo-nickname">{{username}}</text>
+
+</view>
+
+<!-- 数据面板 -->
+<view class="datapanle">
+  <!-- 已做题 -->
+  <view class="testdata left">
+    <text class="data_no">{{allRecord}}</text>
+    <text class="data_text">已做题</text>
+  </view>
+
+  <!-- 错题 -->
+  <view class="testdata right">
+    <text class="data_no">{{faultRecord}}</text>
+    <text class="data_text">错题</text>
+  </view>
+
+</view>
+
+<view class="view11"></view>
+
+<!-- 功能面板 -->
+<view class="funtionpanle">
+
+  <!-- 做题记录 -->
+  <view bindtap='history_click' class="funtion left1">
+    <image src="../images/history.png"></image>
+    <text>做题记录</text>
+  </view>
+
+  <!-- 题库管理 -->
+  <view bindtap='bankmanage_click' class="funtion right1">
+    <image src="../images/bank.png"></image>
+    <text>题库管理</text>
+  </view>
+
+  <!-- 错题记录 -->
+  <view bindtap='errorquestion_click' class="funtion left2">
+    <image src="../images/error.png"></image>
+    <text>错题记录</text>
+  </view>
+
+  <!-- 个人资料 -->
+  <view bindtap='userdata_click' class="funtion right2">
+    <image src="../images/user.png"></image>
+    <text>个人资料</text>
+  </view>
+
+</view>

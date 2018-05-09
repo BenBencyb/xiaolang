@@ -1,9 +1,9 @@
-<view class="userpanle">
+﻿<view class="userpanle">
   <!-- 头像 -->
   <image bindtap="userdata_click" class="userinfo-image" src="{{userimg}}"></image>
   <!-- 昵称 -->
   <text class="userinfo-nickname">{{username}}</text>
-
+<!--ff-->
 </view>
 
 <!-- 数据面板 -->

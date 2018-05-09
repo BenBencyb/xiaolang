@@ -3,7 +3,7 @@
   <image bindtap="userdata_click" class="userinfo-image" src="{{userimg}}"></image>
   <!-- 昵称 -->
   <text class="userinfo-nickname">{{username}}</text>
-<!--ff-->
+<!--哈哈哈-->
 </view>
 
 <!-- 数据面板 -->

@@ -7,8 +7,61 @@ Page({
    */
   data: {
     banklist: [],
-
+    isPopping: false,//是否已经弹出  
+    animPlus: {},//旋转动画  
   },
+
+  //点击弹出  
+  plus: function () {
+    if (this.data.isPopping) {
+      //缩回动画  
+      this.popp();
+      this.setData({
+        isPopping: false
+      })
+    } else if (!this.data.isPopping) {
+      //弹出动画  
+      this.takeback();
+      this.setData({
+        isPopping: true
+      })
+    }
+    // wx.navigateTo({
+    //   url: '../upload/upload'
+    // })
+  },  
+
+  //弹出动画  
+  popp: function () {
+    //plus顺时针旋转  
+    var animationPlus = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'ease-out'
+    })
+    
+    animationPlus.rotateZ(180).step();
+    animationPlus.scale(1.5).step();
+    
+   
+    this.setData({
+      animPlus: animationPlus.export(),
+    })
+  },
+  //收回动画  
+  takeback: function () {
+    //plus逆时针旋转  
+    var animationPlus = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'ease-out'
+    })
+   
+    animationPlus.rotateZ(0).step();
+    
+    this.setData({
+      animPlus: animationPlus.export(),
+     
+    })
+  },  
 
   /**
    * 生命周期函数--监听页面加载
@@ -89,7 +142,7 @@ Page({
         })
         setTimeout(function () {
           wx.hideLoading()
-        }, 1000)
+        }, 400)
       },
       complete: function (res) {
         wx.stopPullDownRefresh()

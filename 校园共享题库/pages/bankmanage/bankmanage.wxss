@@ -138,3 +138,12 @@ page {
   border: 1rpx solid #e55858;
   /* margin-right: 30rpx; */
 }
+
+.img-plus-style{
+  
+  height: 100rpx;  
+  width: 100rpx;  
+  position: absolute;  
+  bottom: 50rpx;  
+  right: 50rpx; 
+}

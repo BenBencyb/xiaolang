@@ -1,6 +1,7 @@
 
 var app = getApp();
 
+var interval="";
 Page({
 
   /**
@@ -103,9 +104,19 @@ Page({
         console.log("已做题：" + that.data.allRecord)
         console.log("错题：" + that.data.faultRecord)
         wx.stopPullDownRefresh()
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 1000)
+
+        interval = setInterval(function () {
+          console.log("加载中")
+          if (that.data.allRecord != null && that.data.faultRecord != null) {
+            console.log("加载完毕")
+            wx.hideLoading()
+            clearInterval(interval); // 清除setInterval
+          }
+        }, 1);
+
+        // setTimeout(function () {
+        //   wx.hideLoading()
+        // }, 1000)
       }
     })
 

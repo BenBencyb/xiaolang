@@ -1,5 +1,5 @@
 var app = getApp();
-
+var interval = "";
 Page({
 
   /**
@@ -14,7 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
 
   /**
@@ -67,7 +67,7 @@ Page({
 
   },
 
-  // 查询用户功能     用户答错的题目数量，总答题数目
+  // 查询用户功能
   search_no: function () {
     var that = this
     wx.showLoading({
@@ -85,9 +85,18 @@ Page({
         console.log("接收到的数据")
         console.log(res.data.user)
         that.setData({ user: res.data.user })
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 1000)
+
+        interval = setInterval(function () {
+          console.log("加载中")
+          if (that.data.user != null) {
+            console.log("加载完毕")
+            wx.hideLoading()
+            clearInterval(interval); // 清除setInterval
+          }
+        }, 1);
+        // setTimeout(function () {
+        //   wx.hideLoading()
+        // }, 1000)
       }
     })
 
@@ -95,7 +104,7 @@ Page({
 
   //修改资料按钮
   gomodify_click: function () {
-    var that=this
+    var that = this
     var nickname = that.data.user.nickname
     var email = that.data.user.email
     var phone = that.data.user.phone
@@ -105,7 +114,7 @@ Page({
   },
 
   //修改密码按钮
-  changepassword_click:function(){
+  changepassword_click: function () {
     wx.navigateTo({
       url: '../changepassword/changepassword'
     })

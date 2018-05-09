@@ -1,2 +1,326 @@
 /**app.wxss**/
 
+/* -----------------答题界面----------------- */
+
+/* 整体 */
+
+.train_con {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+/* 顶部 */
+
+.head {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 150rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1rpx solid #55c5ac;
+  background-color: #55c5ac;
+  color: #fff;
+}
+
+/* 当前题目/总题目数 */
+
+.count {
+  margin-top: 20rpx;
+  font-size: 33rpx;
+  margin-bottom: 15rpx;
+}
+
+/* 问题和选项整体 */
+
+.question_view {
+  width: 650rpx;
+  display: flex;
+  flex-direction: column;
+  margin-top: 180rpx;
+}
+
+/* 问题 */
+
+.question_text {
+  font-size: 32rpx;
+  margin-bottom: 50rpx;
+  line-height: 60rpx;
+}
+
+/* 单个选项 */
+
+.option_view {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  margin-bottom: 30rpx;
+}
+
+/* 字母view */
+
+.letter_view {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2rpx solid #55c5ac;
+  margin-right: 25rpx;
+  background-color: #fff;
+  color: #55c5ac;
+}
+
+/* 激活的选项 */
+
+.letter_view.active {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2rpx solid #55c5ac;
+  margin-right: 25rpx;
+  background-color: #55c5ac;
+  color: #fff;
+}
+
+/* 点击查看答案后的错误选项 */
+
+.letter_view.error {
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2rpx solid #f74343;
+  margin-right: 25rpx;
+  background-color: #f74343;
+  color: #fff;
+}
+
+/* 选项字母 */
+
+.letter {
+  font-size: 35rpx;
+}
+
+/* 选项文字 */
+
+.option_text_view {
+  font-size: 32rpx;
+  width: 550rpx;
+  margin-top: 6rpx;
+  line-height: 58rpx;
+}
+
+/* 答案解析(查看前) */
+
+.analysis_view {
+  width: 00rpx;
+  font-size: 0rpx;
+  margin-top: 0rpx;
+  display: flex;
+}
+
+/* 答案解析（查看后） */
+
+.analysis_view.checked2 {
+  width: 650rpx;
+  font-size: 32rpx;
+  margin-top: 50rpx;
+  margin-bottom: 150rpx;
+  display: flex;
+}
+
+/* 查看答案按钮 */
+
+.checkanswer_view {
+  width: 200rpx;
+  height: 75rpx;
+  background-color: #fff;
+  color: #55c5ac;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3rpx solid #55c5ac;
+  border-radius: 15rpx;
+  margin-top: 100rpx;
+  margin-bottom: 150rpx;
+  font-size: 32rpx;
+}
+
+/* 点击查看答案按钮 */
+
+.checkanswer_view.checked {
+  width: 0rpx;
+  height: 0rpx;
+  line-height: 0rpx;
+  font-size: 0rpx;
+  border: 0rpx solid #55c5ac;
+  border-radius: 0rpx;
+  margin-top: 0rpx;
+  margin-bottom: 0rpx;
+}
+
+/* 答题底部的(评论、评分和分享)图片 */
+
+.bottom_image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/* 分享按钮 */
+
+.share:before {
+  color: #fff;
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #fff;
+  border: 0rpx solid #fff;
+}
+
+/* 底部栏 */
+
+.leftandright {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  /* margin-top: 0rpx; */
+  background-color: #fff;
+  border-top: 1rpx solid #eaeaea;
+}
+
+.bottom_view {
+  width: 80rpx;
+  height: 80rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 上一页或下一页 
+
+.turn {
+  background-color: #55c5ac;
+  color: #fff;
+  width: 374rpx;
+  height: 100rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* -----------------评分遮罩层----------------- */
+
+/* 分享按钮 */
+
+.share_btn::after {
+  border: none;
+}
+
+/* 整个评分遮罩层 */
+
+.buydes-dialog-container {
+  width: 100%;
+  height: 300rpx;
+  justify-content: space-between;
+  background-color: #fff;
+  position: fixed;
+  bottom: 101rpx;
+  /* z-index: 998;   */
+  border-top: 1rpx solid #e8e8e8;
+}
+
+/* 评分遮罩层顶部 */
+
+.buydes-dialog-container-top {
+  height: 100rpx;
+  padding-top: 20rpx;
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  font-size: 32rpx;
+  color: #737373;
+}
+
+/* 评分遮罩层底部 */
+
+.buydes-dialog-container-bottom {
+  height: 150rpx;
+  padding-top: 20rpx;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  flex-grow: 0;
+}
+
+/* 空心的星星图片 */
+
+.star-image {
+  position: absolute;
+  top: 100rpx;
+  width: 60rpx;
+  height: 60rpx;
+  src: "../../images/score.png";
+}
+
+/* 触发评分点击的区域 */
+
+.item {
+  position: absolute;
+  top: 0rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+/* 确认评分按钮 */
+
+.mark_btn {
+  width: 100%;
+  height: 100rpx;
+  background-color: #fff;
+  color: #55c5ac;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1rpx solid #eaeaea;
+  margin-top: 60rpx;
+  margin-bottom: 150rpx;
+  font-size: 32rpx;
+}
+
+/* 透明遮罩层（上） */
+
+.touming_top {
+  width: 100%;
+  height: 900rpx;
+  opacity: 0;
+  position: fixed;
+  bottom: 402rpx;
+  z-index: 998;
+}
+
+/* 透明遮罩层（下） */
+
+.touming {
+  width: 100%;
+  height: 101rpx;
+  opacity: 0;
+  position: fixed;
+  bottom: 0rpx;
+  z-index: 998;
+}
+
+/* -----------------评分遮罩层----------------- */

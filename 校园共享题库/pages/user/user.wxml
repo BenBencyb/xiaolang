@@ -1,36 +1,46 @@
 <view class="userpanle">
   <!-- 头像 -->
   <image bindtap="userdata_click" class="userinfo-image" src="{{userimg}}"></image>
-  <!-- 昵称 -->
-  <text class="userinfo-nickname">{{username}}</text>
-<!--哈哈哈3-->
+  
+  <view class="userdata_view">
+    <!-- 昵称 -->
+    <text class="userinfo-nickname">{{username}}</text>
+    <!-- 积分 -->
+    <text class="userinfo-point">积分：100</text>  
+  </view>
+
+  <view class="signon_btn">
+  <!-- 签到按钮 -->
+    <text>签到</text>
+  </view>
+
 </view>
 
 <!-- 数据面板 -->
 <view class="datapanle">
   <!-- 已做题 -->
-  <view class="testdata left">
+  <view class="testdata left" bindtap='history_click'>
     <text class="data_no">{{allRecord}}</text>
     <text class="data_text">已做题</text>
   </view>
 
   <!-- 错题 -->
-  <view class="testdata right">
+  <view class="testdata right" bindtap='errorquestion_click'>
     <text class="data_no">{{faultRecord}}</text>
     <text class="data_text">错题</text>
   </view>
 
 </view>
 
-<view class="view11"></view>
+
 
 <!-- 功能面板 -->
 <view class="funtionpanle">
 
-  <!-- 做题记录 -->
+  <!-- 题目收藏 -->
   <view bindtap='history_click' class="funtion left1">
-    <image src="../images/history.png"></image>
-    <text>做题记录</text>
+    <image src="../images/collect.png"></image>
+    <text>题目收藏</text>
   </view>
 
   <!-- 题库管理 -->
@@ -39,16 +49,22 @@
     <text>题库管理</text>
   </view>
 
-  <!-- 错题记录 -->
+  <!-- 评论管理 -->
   <view bindtap='errorquestion_click' class="funtion left2">
-    <image src="../images/error.png"></image>
-    <text>错题记录</text>
+    <image src="../images/comment.png"></image>
+    <text>评论管理</text>
+  </view>
+
+  <!-- 积分记录 -->
+  <view bindtap='userdata_click' class="funtion right2">
+    <image src="../images/point.png"></image>
+    <text>积分记录</text>
   </view>
 
   <!-- 个人资料 -->
-  <view bindtap='userdata_click' class="funtion right2">
+  <!-- <view bindtap='userdata_click' class="funtion left3">
     <image src="../images/user.png"></image>
     <text>个人资料</text>
-  </view>
+  </view> -->
 
 </view>

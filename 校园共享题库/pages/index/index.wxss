@@ -62,8 +62,8 @@ page{
 /* 左边图标 */
 
 .title_image {
-  width: 72rpx;
-  height: 72rpx;
+  width: 100rpx;
+  height: 100rpx;
 }
 
 /* 中间部分 */

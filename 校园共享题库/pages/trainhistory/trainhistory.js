@@ -1,5 +1,7 @@
 var app = getApp()
 
+var interval = "";
+
 Page({
 
   /**
@@ -81,18 +83,28 @@ Page({
       complete: function (res) {
         console.log(res.data.list)
         that.setData({ historylist: res.data.list })
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 1000)
+
+        interval = setInterval(function () {
+          console.log("加载中")
+          if (res.data.list.length == that.data.historylist.length) {
+            console.log("加载完毕")
+            wx.hideLoading()
+            clearInterval(interval); // 清除setInterval
+          }
+        }, 500);
+
+        // setTimeout(function () {
+        //   wx.hideLoading()
+        // }, 1000)
       }
     })
 
   },
 
   //查看历史记录
-  look_click:function(e){
+  look_click: function (e) {
     var id = e.currentTarget.dataset.id
-    var bankname = e.currentTarget.dataset.name 
+    var bankname = e.currentTarget.dataset.name
     wx.navigateTo({
       url: '../lookhistoryquestion/lookhistoryquestion?questionid=' + id + "&bankname=" + bankname
     })

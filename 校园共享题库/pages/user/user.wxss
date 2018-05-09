@@ -4,38 +4,70 @@ page {
   background-color: #f2f2f2;
 }
 
-.view11{
-  width: 750rpx;
-  height: 6rpx;
-  /* margin: 10px auto; */
-  background: linear-gradient(#CECECE, #fff);
-}
-
 /* 用户信息面板 */
 
 .userpanle {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 250rpx;
+  flex-direction: row;
+  align-items: flex-start;
+  /* justify-content: center; */
+  height: 200rpx;
   background-color: #55c5ac;
+  padding-top: 30rpx;
 }
 
 /* 用户头像 */
 
 .userinfo-image {
-  width: 120rpx;
-  height: 120rpx;
-  margin-top: 0rpx;
+  width: 130rpx;
+  height: 130rpx;
+  margin-left: 70rpx;
+  margin-bottom: 20rpx;
   border-radius: 50%;
-  border: 13rpx solid #95dbce;
+  border: 11rpx solid #95dbce;
+}
+
+/* 用户数据 */
+
+.userdata_view {
+  height: 140rpx;
+  width: 280rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 40rpx;
+  padding-top: 10rpx;
 }
 
 /* 用户昵称 */
 
 .userinfo-nickname {
-  margin-top: 30rpx;
+  font-size: 38rpx;
+  margin-top: 0rpx;
   color: #fff;
+}
+
+/* 用户积分 */
+
+.userinfo-point {
+  margin-top: 10rpx;
+  color: #e0f0ed;
+  font-size: 28rpx;
+}
+
+/* 签到按钮 */
+.signon_btn{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 1rpx solid #fff;
+  border-radius: 15rpx;
+  color: #fff;
+  width: 130rpx;
+  height: 55rpx;
+  font-size: 25rpx;
+  margin-top: 50rpx;
 }
 
 /* 整个数据面板 */
@@ -45,17 +77,19 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  height: 150rpx;
-  background-color: #55c5ac;
-  border-bottom: 12rpx solid #55c5ac;
+  height: 140rpx;
+  background-color: #fff;
+  border-bottom: 8rpx solid #fff;
+  border-top: 8rpx solid #fff;
+  margin-bottom: 15rpx;
 }
 
 /* 单个数据面板 */
 
 .testdata {
-  background-color: #55c5ac;
-  height: 150rpx;
-  width: 375rpx;
+  background-color: #fff;
+  height: 120rpx;
+  width: 374rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,21 +99,22 @@ page {
 /* 左边的数据面板 */
 
 .left {
-  border-right: 0rpx solid #fff;
+  border-right: 1rpx solid #f2f2f2;
 }
 
 /* 数据面板的数字部分 */
 
 .data_no {
-  color: white;
-  font-size: 60rpx;
+  color: #525252;
+  font-size: 42rpx;
 }
 
 /* 数据面板的文字部分 */
 
 .data_text {
-  color: #e0f0ed;
-  font-size: 35rpx;
+  margin-top: 8rpx;
+  color: #9B9B9B;
+  font-size: 30rpx;
 }
 
 /* 整个功能面板 */
@@ -97,7 +132,7 @@ page {
 
 .funtion {
   width: 374rpx;
-  height: 210rpx;
+  height: 215rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,20 +143,21 @@ page {
 /* 左边第一个功能面板 */
 
 .left1 {
-  border-right: 1rpx solid #e3e3e3;
-  border-bottom: 1rpx solid #e3e3e3;
+  border-right: 1rpx solid #F2F2F2;
+  border-bottom: 1rpx solid #F2F2F2;
 }
 
 /* 右边第一个功能面板 */
 
 .right1 {
-  border-bottom: 1rpx solid #e3e3e3;
+  border-bottom: 1rpx solid #F2F2F2;
 }
 
 /* 左边第二个功能面板 */
 
 .left2 {
-  border-right: 1rpx solid #e3e3e3;
+  border-right: 1rpx solid #F2F2F2;
+  border-bottom: 1rpx solid #F2F2F2;
 }
 
 /* 功能图标 */

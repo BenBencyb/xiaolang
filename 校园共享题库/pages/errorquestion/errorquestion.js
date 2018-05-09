@@ -1,5 +1,7 @@
 var app = getApp()
 
+var interval = "";
+
 Page({
 
   /**
@@ -81,9 +83,18 @@ Page({
       complete: function (res) {
         console.log(res.data.list)
         that.setData({ errorquestionlist: res.data.list })
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 1000)
+        console.log(that.data.errorquestionlist[that.data.errorquestionlist.length-1])
+        interval = setInterval(function () {//不断执行time累加，0.1秒+1
+          if (res.data.list.length == that.data.errorquestionlist.length){
+             console.log("加载完毕")
+             wx.hideLoading()
+             clearInterval(interval); // 清除setInterval
+          }
+        }, 500);
+
+        // setTimeout(function () {
+        //   clearInterval(interval); // 清除setInterval
+        // }, 1000)
       }
     })
 

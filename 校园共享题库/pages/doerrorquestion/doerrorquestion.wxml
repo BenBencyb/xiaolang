@@ -1,8 +1,8 @@
-<view class='con'>
+<view class='train_con' bindtouchstart="touchStart" bindtouchend="touchEnd">
 
   <view class='head'>
     <text>{{questionlist.title}}</text>
-    <text>{{index+2-1}}/{{errorquestionlist.length}}</text>
+    <text>{{index-1+2}}/{{errorquestionlist.length}}</text>
   </view>
 
 
@@ -62,17 +62,46 @@
     <text>查看答案</text>
   </view>
 
-  <view class='leftandright'>
-    <view class='turn' bindtap='lastquestion_click'>
-      <text>上一题</text>
-    </view >
-    <view class='turn' bindtap='nextquestion_click'>
-      <text>下一题</text>
-    </view>
+  <!-- 透明遮盖层，用于退出评分层 -->
+  <view  bindtap="hideModal" animation="{{animationData}}" class="touming_top" wx:if="{{showModalStatus}}">   
+  </view>  
 
-
+  <!-- 评分遮盖层 -->
+<view animation="{{animationData}}" class="container-column buydes-dialog-container" wx:if="{{showModalStatus}}">  
+    <view class="buydes-dialog-container-top">这道题对你有用吗？评个分吧</view>  
+    <view class="container-column buydes-dialog-container-bottom"> 
+      <!-- 评分 -->
+      <block wx:for="{{stars}}">
+        <image class="star-image" style="left: {{item*80+185}}rpx" src="{{key > item ?selectedSrc : normalSrc}}">
+          <view class="item" style="left:0rpx" data-key="{{item+1}}" bindtap="selectRight"></view>
+        </image>
+      </block>    
+      <view class="mark_btn" bindtap='mark_click'>
+        <text>确定</text>
+      </view>
+    </view>         
   </view>
 
+<!-- 透明遮盖层，用于退出评分层 -->
+  <view  bindtap="hideModal" animation="{{animationData}}" class="touming" wx:if="{{showModalStatus}}">   
+  </view>    
+
+<!-- 底部栏 -->
+  <view class='leftandright'>
+
+    <view class='bottom_view' bindtap="showModal" bindload="imageLoad">
+      <image class="bottom_image" src='../images/score.png'></image>
+    </view>
+
+    <view class='bottom_view' bindtap='nextquestion_click'>
+       <image class="bottom_image" src='../images/comment.png'></image>
+    </view>
+    
+    <button style="color: #fff; width: 80rpx;height: 80rpx;background-color: #fff;padding:0rpx;          margin-left:0rpx;margin-right:0rpx;padding-left:0px;padding-right:0px;" id="shareBtn"               open-type="share" class='share_btn'>
+      <image class="bottom_image" src='../images/share.png'></image>
+    </button>
+    
+  </view>
 
 </view>
 

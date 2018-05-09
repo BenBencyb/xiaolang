@@ -1,5 +1,12 @@
 var app = getApp()
 
+var time = 0;//滑动持续时间
+var touchDot = 0;//触摸时的原点
+var interval = "";
+var flag_hd = true;//判断是否可以滑动
+
+let animationShowHeight = 300;
+
 Page({
 
   /**
@@ -16,6 +23,133 @@ Page({
     errorid: 'E',
     condition: 0,
     clickcheckid: 0,
+
+    // 遮罩层变量
+    animationData: "",
+    showModalStatus: false,
+    imageHeight: 0,
+    imageWidth: 0,
+
+    // 评分变量
+    stars: [0, 1, 2, 3, 4],//评分数值数组
+    normalSrc: '../images/score.png',//空心星星图片路径
+    selectedSrc: '../images/fullstar.png',//选中星星图片路径
+    key: 0,//评分
+  },
+
+  //点击星星
+  selectRight: function (e) {
+    var key = e.currentTarget.dataset.key
+    console.log("得" + key + "分")
+    this.setData({
+      key: key
+    })
+  },
+
+  // 确定评分
+  mark_click: function () {
+    this.hideModal()
+  },
+
+  imageLoad: function (e) {
+    this.setData({ imageHeight: e.detail.height, imageWidth: e.detail.width });
+  },
+
+  showModal: function () {
+    // 显示遮罩层  
+    var animation = wx.createAnimation({
+      duration: 500,
+      timingFunction: "ease",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(animationShowHeight).step()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus: true
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 5)
+  },
+
+  hideModal: function () {
+    // 隐藏遮罩层  
+    var animation = wx.createAnimation({
+      duration: 500,
+      timingFunction: "ease",
+      delay: 0
+    })
+    this.animation = animation;
+    animation.translateY(animationShowHeight).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showModalStatus: false
+      })
+    }.bind(this), 200)
+  },
+
+  // 触摸开始事件
+  touchStart: function (e) {
+    console.log("滑动事件");
+    touchDot = e.touches[0].pageX; // 获取触摸时的原点
+    // 使用js计时器记录时间    
+    interval = setInterval(function () {//不断执行time累加，0.1秒+1
+      time++;
+    }, 100);
+  },
+
+  // 触摸结束事件
+  touchEnd: function (e) {
+    console.log("滑动事件");
+    var touchMove = e.changedTouches[0].pageX;
+    // 如果手指向左滑动距离超过40、时间少于1秒而且允许滑动标志为true，向右滑动   
+    if (touchMove - touchDot <= -40 && time < 10 && flag_hd == true) {
+      flag_hd = false;
+      //执行切换页面的方法
+      console.log("向右滑动");
+      this.nextquestion_click()
+      flag_hd = true;    //进入下一题之后，可以再次执行滑动切换页面代码
+    }
+    // 如果手指向右滑动距离超过40、时间少于1秒而且允许滑动标志为true，向左滑动
+    if (touchMove - touchDot >= 40 && time < 10 && flag_hd == true) {
+      flag_hd = false;
+      //执行切换页面的方法
+      console.log("向左滑动");
+      this.lastquestion_click()
+      flag_hd = true;    //进入上一题之后，可以再次执行滑动切换页面代码 
+    }
+    clearInterval(interval); // 清除setInterval
+    time = 0;
+  },
+
+  //分享按钮
+  onShareAppMessage: function (ops) {
+    if (ops.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(ops.target)
+    }
+    return {
+      title: '小狼题库',
+      path: 'pages/index/index',
+      success: function (res) {
+        // 转发成功
+        console.log("转发成功:" + JSON.stringify(res));
+      },
+      fail: function (res) {
+        // 转发失败
+        console.log("转发失败:" + JSON.stringify(res));
+      }
+    }
+
   },
 
   changeColor: function (e) {
@@ -51,7 +185,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    flag_hd = true;    //重新进入页面之后，可以再次执行滑动切换页面代码
+    clearInterval(interval); // 清除setInterval
+    time = 0;
+    let that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        animationShowHeight = res.windowHeight;
+      }
+    })
   },
 
   /**

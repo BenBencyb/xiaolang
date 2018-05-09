@@ -90,7 +90,7 @@ Page({
         })
         setTimeout(function () {
           wx.hideLoading()
-        }, 1000)
+        }, 200)
       },
       complete: function (res) {
         wx.stopPullDownRefresh()

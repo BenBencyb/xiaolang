@@ -20,7 +20,8 @@
     "pages/userdatamodify/userdatamodify",
     "pages/questionmodify/questionmodify",
     "pages/lookhistoryquestion/lookhistoryquestion",
-    "pages/changepassword/changepassword"
+    "pages/changepassword/changepassword",
+    "pages/recommend/recommend"
   ],
   "window":{
     "backgroundColor":"#55C5AC",
@@ -41,10 +42,10 @@
         "selectedIconPath":"pages/images/home2.png"
       },
       {
-        "pagePath": "pages/upload/upload",
-        "text": "上传",
-        "iconPath": "pages/images/upload1.png",
-        "selectedIconPath": "pages/images/upload2.png"
+        "pagePath": "pages/recommend/recommend",
+        "text": "推荐",
+        "iconPath": "pages/images/recommend.png",
+        "selectedIconPath": "pages/images/recommend2.png"
       },
       {
         "pagePath": "pages/user/user",

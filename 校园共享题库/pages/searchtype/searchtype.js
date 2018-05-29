@@ -7,7 +7,8 @@ Page({
    */
   data: {
     banktypename: "5",
-    banklist: []
+    banklist: [],
+    page: 1
   },
 
   /**
@@ -15,7 +16,6 @@ Page({
    */
   onLoad: function (options) {
     var that = this
-    // console.log(options.typename)
     that.setData({
       banktypename: options.typename
     })
@@ -62,6 +62,43 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    var that = this
+    var b1 = [];
+    console.log("触底")
+    that.setData({ page: that.data.page + 1 }, () => {
+      console.log('页数增加1')
+    })
+    wx.request({
+      url: app.d.hostUrl + '/questionBank/info/way/type',
+      method: 'get',
+      data: {
+        name: that.data.banktypename,
+        page: that.data.page,
+        size: 8
+      },
+      success: function (res) {
+        console.log("新申请的题库数据：")
+        console.log(res.data.data.rows)
+        console.log("总页数" + res.data.data.pages)
+
+        if (that.data.page <= res.data.data.pages) {//当前页数小于等于总页数
+          b1 = res.data.data.rows//给b1赋值新申请的数据
+          console.log("b1：")
+          console.log(b1)
+          that.setData({ banklist: that.data.banklist.concat(b1) }, () => {
+            console.log("本地题库增加成功")
+          })
+        }
+        else{
+          that.setData({ page: res.data.data.pages }, () => {
+            console.log('没有新数据')
+          })
+        }
+        
+        wx.stopPullDownRefresh()
+        
+      }
+    })
 
   },
 
@@ -79,22 +116,25 @@ Page({
       title: '加载中',
     })
     console.log("根据类别查题库" + app.d.hostUrl)
+    console.log(that.data.banktypename)
     wx.request({
-      url: app.d.hostUrl + '/user_bankQuestion/selectByType.action',
+      url: app.d.hostUrl + '/questionBank/info/way/type',
       method: 'get',
       data: {
-        value: that.data.banktypename
+        name: that.data.banktypename,
+        page: 1,
+        size: 8
       },
       success: function (res) {
         console.log("某个类别的题库数据：")
-        console.log(res.data.list)
-        that.setData({ banklist: res.data.list })
+        console.log(res.data.data.rows)
+        that.setData({ banklist: res.data.data.rows })
         console.log("本地banklist：")
         console.log(that.data.banklist)
         wx.stopPullDownRefresh()
         setTimeout(function () {
           wx.hideLoading()
-        }, 1000)
+        }, 500)
       }
     })
   },
@@ -114,21 +154,21 @@ Page({
             })
           } else if (res.cancel) {
             console.log('用户点击取消')
-           
-            
+
+
           }
         }
       })
     }
-    else{
-    var bankid = e.currentTarget.dataset.text
-    var bankname = e.currentTarget.dataset.title
-    console.log("题库id：" + bankid)
-    console.log("题库名称：" + bankname)
-    wx.navigateTo({
-      url: '../train/train?bankid=' + bankid + '&bankname=' + bankname
-    })
-  }
+    else {
+      var bankid = e.currentTarget.dataset.text
+      var bankname = e.currentTarget.dataset.title
+      console.log("题库id：" + bankid)
+      console.log("题库名称：" + bankname)
+      wx.navigateTo({
+        url: '../train/train?bankid=' + bankid + '&bankname=' + bankname
+      })
+    }
   }
 
 

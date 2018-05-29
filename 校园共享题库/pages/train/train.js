@@ -12,6 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hiddenName: true,
+    focus: false,
     index: 0,
     bankname: '',
     bankid: 0,
@@ -38,6 +40,8 @@ Page({
     animPlus: {},//旋转动画  
   },
 
+
+
   //点击弹出  
   plus: function () {
     if (this.data.isPopping) {
@@ -48,7 +52,7 @@ Page({
       })
     } else if (!this.data.isPopping) {
       //弹出动画  
-      this.takeback();
+      this.popp();
       this.setData({
         isPopping: true
       })
@@ -66,13 +70,14 @@ Page({
       timingFunction: 'ease-out'
     })
 
-    animationPlus.rotateZ(180).scale(1.2).step();
+    animationPlus.rotateZ(144).step();
 
 
     this.setData({
       animPlus: animationPlus.export(),
     })
   },
+
   //收回动画  
   takeback: function () {
     //plus逆时针旋转  
@@ -87,24 +92,78 @@ Page({
       animPlus: animationPlus.export(),
 
     })
-  },  
+  },
 
   //点击星星
   selectRight: function (e) {
     var key = e.currentTarget.dataset.key
-    console.log("得" + key + "分")
-    this.setData({
-      key: key
-    })
+
+    if (this.data.questionlist.rating == 0) {
+      console.log("得" + key + "分")
+      this.setData({
+        key: key
+      })
+    }
+    else {
+      wx.showToast({
+        title: '你已经评过了',
+        icon: 'none',
+        duration: 750
+      })
+    }
   },
 
   // 确定评分
   mark_click: function () {
-    this.hideModal()
+    var that = this
+
+    if (that.data.questionlist.rating == 0 && that.data.key != 0) {
+      that.hideModal()
+      console.log(that.data.key)
+      wx.request({
+        url: app.d.hostUrl + '/rating/addRating',
+        method: "post",
+        data: {
+          userId: app.appData.userinfo.username,
+          questionId: that.data.questionlist.id,
+          bankId: that.data.questionlist.bankId,
+          starLevel: that.data.key
+        },
+        success: function (res) {
+          var ratingState = "questionlist.rating";
+          var list_ratingState = "allquestion[" + that.data.index + "].rating"
+          console.log(res)
+          that.setData({
+            [ratingState]: that.data.key,
+            [list_ratingState]: that.data.key
+          });
+          wx.showToast({
+            title: '评分成功',
+            icon: 'success',
+            duration: 1000
+          })
+          console.log('评分成功')
+        }
+      })
+    }
+    else if (that.data.key == 0) {
+      wx.showToast({
+        title: '评分至少为一星',
+        icon: 'none',
+        duration: 1000
+      })
+    }
+    else if (that.data.questionlist.rating != 0) {
+      that.hideModal()
+    }
+
   },
 
   // 显示遮罩层  
   showModal: function () {
+    this.setData({
+      key: this.data.questionlist.rating,
+    })
     //创建一个动画实例animation。调用实例的方法来描述动画。
     var animation = wx.createAnimation({
       duration: 500,         //动画持续时间500ms
@@ -129,6 +188,10 @@ Page({
 
   // 隐藏遮罩层  
   hideModal: function () {
+    this.takeback();
+    this.setData({
+      isPopping: true
+    })
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: "ease",
@@ -181,12 +244,57 @@ Page({
   },
 
   //收藏按钮
-  collect_click: function () {
+  collect_click: function (e) {
     var that = this
-    var collect_flag = that.data.collect_flag == 0 ? 1 : 0
-    that.setData({
-      collect_flag: collect_flag
-    });
+    var method = "post"
+    var condition = e.currentTarget.dataset.condition
+    if (condition == 0) {
+      method = "post"
+    }
+    if (condition == 1) {
+      method = "delete"
+    }
+    wx.request({
+      url: app.d.hostUrl + '/favorite/info',
+      method: method,
+      data: {
+        userId: app.appData.userinfo.username,
+        questionId: that.data.questionlist.id,
+        bankId: that.data.questionlist.bankId,
+      },
+      success: function (res) {
+        var favoriteState = "questionlist.favoriteState";
+        var list_favoriteState = "allquestion[" + that.data.index + "].favoriteState"
+        if (condition == 0) {
+          that.setData({
+            [favoriteState]: "已收藏",
+            [list_favoriteState]: "已收藏"
+          });
+          wx.showToast({
+            title: '收藏成功',
+            icon: 'success',
+            duration: 1000
+          })
+          console.log('收藏成功')
+        }
+        else {
+          that.setData({
+            [favoriteState]: "未收藏",
+            [list_favoriteState]: "未收藏"
+          });
+          wx.showToast({
+            title: '取消收藏成功',
+            icon: 'success',
+            duration: 1000
+          })
+          console.log('取消收藏成功')
+        }
+
+      }
+    })
+
+
+
   },
 
   //分享按钮
@@ -210,6 +318,7 @@ Page({
 
   },
 
+  //选择答案时改变颜色
   changeColor: function (e) {
     // console.log(e)
     var that = this
@@ -217,12 +326,11 @@ Page({
       that.setData({
         letterid: e.currentTarget.dataset.id
       });
+      console.log(that.data.letterid)
+      that.data.allquestion[that.data.index].useranswer = e.currentTarget.dataset.id
+      console.log("存入all：" + that.data.allquestion[that.data.index].useranswer)
     }
-    console.log(that.data.letterid)
 
-    that.data.allquestion[that.data.index].useranswer = e.currentTarget.dataset.id
-
-    console.log("存入all：" + that.data.allquestion[that.data.index].useranswer)
   },
 
 
@@ -299,28 +407,23 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
+    console.log(app.appData.userinfo.username)
+    console.log(that.data.bankid)
     console.log("查询题目信息" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_choiceQuestion/selectAllChoiceById.action',
+      url: app.d.hostUrl + '/choice/info/way/bank',
       method: 'get',
       data: {
-        value: that.data.bankid
+        userId: app.appData.userinfo.username,
+        id: that.data.bankid
       },
       success: function (res) {
-        console.log(res.data.list)
-        that.setData({ questionlist: res.data.list[0], allquestion: res.data.list })
+        console.log(res.data.data)
+        that.setData({ questionlist: res.data.data[0], allquestion: res.data.data })
 
-        interval = setInterval(function () {
-          console.log("加载中")
-          if (res.data.list.length == that.data.allquestion.length) {
-            console.log("加载完毕")
-            wx.hideLoading()
-            clearInterval(interval); // 清除setInterval
-          }
-        }, 1);
-        // setTimeout(function () {
-        //   wx.hideLoading()
-        // }, 1000)
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 300)
       }
     })
 
@@ -339,7 +442,7 @@ Page({
     console.log("答案：" + that.data.questionlist.answer)
     console.log("当前选择：" + that.data.letterid)
 
-    if ((that.data.letterid != that.data.questionlist.answer)) {
+    if ((that.data.letterid != that.data.questionlist.answer)) {//答案错误
       istrue = 0
       that.setData({
         errorid: that.data.letterid,
@@ -348,8 +451,10 @@ Page({
 
     if (that.data.letterid != '') {
       console.log("已选答案")
+      //console.log(app.appData.userinfo.username)
+      //添加答题记录
       wx.request({
-        url: app.d.hostUrl + '/user_answerSheet/addRecord.action',
+        url: app.d.hostUrl + '/answerSheet/recode',
         method: 'post',
         data: {
           userId: app.appData.userinfo.username,
@@ -389,7 +494,8 @@ Page({
       that.setData({ index: that.data.index - 1 })
       that.setData({ questionlist: that.data.allquestion[that.data.index] })
       that.setData({ condition: 0, clickcheckid: 0, letterid: '', errorid: '' })
-
+      that.setData({ hiddenName: true })
+      that.setData({ focus: false })
       if (that.data.questionlist.useranswer != null) {//用户已选择
 
         that.setData({ letterid: that.data.questionlist.useranswer })//设置选择的选项
@@ -400,7 +506,7 @@ Page({
           if (that.data.questionlist.useranswer != that.data.questionlist.answer) {//用户答错了
             that.setData({ letterid: that.data.questionlist.answer, errorid: that.data.questionlist.useranswer })
           }
-         
+
         }
 
       }
@@ -421,7 +527,8 @@ Page({
       that.setData({ index: that.data.index + 1 })
       that.setData({ questionlist: that.data.allquestion[that.data.index] })
       that.setData({ condition: 0, clickcheckid: 0, letterid: '', errorid: '' })
-
+      that.setData({ hiddenName: true })
+      that.setData({ focus: false })
       if (that.data.questionlist.useranswer != null) {//用户已选择
 
         that.setData({ letterid: that.data.questionlist.useranswer })//设置选择的选项
@@ -434,12 +541,23 @@ Page({
           }
 
         }
-        
+
       }
     }
   },
 
+  //点击评论
+  bindButtonTap: function () {
+    if (this.data.clickcheckid == 1) {
+      this.setData({
+        hiddenName: !this.data.hiddenName
+      })
+      this.setData({
+        focus: true
+      })
+    }
 
+  },
 
 
 })

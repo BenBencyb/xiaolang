@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    page: 1,
     banklist: [],
     isPopping: false,//是否已经弹出  
     animPlus: {},//旋转动画  
@@ -26,9 +27,9 @@ Page({
         isPopping: true
       })
     }
-    // wx.navigateTo({
-    //   url: '../upload/upload'
-    // })
+    wx.navigateTo({
+      url: '../upload/upload'
+    })
   },  
 
   //弹出动画  
@@ -40,7 +41,6 @@ Page({
     })
     
     animationPlus.rotateZ(180).step();
-    animationPlus.scale(1.5).step();
     
    
     this.setData({
@@ -111,7 +111,43 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    var that = this
+    var b1 = [];
+    console.log("触底")
+    that.setData({ page: that.data.page + 1 }, () => {
+      console.log('页数增加1')
+    })
+    wx.request({
+      url: app.d.hostUrl + '/questionBank/info/way/user',
+      method: 'get',
+      data: {
+        id: app.appData.userinfo.username,
+        page: that.data.page,
+        size: 8
+      },
+      success: function (res) {
+        console.log("新申请的题库数据：")
+        console.log(res.data.data.rows)
+        console.log("总页数" + res.data.data.pages)
 
+        if (that.data.page <= res.data.data.pages) {//当前页数小于等于总页数
+          b1 = res.data.data.rows//给b1赋值新申请的数据
+          console.log("b1：")
+          console.log(b1)
+          that.setData({ banklist: that.data.banklist.concat(b1) }, () => {
+            console.log("本地题库增加成功")
+          })
+        }
+        else {
+          that.setData({ page: res.data.data.pages }, () => {
+            console.log('没有新数据')
+          })
+        }
+
+        wx.stopPullDownRefresh()
+
+      }
+    })
   },
 
   /**
@@ -130,22 +166,25 @@ Page({
     console.log("根据上传用户的id查询所属题库：" + app.d.hostUrl)
     console.log(app.appData.userinfo.username)
     wx.request({
-      url: app.d.hostUrl + '/user_bankQuestion/selectById.action',
+      url: app.d.hostUrl + '/questionBank/info/way/user',
       method: 'get',
       data: {
-        value: app.appData.userinfo.username
+        id: app.appData.userinfo.username,
+        page:1,
+        size:8
       },
       success: function (res) {
-        console.log(res.data.list)
+        console.log(res)
         that.setData({
-          banklist: res.data.list
+          banklist: res.data.data.rows
         })
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 400)
+        
       },
       complete: function (res) {
         wx.stopPullDownRefresh()
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 400)
       }
     })
 
@@ -184,15 +223,15 @@ Page({
           console.log('用户点击确定')
           console.log(e)
           var bankid = e.currentTarget.dataset.id
+          console.log("要删除的题库id：" + bankid)
 
           console.log("删除：" + app.d.hostUrl)
           console.log(app.appData.userinfo.username)
           wx.request({
-            url: app.d.hostUrl + '/user_bankQuestion/deleteByPrimaryKey.action',
-            method: 'get',
-            data: {
-              id: bankid
-            },
+            url: app.d.hostUrl + '/questionBank/info/' + bankid,
+           
+            method: 'delete',
+           
             success: function (res) {
               setTimeout(function () {
                 wx.hideLoading()

@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "搜索题库"
+  "navigationBarTitleText": "搜索题库",
+  "onReachBottomDistance": 50
 }

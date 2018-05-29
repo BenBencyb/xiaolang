@@ -87,7 +87,7 @@
   </view>    
 
 <!-- 底部栏 -->
-  <view class='leftandright'>
+  <!-- <view class='leftandright'>
 
     <view class='bottom_view' bindtap="showModal" bindload="imageLoad">
       <image class="bottom_image" src='../images/score.png'></image>
@@ -101,7 +101,7 @@
       <image class="bottom_image" src='../images/share.png'></image>
     </button>
     
-  </view>
+  </view> -->
 
 </view>
 

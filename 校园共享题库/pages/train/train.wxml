@@ -5,112 +5,120 @@
     <text class='count'>{{index+1}}/{{allquestion.length}}</text>
   </view>
 
-<view bindtouchstart="touchStart" bindtouchend="touchEnd" style='width:100%;height:100%;display: flex;flex-direction: column;justify-content: center;align-items: center;'>
+  <view bindtouchstart="touchStart" bindtouchend="touchEnd" style='width:100%;height:100%;display: flex;flex-direction: column;justify-content: center;align-items: center;'>
 
-  <view class='question_view'>
-    <text class='question_text'>{{questionlist.question}}</text>
+    <view class='question_view'>
+      <text class='question_text'>{{questionlist.question}}</text>
 
-    <view class='option_view' data-id="A" bindtap="changeColor">
+      <view class='option_view' data-id="A" bindtap="changeColor">
 
-      <view class="letter_view {{letterid=='A'?'active':''}} {{errorid=='A'?'error':''}}">
-        <text class='letter'>A</text>
+        <view class="letter_view {{letterid=='A'?'active':''}} {{errorid=='A'?'error':''}}">
+          <text class='letter'>A</text>
+        </view>
+
+        <view class='option_text_view'>
+          <text class='option_text'>{{questionlist.choiceA}}</text>
+        </view>
       </view>
 
-      <view class='option_text_view' >
-       <text class='option_text'>{{questionlist.choiceA}}</text> 
+      <view class='option_view' data-id='B' bindtap="changeColor">
+
+        <view class="letter_view {{letterid=='B'?'active':''}} {{errorid=='B'?'error':''}}">
+          <text class='letter'>B</text>
+        </view>
+
+        <view class='option_text_view'>
+          <text class='option_text'>{{questionlist.choiceB}}</text>
+        </view>
       </view>
+
+      <view class='option_view' data-id='C' bindtap="changeColor">
+        <view class="letter_view  {{letterid=='C'?'active':''}} {{errorid=='C'?'error':''}}">
+          <text class='letter'>C</text>
+        </view>
+
+        <view class='option_text_view'>
+          <text class='option_text'>{{questionlist.choiceC}}</text>
+        </view>
+      </view>
+
+      <view class='option_view' data-id='D' bindtap="changeColor">
+        <view class="letter_view {{letterid=='D'?'active':''}} {{errorid=='D'?'error':''}}">
+          <text class='letter'>D</text>
+        </view>
+
+        <view class='option_text_view'>
+          <text class='option_text'>{{questionlist.choiceD}}</text>
+        </view>
+      </view>
+
+    </view>
+    <!-- 答案解析 -->
+    <view>
+      <view class="analysis_view {{clickcheckid==1?'checked2':''}}">
+        <text>参考答案：{{questionlist.answer}}\n\n参考解析：{{questionlist.analysis}}</text>
+        <text>\n评分：{{questionlist.starLevel}}/5</text>
+
+        <view class="inputview" hidden="{{hiddenName}}">
+          <textarea placeholder="写下你的评论吧~"bindinput="commentInput" focus="{{focus}}"></textarea>
+        </view>
+      </view>
+
     </view>
 
-    <view class='option_view'  data-id='B' bindtap="changeColor">
 
-      <view class="letter_view {{letterid=='B'?'active':''}} {{errorid=='B'?'error':''}}">
-        <text class='letter'>B</text>
-      </view>
-
-      <view class='option_text_view'>
-       <text class='option_text'>{{questionlist.choiceB}}</text>
-      </view>
+    <view class="checkanswer_view {{clickcheckid==1?'checked':''}}" bindtap='checkanswer_click'>
+      <text>查看答案</text>
     </view>
-
-    <view class='option_view'  data-id='C' bindtap="changeColor">
-      <view class="letter_view  {{letterid=='C'?'active':''}} {{errorid=='C'?'error':''}}">
-        <text class='letter'>C</text>
-      </view>
-
-      <view class='option_text_view'>
-        <text class='option_text'>{{questionlist.choiceC}}</text>
-      </view>
-    </view>
-
-    <view class='option_view'  data-id='D' bindtap="changeColor">
-      <view class="letter_view {{letterid=='D'?'active':''}} {{errorid=='D'?'error':''}}">
-        <text class='letter'>D</text>
-      </view>
-
-      <view class='option_text_view'>
-        <text class='option_text'>{{questionlist.choiceD}}</text>
-      </view>
-    </view>
-    
   </view>
-<!-- 答案解析 -->
-  <view>
-    <view class="analysis_view {{clickcheckid==1?'checked2':''}}">
-      <text>参考答案：{{questionlist.answer}}\n参考解析：{{questionlist.analysis}}</text>
-    </view>
-  </view>
 
-  
-  <view class="checkanswer_view {{clickcheckid==1?'checked':''}}" bindtap='checkanswer_click'>
-    <text>查看答案</text>
+  <!-- 透明遮盖层，用于退出评分层 -->
+  <view bindtap="hideModal" animation="{{animationData}}" class="touming_top" wx:if="{{showModalStatus}}">
   </view>
-  </view>
-
-<!-- 透明遮盖层，用于退出评分层 -->
-  <view  bindtap="hideModal" animation="{{animationData}}" class="touming_top" wx:if="{{showModalStatus}}">   
-  </view>  
 
   <!-- 评分遮盖层 -->
-<view animation="{{animationData}}" class="container-column buydes-dialog-container" wx:if="{{showModalStatus}}">  
-    <view class="buydes-dialog-container-top">这道题对你有用吗？评个分吧</view>  
-    <view class="container-column buydes-dialog-container-bottom"> 
+  <view animation="{{animationData}}" class="container-column buydes-dialog-container" wx:if="{{showModalStatus}}">
+    <view wx:if="{{questionlist.rating == 0}}" class="buydes-dialog-container-top">这道题对你有用吗？评个分吧</view>
+    <view wx:else class="buydes-dialog-container-top">你的评分</view>
+    <view class="container-column buydes-dialog-container-bottom">
       <!-- 评分 -->
       <block wx:for="{{stars}}">
         <image class="star-image" style="left: {{item*80+185}}rpx" src="{{key > item ?selectedSrc : normalSrc}}">
           <view class="item" style="left:0rpx" data-key="{{item+1}}" bindtap="selectRight"></view>
         </image>
-      </block>    
+      </block>
       <view class="mark_btn" bindtap='mark_click'>
         <text>确定</text>
       </view>
-    </view>         
+    </view>
   </view>
 
-<!-- 透明遮盖层，用于退出评分层 -->
-  <view  bindtap="hideModal" animation="{{animationData}}" class="touming" wx:if="{{showModalStatus}}">   
-  </view>    
+  <!-- 透明遮盖层，用于退出评分层 -->
+  <view bindtap="hideModal" animation="{{animationData}}" class="touming" wx:if="{{showModalStatus}}">
+  </view>
 
-<!-- 底部栏 -->
+  <!-- 底部栏 -->
   <view class='leftandright'>
 
-    <view class='bottom_view' bindtap="showModal" >
-      <image class="bottom_image" src='../images/score.png' animation="{{animPlus}}" bindtap="plus"></image>
+    <view class='bottom_view' bindtap="showModal">
+      <image wx:if="{{questionlist.rating != 0}}" class="bottom_image" src='../images/fullstar.png' animation="{{animPlus}}" bindtap="plus"></image>
+      <image wx:else class="bottom_image" src='../images/score.png' animation="{{animPlus}}" bindtap="plus"></image>
     </view>
 
-    <view class='bottom_view' bindtap="collect_click" >
-      <image class="bottom_image" src="{{collect_flag=='0'?'../images/collect.png':'../images/collected.png'}}"></image>
+    <view class='bottom_view' >
+      <image wx:if="{{questionlist.favoriteState == '已收藏'}}" data-condition="1" class="bottom_image" src="../images/collected.png" bindtap="collect_click"></image>
+      <image wx:else data-condition="0" class="bottom_image" src="../images/collect.png" bindtap="collect_click"></image>
     </view>
 
-    <view class='bottom_view' bindtap='nextquestion_click'>
-       <image class="bottom_image" src='../images/comment.png'></image>
+    <view class='bottom_view' bindtap='bindButtonTap'>
+      <image class="bottom_image" src='../images/comment.png'></image>
     </view>
-    
-    <button style="color: #fff; width: 80rpx;height: 80rpx;background-color: #fff;padding:0rpx;          margin-left:0rpx;margin-right:0rpx;padding-left:0px;padding-right:0px;" id="shareBtn"               open-type="share" class='share_btn'>
+
+    <button style="color: #fff; width: 80rpx;height: 80rpx;background-color: #fff;padding:0rpx;          margin-left:0rpx;margin-right:0rpx;padding-left:0px;padding-right:0px;" id="shareBtn" open-type="share" class='share_btn'>
       <image class="bottom_image" src='../images/share.png'></image>
     </button>
-    
+
   </view>
 
 
 </view>
-

@@ -54,7 +54,7 @@ textarea{
 }
 
 .picker {
-  width: 325rpx; 
+  width: 620rpx; 
   border: 1rpx solid #aaa;
   color: #909090;
   padding: 15rpx;
@@ -63,9 +63,6 @@ textarea{
   
 }
 
-picker{
-  /* text-align: center; */
-}
 /*按钮*/
 
 .loginBtnView {

@@ -29,7 +29,7 @@ Page({
    */
   onShow: function () {
     this.search_no()
-    this.setData({ userimg: app.appData.userInfo.avatarUrl })
+    this.setData({ userimg: app.appData.userinfo.userimg })
   },
 
   /**
@@ -67,6 +67,7 @@ Page({
 
   },
 
+
   // 查询用户功能
   search_no: function () {
     var that = this
@@ -75,16 +76,13 @@ Page({
     })
     console.log("查询用户" + app.appData.userinfo.username + "信息" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_user/getUser.action',
-      method: 'post',
-      data: {
-        id: app.appData.userinfo.username
-      },
+      url: app.d.hostUrl + '/user/info/' + app.appData.userinfo.username,
+      method: 'get',
       success: function (res) {
         console.log("search_no方法：")
         console.log("接收到的数据")
-        console.log(res.data.user)
-        that.setData({ user: res.data.user })
+        console.log(res.data.data)
+        that.setData({ user: res.data.data })
 
         interval = setInterval(function () {
           console.log("加载中")

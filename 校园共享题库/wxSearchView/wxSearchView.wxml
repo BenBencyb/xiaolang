@@ -56,8 +56,8 @@
         <view class="title_view">
           <view><text class="title_text ellipsis">{{item.title}}</text></view>        
           <view class="bank_message">
-            <text class='title_message_text type'>{{item.bankType}}</text>
-            <text class='title_message_text'>上传：{{item.userId}}</text>    
+            <text class='title_message_text type'>{{item.categoryName}}</text>
+            <text class='title_message_text'>价格：{{item.value}} 积分</text>    
           </view>
         </view>
         <view class="do_view">

@@ -20,9 +20,9 @@
   </view>
 
   <view class="inputview">
-      <picker range-key='name' bindchange="bindPickerChange" value='{{index}}' range="{{banktype}}">
+      <picker range-key='name' mode="multiSelector" bindchange="bindPickerChange" bindcolumnchange="bindColumnChange" value='{{index}}' range="{{objectMultiArray}}">
         <view class="picker">
-         {{banktype[index].name}}
+         {{objectMultiArray[0][topindex].name}}/{{objectMultiArray[1][index].name}}
         </view>
       </picker>
   </view>

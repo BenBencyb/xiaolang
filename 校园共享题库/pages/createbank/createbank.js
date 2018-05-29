@@ -6,11 +6,14 @@ Page({
    * 页面的初始数据
    */
   data: {
+    id: 0,
     banktype: [],
+    topindex: 0,
     index: 0,
     banktypename: '计算机考级',
     bankname:'',
-    bankintro:''
+    bankintro:'',
+    objectMultiArray: [[], []]
   },
 
   /**
@@ -103,15 +106,27 @@ Page({
 
   // 选择器改变内容
   bindPickerChange: function (e) {
-    // var that = this
+
+    this.setData({
+      banktypename: this.data.banktype[this.data.topindex].lowerCategories[this.data.index].name
+    })
+    console.log(this.data.banktypename)
+  },
+
+  // 某一列选择器改变内容
+  bindColumnChange: function (e) {
+    var that = this
     console.log(e)
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      index: e.detail.value
-    })
-    this.setData({
-      banktypename: this.data.banktype[this.data.index].name
-    })
+    console.log('第' + e.detail.column + '列改成第' + e.detail.value + '个')
+    var topobjectMultiArray = "objectMultiArray[0]"
+    var objectMultiArray = "objectMultiArray[1]"
+    if (e.detail.column == 0) {
+      that.setData({ [objectMultiArray]: that.data.banktype[e.detail.value].lowerCategories })
+      that.setData({ topindex: e.detail.value, index: 0 })
+    }
+    if (e.detail.column == 1) {
+      that.setData({ index: e.detail.value })
+    }
 
   },
 
@@ -123,18 +138,21 @@ Page({
     })
     console.log("请求题库类别数据" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_bankType/selectBankTypeAll.action',
-      method: 'post',
-      data: {
-      },
-      complete: function (res) {
+      url: app.d.hostUrl + '/category/list',
+      method: 'get',
+      success: function (res) {
         console.log("题库类别数据：")
-        console.log(res.data.data)
-        that.setData({ banktype: res.data.data })
-        console.log("本地banktype：")
-        console.log(that.data.banktype)
-        that.setData({ banktypename: that.data.banktype[0].name })
+        console.log(res.data.data[0].lowerCategories)
+        that.setData({ banktype: res.data.data[0].lowerCategories })
+        that.setData({ banktypename: res.data.data[0].lowerCategories[0].lowerCategories[0].name })
+        var objectMultiArray = "objectMultiArray[0]"
+        var objectMultiArray2 = "objectMultiArray[1]"
+        that.setData({ [objectMultiArray]: that.data.banktype })
+        that.setData({ [objectMultiArray2]: that.data.banktype[0].lowerCategories })
+
+
         wx.stopPullDownRefresh()
+
         setTimeout(function () {
           wx.hideLoading()
         }, 1000)
@@ -169,13 +187,13 @@ Page({
       console.log(app.appData.userinfo.username)
       console.log(that.data.banktypename)
       wx.request({
-        url: app.d.hostUrl + '/user_bankQuestion/addBankQuestion.action',
+        url: app.d.hostUrl + '/questionBank/info',
         method: 'post',
         data: {
           title: that.data.bankname,
           intro: that.data.bankintro,
           userId: app.appData.userinfo.username,
-          bankType: that.data.banktypename
+          categoryName: that.data.banktypename
         },
         success:function(res){
           setTimeout(function () {

@@ -1,24 +1,37 @@
 page{
   background-color: #F6F8F8;
+  padding-top: 125rpx;
 }
 
 .typetext{
+  position: fixed;
+  top: 0;
+  /* width: 750rpx; */
+  height: 100rpx;
   background-color: #55c5ac;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 35rpx;
+  align-items: center;
+  padding: 15rpx 0;
+  z-index: 999;
 }
 
 .typename{
+  font-size: 40rpx;
   color: #fff;
+  width: 750rpx;
+  text-align: center;
 }
 
 .view11{
+  position: fixed;
+  top: 125rpx;
   width: 750rpx;
   height: 6rpx;
   /* margin: 10px auto; */
   background: linear-gradient(#CECECE, #fff);
+  z-index: 999;
 }
 
 /* 单条题库显示 */

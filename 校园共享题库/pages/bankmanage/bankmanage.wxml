@@ -1,18 +1,20 @@
-<view wx:if="{{banklist.length==0}}" class="tips_view">
+<view wx:if="{{banklist.length == 0}}" class="tips_view">
   <text>你目前没有题库,快来创建吧~</text>
 </view>
 <view wx:for="{{banklist}}" wx:key="id" class="bank_view">      
         <view class="title_view">
           <view><text class="title_text ellipsis">{{item.title}}</text></view>        
           <view class="bank_message">
-            <text class='title_message_text type'>{{item.bankType}}</text>
+            <text class='title_message_text type'>{{item.categoryName}}</text>
             <text class='title_message_text intro ellipsis'>简介：{{item.intro}}</text> 
-            <text class='title_message_text'>题目数量：{{item.count}}</text>
-            <text class='title_message_text'>上传时间：{{item.createtime}}</text>    
+            
+            <text class='title_message_text'>上传时间：{{item.createTime}}</text> 
+            <label class='title_message_text2'>审核通过：<text style='color:#55C5AC;'>{{item.count}}</text> 题</label>
+            <label class='title_message_text2'>审核未通过：<text style='color:#F72E2E;'>{{item.countAll-item.count}}</text> 题</label>
           </view>
 
           <view class="allbutton_view">
-            <view data-id="{{item.id}}" data-type="{{item.bankType}}" data-intro="{{item.intro}}" data-title="{{item.title}}" bindtap='bankmodify_click' class="button_view">
+            <view data-id="{{item.id}}" data-type="{{item.categoryName}}" data-intro="{{item.intro}}" data-title="{{item.title}}" bindtap='bankmodify_click' class="button_view">
               <text>修改信息</text>
             </view>
             <view data-id="{{item.id}}" bindtap='questionmanage_click' class="button_view">

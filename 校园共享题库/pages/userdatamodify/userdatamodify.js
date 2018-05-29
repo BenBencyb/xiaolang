@@ -89,7 +89,7 @@ Page({
     var that = this
     var regLowerCase = new RegExp('^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$', 'g');
     var rsLowerCase = regLowerCase.exec(that.data.email);
-    var regLowerCase2 = new RegExp('0?(13|14|15|18)[0-9]{9}', 'i');
+    var regLowerCase2 = new RegExp('0?(13|14|15|17|18)[0-9]{9}', 'i');
     var rsLowerCase2 = regLowerCase2.exec(that.data.phone);
     console.log("手机验证："+rsLowerCase2)
     console.log(that.data.phone.length)
@@ -142,8 +142,8 @@ Page({
     })
     console.log("修改资料：" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_user/updateUser.action',
-      method: 'post',
+      url: app.d.hostUrl + '/user/info',
+      method: 'put',
       data: {
         id: app.appData.userinfo.username,
         nickname:that.data.nickname,

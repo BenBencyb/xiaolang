@@ -195,7 +195,7 @@ Page({
     })
     console.log("查看题目详情" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_choiceQuestion/selectChoiceQuestion.action',
+      url: app.d.hostUrl + '/choice/info/way/id',
       method: 'get',
       data: {
         id: that.data.questionid
@@ -205,7 +205,7 @@ Page({
         that.setData({ questionlist: res.data.data })
         setTimeout(function () {
           wx.hideLoading()
-        }, 1000)
+        }, 500)
       }
     })
   },
@@ -229,7 +229,7 @@ Page({
     if (that.data.letterid != '') {
       console.log("已选答案")
       wx.request({
-        url: app.d.hostUrl + '/user_answerSheet/addRecord.action',
+        url: app.d.hostUrl + '/answerSheet/recode',
         method: 'post',
         data: {
           userId: app.appData.userinfo.username,

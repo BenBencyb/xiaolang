@@ -1,7 +1,6 @@
 
 var app = getApp();
-
-var interval="";
+var interval = "";
 Page({
 
   /**
@@ -10,19 +9,32 @@ Page({
   data: {
     userimg: null,
     username: null,
+    nickname: null,
     allRecord: null,
-    faultRecord: null
+    faultRecord: null,
+    point: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.search_no();
-    if (app.appData.userinfo != null) {
-      this.setData({ username: app.appData.userinfo.username })
-      this.setData({ userimg: app.appData.userInfo.avatarUrl })
+    this.search_no()
+    this.search_point()
+    console.log(app.appData.userinfo.userimg)
+    if (app.appData.userinfo.userimg == null) {
+      app.appData.userinfo.userimg = "../images/default.png"
+    }
+    if (!app.appData.userinfo.nickName) {
+      app.appData.userinfo.nickName = "注册用户"
+    }
 
+    if (app.appData.userinfo != null) {
+      this.setData({
+        username: app.appData.userinfo.username,
+        nickname: app.appData.userinfo.nickName,
+        userimg: app.appData.userinfo.userimg
+      })
     } else {
       console.log("没有用户名")
       wx.redirectTo({
@@ -65,6 +77,7 @@ Page({
    */
   onPullDownRefresh: function () {
     this.search_no()
+    this.search_point()
   },
 
   /**
@@ -81,45 +94,119 @@ Page({
 
   },
 
-  // 查询用户功能     用户答错的题目数量，总答题数目
+  // 查询用户 答错的题目数量，总答题数目
   search_no: function () {
     var that = this
     wx.showLoading({
       title: '加载中',
     })
-    console.log("查询用户" + app.appData.userinfo.username + "信息" + app.d.hostUrl)
+    console.log("查询用户id：" + app.appData.userinfo.username + "\n网址：" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_user/getUser.action',
-      method: 'post',
-      data: {
-        id: app.appData.userinfo.username
-      },
+      url: app.d.hostUrl + '/answerSheet/count/' + app.appData.userinfo.username,
+      method: 'get',
       success: function (res) {
-        console.log("search_no方法：")
-        console.log("接收到的数据")
-        console.log(res.data)
-        that.setData({ allRecord: res.data.all, faultRecord: res.data.fault })
-        // that.data.user = res.data.user
+        console.log("查询用户错题总答题数量：")
+        //console.log("接收到的数据")
+        //console.log(res.data.data)
+        that.setData({ allRecord: res.data.data.all, faultRecord: res.data.data.error })
         console.log("本地数据：")
         console.log("已做题：" + that.data.allRecord)
         console.log("错题：" + that.data.faultRecord)
         wx.stopPullDownRefresh()
-
+        var time = 0;
         interval = setInterval(function () {
           console.log("加载中")
+          time = time + 1
           if (that.data.allRecord != null && that.data.faultRecord != null) {
             console.log("加载完毕")
             wx.hideLoading()
             clearInterval(interval); // 清除setInterval
           }
-        }, 1);
-
+          if (time == 20) {
+            clearInterval(interval);// 清除setInterval
+            wx.showToast({
+              title: '服务器错误',
+              icon: 'none',
+              duration: 1500
+            })
+          }
+        }, 50);
         // setTimeout(function () {
         //   wx.hideLoading()
         // }, 1000)
       }
     })
 
+  },
+
+
+  // 查询用户积分
+  search_point: function () {
+    var that = this
+    wx.request({
+      url: app.d.hostUrl + '/user/info/' + app.appData.userinfo.username,
+      method: 'get',
+      success: function (res) {
+        console.log("查询用户积分：")
+        //console.log(res.data.data.value)
+        that.setData({ point: res.data.data.value })
+        //console.log("本地数据：")
+        console.log("积分：" + that.data.point)
+        wx.stopPullDownRefresh()
+
+      }
+    })
+
+  },
+
+
+  //签到按钮
+  signon_click: function () {
+    console.log(app.appData.userinfo.username)
+    wx.request({
+      url: app.d.hostUrl + '/points/sign',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'post',
+      data: {
+        userId: app.appData.userinfo.username
+      },
+      success: function (res) {
+        console.log(res)
+        if (res.data.code == 4006) {
+          console.log("已签到")
+          wx.showToast({
+            title: '你今天已经签过了',
+            icon: 'none',
+            duration: 1000
+          })
+        }
+        else if (res.data.code == 0) {
+          console.log("签到成功")
+          wx.showToast({
+            title: '签到成功\n积分+5',
+            icon: 'none',
+            duration: 1500
+          })
+        }
+        else{
+          wx.showToast({
+            title: '发生错误',
+            icon: 'none',
+            duration: 1500
+          })
+        }
+
+      }
+    })
+  },
+
+  //跳转到题目收藏
+  collect_click: function () {
+    wx.navigateTo({
+      url: '../collect/collect'
+    })
   },
 
   //跳转到做题记录

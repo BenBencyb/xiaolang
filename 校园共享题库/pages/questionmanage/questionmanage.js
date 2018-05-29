@@ -78,22 +78,23 @@ Page({
     console.log("根据题库id查询题目：" + app.d.hostUrl)
     console.log(app.appData.userinfo.username)
     wx.request({
-      url: app.d.hostUrl + '/user_choiceQuestion/selectChoiceQuestionByBankQuestionId.action',
+      url: app.d.hostUrl + '/choice/info/user/bank',
       method: 'get',
       data: {
-        value: that.data.bankid
+        id: that.data.bankid
       },
       success: function (res) {
-        console.log(res.data.list)
+        console.log(res)
         that.setData({
-          questionlist: res.data.list
+          questionlist: res.data.data
         })
-        setTimeout(function () {
-          wx.hideLoading()
-        }, 200)
+       
       },
       complete: function (res) {
         wx.stopPullDownRefresh()
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 500)
       }
     })
 

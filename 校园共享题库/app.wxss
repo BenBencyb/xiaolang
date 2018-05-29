@@ -124,10 +124,11 @@
 /* 答案解析(查看前) */
 
 .analysis_view {
-  width: 00rpx;
+  width: 0rpx;
   font-size: 0rpx;
   margin-top: 0rpx;
   display: flex;
+  border:0rpx solid #aaa;
 }
 
 /* 答案解析（查看后） */
@@ -138,6 +139,7 @@
   margin-top: 50rpx;
   margin-bottom: 150rpx;
   display: flex;
+  flex-direction: column;
 }
 
 /* 查看答案按钮 */
@@ -187,6 +189,12 @@
   border: 0rpx solid #fff;
 }
 
+/* 分享按钮 */
+
+.share_btn::after {
+  border: none;
+}
+
 /* 底部栏 */
 
 .leftandright {
@@ -200,6 +208,7 @@
   /* margin-top: 0rpx; */
   background-color: #fff;
   border-top: 1rpx solid #eaeaea;
+   z-index: 997;   
 }
 
 .bottom_view {
@@ -210,25 +219,8 @@
   align-items: center;
 }
 
-/* 上一页或下一页 
-
-.turn {
-  background-color: #55c5ac;
-  color: #fff;
-  width: 374rpx;
-  height: 100rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 /* -----------------评分遮罩层----------------- */
 
-/* 分享按钮 */
-
-.share_btn::after {
-  border: none;
-}
 
 /* 整个评分遮罩层 */
 
@@ -239,7 +231,7 @@
   background-color: #fff;
   position: fixed;
   bottom: 101rpx;
-  /* z-index: 998;   */
+   z-index: 998;   
   border-top: 1rpx solid #e8e8e8;
 }
 
@@ -253,6 +245,7 @@
   flex-grow: 1;
   font-size: 32rpx;
   color: #737373;
+   z-index: 998;   
 }
 
 /* 评分遮罩层底部 */
@@ -264,6 +257,7 @@
   display: flex;
   justify-content: center;
   flex-grow: 0;
+   z-index: 998;   
 }
 
 /* 空心的星星图片 */

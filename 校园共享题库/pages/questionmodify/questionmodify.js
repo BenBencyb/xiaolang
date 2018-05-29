@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    max: 1,
     questionid: 0,
     questionlist: [],
     answerarray: ['A', 'B', 'C', 'D'],
@@ -134,7 +135,7 @@ Page({
     var that = this
     console.log("查看题目详情" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_choiceQuestion/selectChoiceQuestion.action',
+      url: app.d.hostUrl + '/choice/info/way/id',
       method: 'get',
       data: {
         id: that.data.questionid
@@ -177,33 +178,44 @@ Page({
     console.log("根据上传用户的id查询所属题库：" + app.d.hostUrl)
     console.log(app.appData.userinfo.username)
     wx.request({
-      url: app.d.hostUrl + '/user_bankQuestion/selectById.action',
+      url: app.d.hostUrl + '/questionBank/info/way/user',
       method: 'get',
       data: {
-        value: app.appData.userinfo.username
+        id: app.appData.userinfo.username,
+        page: 1,
+        size: that.data.max
       },
       success: function (res) {
-        console.log(res.data.list)
-        that.setData({
-          banklist: res.data.list
-        })
+        console.log(res.data.data.total)
+
+        if (res.data.data.total > that.data.max){
+          that.setData({
+            max: res.data.data.total
+          })
+          that.getbank()
+        }
+        else{
+          that.setData({
+            banklist: res.data.data.rows,
+          },()=>{
+            that.setData({
+              questionbank_id: that.data.banklist[0].id
+            })
+            for (var i = 0; i < that.data.banklist.length; i++) {
+              console.log("进入循环")
+              if (that.data.banklist[i].id == that.data.questionlist.bankId) {
+                console.log("找到相同type")
+                that.setData({ bankindex: i, questionbank_id: that.data.banklist[i].id })
+              }
+            }
+          })
+        }
+          
+      },
+      complete: function (res) {
         setTimeout(function () {
           wx.hideLoading()
         }, 1000)
-      },
-      complete: function (res) {
-        that.setData({
-          questionbank_id: that.data.banklist[0].id
-        })
-
-        for (var i = 0; i < that.data.banklist.length; i++) {
-          console.log("进入循环")
-          if (that.data.banklist[i].id == that.data.questionlist.bankId) {
-            console.log("找到相同type")
-            that.setData({ bankindex: i, questionbank_id: that.data.banklist[i].id })
-          }
-        }
-
       }
     })
 
@@ -234,8 +246,11 @@ Page({
       console.log("修改题目：" + app.d.hostUrl)
       console.log(app.appData.userinfo.username)
       wx.request({
-        url: app.d.hostUrl + '/user_choiceQuestion/updateByPrimaryKeySelective.action',
-        method: 'post',
+        url: app.d.hostUrl + '/choice/info',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'put',
         data: {
           id: that.data.questionid,
           question: that.data.question,
@@ -247,7 +262,7 @@ Page({
           analysis: that.data.analysis,
           bankId: that.data.questionbank_id
         },
-        success:function(res){
+        success: function (res) {
           setTimeout(function () {
             wx.hideLoading()
           }, 1000)

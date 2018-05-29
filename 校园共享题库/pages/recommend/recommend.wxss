@@ -1,0 +1,180 @@
+page {
+  width: 750rpx;
+  height: 100%;
+  background-color: #F2F2F2;
+}
+
+/* 单条题库显示 */
+
+.bank_view {
+  /* height: 250rpx; */
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 22rpx;
+  padding: 25rpx 25rpx 30rpx 25rpx;
+}
+
+/* 题库顶部 */
+
+.bank_view_top {
+  width: 680rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 25rpx;
+}
+
+/* 用户头像 */
+
+.user_image {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  border: 1rpx solid #cecece;
+}
+
+/* 数据文字 */
+
+.data_view {
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: column;
+  margin-left: 25rpx;
+  height: 90rpx;
+  padding-top: 8rpx;
+}
+
+/* 用户名 */
+
+.username_text {
+  margin-top: 8rpx;
+  font-weight: 700;
+}
+
+/* 上传题库文字 */
+
+.upload_text {
+  color: #7C7C7C;
+  margin-left: 8rpx;
+}
+
+/* 时间 */
+
+.time_text {
+  color: #AFAFAF;
+  font-size: 25rpx;
+  margin-top: 8rpx;
+}
+
+/* 题库底部 */
+
+.bank_view_bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1rpx solid #E8E8E8;
+  border-radius: 12rpx;
+  padding: 10rpx 15rpx 15rpx 30rpx;
+  background-color: #fff;
+  width: 650rpx;
+}
+
+/* 左边图标 */
+
+.title_image {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+/* 中间部分 */
+
+.title_view {
+  width: 500rpx;
+  /* //height: 140rpx; */
+  display: display;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  /* text-overflow: ellipsis;
+  white-space: nowrap; 
+  overflow: hidden; *//* padding-bottom: 15rpx; */
+}
+
+/* 题库标题文字 */
+
+.title_text {
+  width: 480rpx;
+  font-size: 32rpx;
+  /* color: #129379; */
+  color: #585858;
+  margin-top: 5rpx;
+  /* text-overflow: ellipsis;
+  white-space: nowrap; 
+  overflow: hidden; */
+}
+
+/*文字超出省略*/
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  text-align: left;
+}
+
+/* 题库信息 */
+
+.bank_message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* 题库信息文字（上传者） */
+
+.title_message_text {
+  font-size: 25rpx;
+  color: #878787;
+}
+
+/* 题库类别 */
+
+.type {
+  border: 1rpx solid #55c5ac;
+  border-radius: 12rpx;
+  padding: 5rpx 8rpx 5rpx 8rpx;
+  margin-bottom: 18rpx;
+  margin-top: 15rpx;
+  color: #55c5ac;
+  font-size: 22rpx;
+}
+
+/* 题目数量 */
+
+.bankno {
+  margin-top: 15rpx;
+}
+
+/* 右边部分 */
+
+.do_view {
+  width: 100rpx;
+  height: 130rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 32rpx;
+}
+
+/* 做题图标 */
+
+.do_image {
+  width: 80rpx;
+  height: 80rpx;
+}

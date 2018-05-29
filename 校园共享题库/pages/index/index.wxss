@@ -1,17 +1,23 @@
 @import "../../wxSearchView/wxSearchView.wxss";
-page{
+
+page {
   width: 750rpx;
   height: 100%;
-  background-color: #F6F8F8;
+  background-color: #F0EEEE;
 }
+
 .swiper-tab {
+  position:fixed;
+  top:100rpx;
   width: 750rpx;
+  height: 90rpx;
   /* border-bottom: 7rpx solid #ededed; */
   text-align: center;
   line-height: 80rpx;
   background-color: #55c5ac;
   display: flex;
   justify-content: space-around;
+  z-index: 999;
 }
 
 .swiper-tab-list {
@@ -22,41 +28,59 @@ page{
   margin-top: 0px;
 }
 
-.view11{
+.view11 {
+  position:fixed;
+  top:190rpx;
   width: 750rpx;
-  height: 6rpx;
+  height: 9rpx;
   /* margin: 10px auto; */
-  background: linear-gradient(#CECECE, #fff);
+  background: linear-gradient(#cecece, #fff);
+  z-index: 999;
 }
 
 .on {
   color: #fff;
-  border-bottom: 6rpx solid #fff;
+  border-bottom: 8rpx solid #fff;
   background-color: #55c5ac;
 }
 
 .swiper-box {
+  
   display: block;
-   height: 100%; 
+  height: 100%;
   width: 100%;
   /* overflow: hidden; */
-  
 }
 
-.swiper-box view {
+.swiper-box{
   text-align: center;
+}
+
+swiper{
+ /* width: 100%;   */
+ height: auto;
+}
+swiper-item{
+padding-top: 199rpx;
+}
+view{
+  /* text-align: center; */
 }
 
 /* 单条题库显示 */
 
 .bank_view {
+  
+  height: 184rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   /* border-bottom: 6rpx solid #F6F8F8; */
   padding: 8rpx 15rpx 15rpx 30rpx;
-  margin-bottom: 6rpx;
+  /* margin-bottom: 6rpx; */
+  background-color: #fff;
+  border-bottom: 6rpx solid #F0EEEE;
 }
 
 /* 左边图标 */
@@ -77,14 +101,13 @@ page{
   align-items: flex-start;
   /* text-overflow: ellipsis;
   white-space: nowrap; 
-  overflow: hidden; */
- /* padding-bottom: 15rpx; */
+  overflow: hidden; *//* padding-bottom: 15rpx; */
 }
 
 /* 题库标题文字 */
 
 .title_text {
-   width: 430rpx; 
+  width: 430rpx;
   font-size: 32rpx;
   /* color: #129379; */
   color: #585858;
@@ -92,7 +115,6 @@ page{
   /* text-overflow: ellipsis;
   white-space: nowrap; 
   overflow: hidden; */
-  
 }
 
 /*文字超出省略*/
@@ -101,8 +123,8 @@ page{
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  display: block; 
-  text-align: left
+  display: block;
+  text-align: left;
 }
 
 /* 题库信息 */
@@ -157,30 +179,74 @@ page{
   height: 80rpx;
 }
 
+/* 分类面板 */
 
-/* 分类tab */
-.typeview{
+.type_con {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+}
+
+/* 分类侧边 */
+
+.nav_left {
+  width: 360rpx;
+  font-size: 27rpx;
+  background-color: #fff;
+  border-right: 1rpx solid #EDEDED;
+}
+
+/* 顶级分类 */
+
+.toptype {
+  /* color: #A2A2A2; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100rpx;
+}
+
+/* 顶级分类（正在选择） */
+.toptype_selected{
+  background-color: #fff;
+  color: #55c5ac;
+  /* font-weight: 700; */
+  /* font-size: 29rpx; */
+  border-left: 10rpx solid #55c5ac;
+}
+
+/* 分类tab */
+
+.typeview {
+  width: 550rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+  padding: 15rpx 50rpx 100rpx 50rpx;
+  background-color: #fff;
   /* background-color: #fff; */
 }
 
+
+
 /* 单个分类 */
-.bank_type_view{
-  padding: 25rpx;
-  margin-bottom: 25rpx;
+
+.bank_type_view {
+  height: 70rpx;
+  padding: 15rpx;
+  margin-bottom: 50rpx;
   margin-top: 25rpx;
-  width: 250rpx;
-  font-size: 30rpx;
-  color: #55c5ac;
-  background-color: #fff; 
-  border-radius: 42rpx;
+  width: 350rpx;
+  font-size: 28rpx;
+  color: #646464;
+  background-color: #F8F8F8;
+  border-radius: 10rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  border: 1rpx solid #55c5ac;
+  /* border: 1rpx solid #55c5ac; */
 }

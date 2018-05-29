@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    max:1,
     answerarray: ['A', 'B', 'C', 'D'],
     index: 0,
     bankindex: 0,
@@ -157,10 +158,12 @@ Page({
     console.log("根据上传用户的id查询所属题库：" + app.d.hostUrl)
     console.log(app.appData.userinfo.username)
     wx.request({
-      url: app.d.hostUrl + '/user_bankQuestion/selectById.action',
+      url: app.d.hostUrl + '/questionBank/info/way/user',
       method: 'get',
       data: {
-        value: app.appData.userinfo.username
+        id: app.appData.userinfo.username,
+        page: 1,
+        size: that.data.max
       },
       success: function (res) {
         console.log(res)
@@ -182,18 +185,29 @@ Page({
             }
           })
         }
-        that.setData({
-          banklist: res.data.list
-        })
+        if (res.data.data.total > that.data.max) {
+          that.setData({
+            max: res.data.data.total
+          })
+          that.getbank()
+        }
+        else {
+          that.setData({
+            banklist: res.data.data.rows,
+          }, () => {
+            that.setData({
+              questionbank_id: that.data.banklist[0].id,
+              questionbank: that.data.banklist[0].title,
+            })
+            
+          })
+        }
+        
+      },
+      complete: function (res) {
         setTimeout(function () {
           wx.hideLoading()
         }, 1000)
-      },
-      complete: function (res) {
-        that.setData({
-          questionbank: that.data.banklist[0].title,
-          questionbank_id: that.data.banklist[0].id
-        })
       }
     })
 
@@ -226,10 +240,9 @@ Page({
       console.log(app.appData.userinfo.username)
       console.log(that.data.banktypename)
       wx.request({
-        url: app.d.hostUrl + '/user_choiceQuestion/addChoiceQuestion.action',
+        url: app.d.hostUrl + '/choice/info',
         method: 'post',
         data: {
-          // id: '2536669',
           question: that.data.question,
           choiceA: that.data.choice_A,
           choiceB: that.data.choice_B,

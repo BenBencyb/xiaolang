@@ -3,16 +3,16 @@
 </view>
 
 <view wx:for="{{historylist}}" wx:key="id" class="bank_view">      
-  <view class="title_view" bindtap='look_click' data-id='{{item.questionId}}' data-name='{{item.title}}'>
+  <view class="title_view" bindtap='look_click' data-id='{{item.questionId}}' data-name='{{item.bankTitle}}'>
     <view><text class="title_text ellipsis">{{item.question}}</text></view>        
       <view class="bank_message">
-          <text class='title_message_text'>所属题库：{{item.title}}</text>    
+          <text class='title_message_text'>所属题库：{{item.bankTitle}}</text>    
        </view>
        <view class="bank_message">
-          <text class='title_message_text'>类型：{{item.bankType}}</text>    
+          <text class='title_message_text'>类型：{{item.bankCategory}}</text>    
         </view>
       <view class="bank_message">
-          <text class='title_message_text'>做题时间：{{item.createtime}}</text>    
+          <text class='title_message_text'>做题时间：{{item.createTime}}</text>    
       </view>
   </view>
 </view> 

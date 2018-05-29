@@ -4,12 +4,12 @@
   
   <view class="userdata_view">
     <!-- 昵称 -->
-    <text class="userinfo-nickname">{{username}}</text>
+    <text class="userinfo-nickname">{{nickname}}</text>
     <!-- 积分 -->
-    <text class="userinfo-point">积分：100</text>  
+    <text class="userinfo-point">积分：{{point}}</text>  
   </view>
 
-  <view class="signon_btn">
+  <view class="signon_btn" bindtap='signon_click'>
   <!-- 签到按钮 -->
     <text>签到</text>
   </view>
@@ -38,7 +38,7 @@
 <view class="funtionpanle">
 
   <!-- 题目收藏 -->
-  <view bindtap='history_click' class="funtion left1">
+  <view bindtap='collect_click' class="funtion left1">
     <image src="../images/collect.png"></image>
     <text>题目收藏</text>
   </view>

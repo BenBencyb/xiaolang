@@ -239,7 +239,7 @@ Page({
     })
     console.log("查看题目详情" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_choiceQuestion/selectChoiceQuestion.action',
+      url: app.d.hostUrl + '/choice/info/way/id',
       method: 'get',
       data: {
         id: that.data.questionid
@@ -277,7 +277,7 @@ Page({
     }
     if (that.data.letterid != '') {
       wx.request({
-        url: app.d.hostUrl + '/user_answerSheet/addRecord.action',
+        url: app.d.hostUrl + '/answerSheet/recode',
         method: 'post',
         data: {
           userId: app.appData.userinfo.username,
@@ -298,14 +298,12 @@ Page({
     var that = this
     console.log("请求错题记录" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_answerSheet/selectFaultRecord.action',
-      method: 'post',
-      data: {
-        id: app.appData.userinfo.username,
-      },
+      url: app.d.hostUrl + '/answerSheet/list/' + app.appData.userinfo.username + '/fault',
+      method: 'get',
+      
       complete: function (res) {
-        console.log(res.data.list)
-        that.setData({ errorquestionlist: res.data.list })
+        console.log(res.data.data)
+        that.setData({ errorquestionlist: res.data.data })
       }
     })
 
@@ -321,10 +319,10 @@ Page({
       })
     }
     else
-    {
+    {   
       that.setData({ index: that.data.index - 2 + 1 })
       console.log("上一题id:" + that.data.errorquestionlist[that.data.index].questionId)
-      that.setData({ questionid: that.data.errorquestionlist[that.data.index].questionId })
+      that.setData({ questionid: that.data.errorquestionlist[that.data.index].questionId }        )
 
       that.getquestion()
 

@@ -67,6 +67,7 @@ Page({
   onShareAppMessage: function () {
 
   },
+
   //请求做题记录
   get_error_question: function () {
     var that = this
@@ -75,27 +76,17 @@ Page({
     })
     console.log("请求做题记录" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_answerSheet/selectRecord.action',
-      method: 'post',
-      data: {
-        id: app.appData.userinfo.username,
-      },
+      url: app.d.hostUrl + '/answerSheet/list/' + app.appData.userinfo.username,
+      method: 'get',
       complete: function (res) {
-        console.log(res.data.list)
-        that.setData({ historylist: res.data.list })
-
-        interval = setInterval(function () {
-          console.log("加载中")
-          if (res.data.list.length == that.data.historylist.length) {
-            console.log("加载完毕")
-            wx.hideLoading()
-            clearInterval(interval); // 清除setInterval
-          }
-        }, 500);
-
-        // setTimeout(function () {
-        //   wx.hideLoading()
-        // }, 1000)
+        //console.log(res.data.data)
+        if (res.data.data) {
+          that.setData({ historylist: res.data.data })
+        }
+        setTimeout(function () {
+          console.log("加载完毕")
+          wx.hideLoading()
+        }, 800)
       }
     })
 

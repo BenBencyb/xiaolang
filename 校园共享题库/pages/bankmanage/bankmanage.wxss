@@ -97,6 +97,12 @@ page {
   color: #878787;
 }
 
+.title_message_text2 {
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  color: #646464;
+}
+
 /* 题库类别 */
 
 .type {

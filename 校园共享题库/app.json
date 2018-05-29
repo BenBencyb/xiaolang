@@ -21,7 +21,9 @@
     "pages/questionmodify/questionmodify",
     "pages/lookhistoryquestion/lookhistoryquestion",
     "pages/changepassword/changepassword",
-    "pages/recommend/recommend"
+    "pages/recommend/recommend",
+    "pages/request/request",
+    "pages/collect/collect"
   ],
   "window":{
     "backgroundColor":"#55C5AC",

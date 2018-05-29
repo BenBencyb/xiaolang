@@ -47,14 +47,14 @@
 
 /** 标签样式 */
 .wxSearchKeyItem{
-  flex: 0 0 18%;
+  flex: 0 0 auto;
   font-size: 14px;
   text-align: center;
   /* border: 1px solid #eee; */
   margin: 5px;
   padding: 8px ;
-  border-radius: 0px;
-  background-color: rgba(200, 200, 200, 0.1);
+  border-radius: 8rpx;
+  background-color: #F5F5F5;
 }
 
 /** 搜索记录标题栏 */
@@ -93,16 +93,19 @@
  */
 
 .weui-search-bar {
-  position: relative;
+  position: fixed;
+  top: 0rpx;
   padding: 8px 10px;
-  display: -webkit-box;
-  display: -webkit-flex;
+  height: 100rpx;
+  width: 750rpx;
+  /* display: -webkit-box;
+  display: -webkit-flex; */
   display: flex;
   box-sizing: border-box;
   background-color: #55C5AC;
   border-top: 1rpx solid #55C5AC;
   border-bottom: 1rpx solid #55C5AC;
- 
+  z-index: 999;
 }
 
 .weui-icon-search {

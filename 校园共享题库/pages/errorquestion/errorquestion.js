@@ -75,26 +75,18 @@ Page({
     })
     console.log("请求错题记录" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_answerSheet/selectFaultRecord.action',
-      method: 'post',
-      data: {
-        id: app.appData.userinfo.username,
-      },
+      url: app.d.hostUrl + '/answerSheet/list/' + app.appData.userinfo.username +'/fault',
+      method: 'get',
       complete: function (res) {
-        console.log(res.data.list)
-        that.setData({ errorquestionlist: res.data.list })
-        console.log(that.data.errorquestionlist[that.data.errorquestionlist.length-1])
-        interval = setInterval(function () {//不断执行time累加，0.1秒+1
-          if (res.data.list.length == that.data.errorquestionlist.length){
-             console.log("加载完毕")
-             wx.hideLoading()
-             clearInterval(interval); // 清除setInterval
-          }
-        }, 500);
-
-        // setTimeout(function () {
-        //   clearInterval(interval); // 清除setInterval
-        // }, 1000)
+        console.log(res)
+        if (res.data.data){
+          that.setData({ errorquestionlist: res.data.data })
+        }
+        // console.log(that.data.errorquestionlist[that.data.errorquestionlist.length-1]) 
+         setTimeout(function () {
+            console.log("加载完毕")
+            wx.hideLoading()
+         }, 800)
       }
     })
 

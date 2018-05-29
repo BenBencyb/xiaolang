@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": "题库类别"
+  "navigationBarTitleText": "题库类别",
+  "onReachBottomDistance": 50
+  
 }

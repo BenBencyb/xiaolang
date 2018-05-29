@@ -5,8 +5,8 @@ var WxSearch = require('../../wxSearchView/wxSearchView.js');
 
 Page({
   data: {
-    banklist: []
-
+    banklist: [],
+    page:1
   },
 
   // 搜索栏
@@ -31,11 +31,7 @@ Page({
   // 搜索回调函数  
   mySearchFunction: function (value) {
     var that = this
-    // do your job here
-    // 跳转
-    // wx.navigateTo({
-    //   url: '../index/index?searchValue=' + value
-    // })
+    
     console.log(value)
     that.searchbank(value)
 
@@ -51,6 +47,50 @@ Page({
     })
   },
 
+  /**
+     * 页面上拉触底事件的处理函数
+     */
+  onReachBottom: function () {
+    var that = this
+    var b1 = [];
+    console.log("触底")
+    that.setData({ page: that.data.page + 1 }, () => {
+      console.log('页数增加1')
+    })
+    wx.request({
+      url: app.d.hostUrl + '/questionBank/info/way/title',
+      method: 'get',
+      data: {
+        title: that.data.wxSearchData.value,
+        page: that.data.page,
+        size: 8
+      },
+      success: function (res) {
+        console.log("新申请的题库数据：")
+        console.log(res.data.data.rows)
+        console.log("总页数" + res.data.data.pages)
+
+        if (that.data.page <= res.data.data.pages) {//当前页数小于等于总页数
+          b1 = res.data.data.rows//给b1赋值新申请的数据
+          console.log("b1：")
+          console.log(b1)
+          that.setData({ banklist: that.data.banklist.concat(b1) }, () => {
+            console.log("本地题库增加成功")
+          })
+        }
+        else {
+          that.setData({ page: res.data.data.pages }, () => {
+            console.log('没有新数据')
+          })
+        }
+
+        wx.stopPullDownRefresh()
+
+      }
+    })
+
+  },
+
   //搜索题库
   searchbank: function (searchvalue) {
     var that = this
@@ -59,15 +99,17 @@ Page({
     })
     console.log("搜索题库数据" + app.d.hostUrl)
     wx.request({
-      url: app.d.hostUrl + '/user_bankQuestion/simpleselectBankQuestion.action',
+      url: app.d.hostUrl + '/questionBank/info/way/title',
       method: 'get',
       data: {
-        value: searchvalue
+        title: searchvalue,
+        page:1,
+        size:8
       },
       success: function (res) {
         console.log("题库数据：")
-        console.log(res.data.data)
-        that.setData({ banklist: res.data.data })
+        console.log(res)
+        that.setData({ banklist: res.data.data.rows })
         console.log("本地banklist：")
         console.log(that.data.banklist)
 

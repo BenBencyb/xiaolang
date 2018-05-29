@@ -1,0 +1,14 @@
+
+<view class='conti'>
+
+<view class='img_view'>
+  <image  class="icon" src="../images/icon.png"></image>
+</view>
+
+<text>授权获取头像和昵称，可以获得更好的体验</text>
+
+<button type="primary" class='requestbtn' bindgetuserinfo='login' open-type='getUserInfo'>点击授权</button>
+
+<button type="default" class='requestbtn' bindtap='noquest'>不想授权</button>
+
+</view>

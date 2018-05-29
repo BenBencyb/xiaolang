@@ -1,0 +1,33 @@
+.conti {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60rpx;
+}
+
+text {
+  text-align: center;
+  color: #838181;
+  font-size: 32rpx;
+  margin-bottom: 100rpx;
+}
+
+/* 用户头像 */
+
+.img_view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  width: 150rpx;
+  height: 150rpx;
+  margin-bottom: 20rpx;
+}
+
+.requestbtn{
+  width: 600rpx;
+  margin-bottom: 30rpx;
+}

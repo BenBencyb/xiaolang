@@ -2,23 +2,43 @@ page {
   background-color: #fff;
 }
 
+/* 评论view */
+
 .inputview {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 100rpx;
+  align-content: center;
+  padding-top: 115rpx;
   margin-bottom: 15rpx;
   width: 100%;
 }
 
+/* 评论输入框 */
+
 textarea {
   border: 1rpx solid #aaa;
-  width: 620rpx;
+  width: 520rpx;
   padding: 15rpx;
   font-size: 35rpx;
   color: #909090;
-  height: 100rpx;
+  height: 50rpx;
   border-radius: 12rpx;
-  margin-bottom: 20rpx;
+  /* margin-bottom: 20rpx; */
+}
+
+/* 发表评论按钮 */
+
+.comment_btn {
+  width: 95rpx;
+  height: 35rpx;
+  margin-left: 15rpx;
+  font-size: 35rpx;
+  /* background-color: #55c5ac; */
+  color: #55c5ac;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
 }

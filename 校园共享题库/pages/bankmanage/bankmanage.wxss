@@ -149,7 +149,7 @@ page {
   
   height: 100rpx;  
   width: 100rpx;  
-  position: absolute;  
-  bottom: 50rpx;  
+  position: fixed;  
+  bottom: 100rpx;  
   right: 50rpx; 
 }

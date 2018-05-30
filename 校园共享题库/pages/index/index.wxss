@@ -3,12 +3,12 @@
 page {
   width: 750rpx;
   height: 100%;
-  background-color: #F0EEEE;
+  background-color: #f0eeee;
 }
 
 .swiper-tab {
-  position:fixed;
-  top:100rpx;
+  position: fixed;
+  top: 100rpx;
   width: 750rpx;
   height: 90rpx;
   /* border-bottom: 7rpx solid #ededed; */
@@ -29,8 +29,8 @@ page {
 }
 
 .view11 {
-  position:fixed;
-  top:190rpx;
+  position: fixed;
+  top: 190rpx;
   width: 750rpx;
   height: 9rpx;
   /* margin: 10px auto; */
@@ -44,33 +44,46 @@ page {
   background-color: #55c5ac;
 }
 
+/* 加载文字 */
+
+.loading_view {
+  padding-bottom: 75rpx;
+  padding-top: 74rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 750rpx;
+  height: 50rpx;
+  color: #939090;
+}
+
 .swiper-box {
-  
   display: block;
   height: 100%;
   width: 100%;
   /* overflow: hidden; */
 }
 
-.swiper-box{
+.swiper-box {
   text-align: center;
 }
 
-swiper{
- /* width: 100%;   */
- height: auto;
+swiper {
+  /* width: 100%;   */
+  height: auto;
 }
-swiper-item{
-padding-top: 199rpx;
+
+swiper-item {
+  /* padding-top: 199rpx; */
 }
-view{
+
+view {
   /* text-align: center; */
 }
 
 /* 单条题库显示 */
 
 .bank_view {
-  
   height: 184rpx;
   display: flex;
   flex-direction: row;
@@ -80,7 +93,7 @@ view{
   padding: 8rpx 15rpx 15rpx 30rpx;
   /* margin-bottom: 6rpx; */
   background-color: #fff;
-  border-bottom: 6rpx solid #F0EEEE;
+  border-bottom: 6rpx solid #f0eeee;
 }
 
 /* 左边图标 */
@@ -193,7 +206,7 @@ view{
   width: 360rpx;
   font-size: 27rpx;
   background-color: #fff;
-  border-right: 1rpx solid #EDEDED;
+  border-right: 1rpx solid #ededed;
 }
 
 /* 顶级分类 */
@@ -207,11 +220,11 @@ view{
 }
 
 /* 顶级分类（正在选择） */
-.toptype_selected{
+
+.toptype_selected {
   background-color: #fff;
   color: #55c5ac;
-  /* font-weight: 700; */
-  /* font-size: 29rpx; */
+  /* font-weight: 700; *//* font-size: 29rpx; */
   border-left: 10rpx solid #55c5ac;
 }
 
@@ -229,8 +242,6 @@ view{
   /* background-color: #fff; */
 }
 
-
-
 /* 单个分类 */
 
 .bank_type_view {
@@ -241,7 +252,7 @@ view{
   width: 350rpx;
   font-size: 28rpx;
   color: #646464;
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
   border-radius: 10rpx;
   display: flex;
   flex-direction: row;

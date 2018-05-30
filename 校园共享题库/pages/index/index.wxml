@@ -19,6 +19,8 @@
 
 <view class="view11" id='view11'></view> 
   
+<view class='loading_view'>加载中……</view>
+
 <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight}}px;" bindchange="bindChange">  
    <!-- sa -->
     <swiper-item>       

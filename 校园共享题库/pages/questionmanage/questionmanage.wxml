@@ -9,7 +9,7 @@
             <text class='title_message_text intro ellipsis'>所属题库：{{item.title}}</text> 
             <text class='title_message_text'>上传时间：{{item.createTime}}</text>
             <text wx:if="{{item.status == 0}}" class='title_message_text2'>审核通过</text> 
-            <text wx:if="{{item.status == 1}}" class='title_message_text3'>审核未通过</text>         
+            <text wx:if="{{item.status == 1}}" class='title_message_text3'>待审核</text>         
           </view>
 
           <view class="allbutton_view">

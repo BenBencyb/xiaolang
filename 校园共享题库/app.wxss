@@ -128,7 +128,7 @@
   font-size: 0rpx;
   margin-top: 0rpx;
   display: flex;
-  border:0rpx solid #aaa;
+  border: 0rpx solid #aaa;
 }
 
 /* 答案解析（查看后） */
@@ -137,7 +137,7 @@
   width: 650rpx;
   font-size: 32rpx;
   margin-top: 50rpx;
-  margin-bottom: 150rpx;
+  margin-bottom: 130rpx;
   display: flex;
   flex-direction: column;
 }
@@ -208,7 +208,7 @@
   /* margin-top: 0rpx; */
   background-color: #fff;
   border-top: 1rpx solid #eaeaea;
-   z-index: 997;   
+  z-index: 997;
 }
 
 .bottom_view {
@@ -221,7 +221,6 @@
 
 /* -----------------评分遮罩层----------------- */
 
-
 /* 整个评分遮罩层 */
 
 .buydes-dialog-container {
@@ -231,7 +230,7 @@
   background-color: #fff;
   position: fixed;
   bottom: 101rpx;
-   z-index: 998;   
+  z-index: 998;
   border-top: 1rpx solid #e8e8e8;
 }
 
@@ -245,7 +244,7 @@
   flex-grow: 1;
   font-size: 32rpx;
   color: #737373;
-   z-index: 998;   
+  z-index: 998;
 }
 
 /* 评分遮罩层底部 */
@@ -257,7 +256,7 @@
   display: flex;
   justify-content: center;
   flex-grow: 0;
-   z-index: 998;   
+  z-index: 998;
 }
 
 /* 空心的星星图片 */

@@ -57,21 +57,21 @@ Page({
 
     var select = e.detail.current
     if (select == 0) {
-      if (that.data.banklist_page == 1){
+      if (that.data.banklist_page == 1) {
         that.getbanklist();
       }
-      that.setheight()   
+      that.setheight()
     }
     if (select == 1) {
       if (that.data.hotbanklist_page == 1) {
         that.getbanklist_hot();
       }
-      that.setheight() 
+      that.setheight()
     }
     if (select == 2) {
       that.getbanktype();
     }
-    
+
   },
 
   // 改变标签头
@@ -125,7 +125,19 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    // this.getbanklist();
+    if (this.data.currentTab==0){
+      this.getbanklist();
+      this.setData({ banklist_page: 1 }, () => {
+        console.log('精选页数恢复1')
+      })
+    }
+    if (this.data.currentTab == 1) {
+      this.getbanklist_hot()
+      this.setData({ hotbanklist_page: 1 }, () => {
+        console.log('热门页数恢复1')
+      })
+    }
+    
   },
 
   /**
@@ -178,6 +190,11 @@ Page({
           else {
             that.setData({ banklist_page: res.data.data.pages }, () => {
               console.log('精选题库没有新数据')
+              wx.showToast({
+                title: '没有更多数据了~',
+                icon: 'none',
+                duration: 1000
+              })
             })
           }
         }
@@ -195,6 +212,11 @@ Page({
           else {
             that.setData({ hotbanklist_page: res.data.data.pages }, () => {
               console.log('热门题库没有新数据')
+              wx.showToast({
+                title: '没有更多数据了~',
+                icon: 'none',
+                duration: 1000
+              })
             })
           }
         }
@@ -377,7 +399,7 @@ Page({
     query.exec(function (res) {
       // console.log(res);
       //取高度
-      if (res[2]){
+      if (res[2]) {
 
         console.log("搜索框高度：" + res[0].height + "px");
         console.log("tab标签高度：" + res[1].height + "px");
@@ -386,11 +408,11 @@ Page({
 
         if (that.data.currentTab == 0) {//切换到精选页面
           console.log(res[0].height + res[1].height + res[3].height + res[2].height * that.data.banklist.length + 30)
-          app.appData.winHeight = res[0].height + res[1].height + res[3].height + res[2].height * that.data.banklist.length + 30
+          app.appData.winHeight = res[0].height + res[1].height + res[3].height + res[2].height * that.data.banklist.length + that.data.banklist.length * 3
         }
         if (that.data.currentTab == 1) {//切换到热门页面
           console.log(res[0].height + res[1].height + res[3].height + res[2].height * that.data.hotbanklist.length + 30)
-          app.appData.winHeight = res[0].height + res[1].height + res[3].height + res[2].height * that.data.hotbanklist.length + 30
+          app.appData.winHeight = res[0].height + res[1].height + res[3].height + res[2].height * that.data.hotbanklist.length + that.data.hotbanklist.length * 3
         }
         if (that.data.currentTab == 2) {//切换到分类页面
           console.log(that.data.SystemHeight)
@@ -408,10 +430,10 @@ Page({
           winHeight: app.appData.winHeight
         })
       });
-      
+
     })
 
-    
+
 
 
   }

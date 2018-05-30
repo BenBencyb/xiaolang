@@ -7,7 +7,7 @@
           <view><text class="title_text ellipsis">{{item.question}}</text></view>        
           <view class="bank_message">
             <text class='title_message_text intro ellipsis'>所属题库：{{item.title}}</text> 
-            <text class='title_message_text'>上传时间：{{item.createTime}}</text>
+            <text class='title_message_text'>收藏时间：{{item.createTime}}</text>
        
           </view>
 

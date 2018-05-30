@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "题库管理",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50
 }

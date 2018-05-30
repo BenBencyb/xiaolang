@@ -61,6 +61,7 @@
 
         <view class="inputview" hidden="{{hiddenName}}">
           <textarea placeholder="写下你的评论吧~"bindinput="commentInput" focus="{{focus}}"></textarea>
+          <view class='comment_btn'><text>发表</text></view>
         </view>
       </view>
 

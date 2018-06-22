@@ -8,7 +8,7 @@ page {
   flex-direction: column;
   /* justify-content: center; */
   align-items: flex-start;
-  height: 1000rpx;
+  height: auto;
 }
 
 .inputview {
@@ -27,7 +27,7 @@ page {
 }
 
 input {
-  width: 100%;
+  width: 620rpx;
   border: 1rpx solid #aaa;
   /* width: 650rpx; */
   color: #909090;
@@ -71,7 +71,7 @@ textarea {
 .loginBtn {
   color: #fff;
   background-color: #55c5ac;
-  width: 100%;
+  width: 650rpx;
   margin-top: 70rpx;
   border-width: 0px;
 }

@@ -57,6 +57,13 @@ Page({
             url: '/pages/index/index'
           })
         }
+        else{
+          wx.showToast({
+            title: '发生错误',
+            icon: 'none',
+            duration: 2000
+          })
+        }
 
       }
     })

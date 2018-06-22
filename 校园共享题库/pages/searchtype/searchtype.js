@@ -89,14 +89,14 @@ Page({
             console.log("本地题库增加成功")
           })
         }
-        else{
+        else {
           that.setData({ page: res.data.data.pages }, () => {
             console.log('没有新数据')
           })
         }
-        
+
         wx.stopPullDownRefresh()
-        
+
       }
     })
 
@@ -139,36 +139,111 @@ Page({
     })
   },
 
-  // 做题
-  gotrain: function (e) {
-    if (app.appData.userinfo == null) {
-      wx.showModal({
-        title: '提示',
-        content: '请先登录',
-        confirmText: '去登录',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-            wx.redirectTo({
-              url: '../login/login',
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
+  //查询是否已经购买该题库
+  checkbuystatus: function (e) {
+    var that = this
+    var value = e.currentTarget.dataset.value
+    var bankid = e.currentTarget.dataset.text
+    var count = e.currentTarget.dataset.count
 
+    if (count == 0) {
+      wx.showToast({
+        title: '该题库暂无题目',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    else{
+      console.log("需要积分：" + value)
+      if (value == 0) {
+        that.gotrain(e)
+      }
+      else {
+        wx.request({
+          url: app.d.hostUrl + '/buy/info',
+          method: 'get',
+          data: {
+            userId: app.appData.userinfo.username,
+            bankId: bankid
+          },
+          complete: function (res) {
+            console.log(res)
+            if (res.data.code == 14000) {
+              console.log("查询不到购买记录")
+              that.buybank(e)
+            }
+            if (res.data.code == 0) {
+              console.log("已经购买")
+              that.gotrain(e)
+            }
+            if (res.data.code == 2005) {
+              console.log("该题库是自己的")
+              that.gotrain(e)
+            }
 
           }
+        })
+      }
+    }
+    
+  },
+
+  // 购买题库
+  buybank: function (e) {
+    var that = this
+    var value = e.currentTarget.dataset.value
+    var bankid = e.currentTarget.dataset.text
+    console.log(value)
+    console.log(bankid)
+    wx.showModal({
+      title: '提示',
+      content: '购买该题库需要' + value + "积分，是否购买？",
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          wx.request({
+            url: app.d.hostUrl + '/buy/info',
+            method: 'post',
+            data: {
+              user: app.appData.userinfo.username,
+              bank: bankid
+            },
+            complete: function (res) {
+              console.log(res)
+              if (res.data.code == 0) {
+                console.log("购买成功")
+                that.gotrain(e)
+              }
+              if (res.data.code == 8003) {
+                console.log("用户积分不够")
+                wx.showToast({
+                  title: '你的积分不足',
+                  icon: 'none',
+                  duration: 2000
+                })
+              }
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+
         }
-      })
-    }
-    else {
-      var bankid = e.currentTarget.dataset.text
-      var bankname = e.currentTarget.dataset.title
-      console.log("题库id：" + bankid)
-      console.log("题库名称：" + bankname)
-      wx.navigateTo({
-        url: '../train/train?bankid=' + bankid + '&bankname=' + bankname
-      })
-    }
+      }
+    })
+
+
+  },
+
+  // 做题
+  gotrain: function (e) {
+    var bankid = e.currentTarget.dataset.text
+    var bankname = e.currentTarget.dataset.title
+    console.log("题库id：" + bankid)
+    console.log("题库名称：" + bankname)
+    wx.navigateTo({
+      url: '../train/train?bankid=' + bankid + '&bankname=' + bankname
+    })
+
   }
 
 

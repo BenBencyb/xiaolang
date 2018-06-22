@@ -1,0 +1,24 @@
+<view wx:if="{{questionlist.length==0}}" class="tips_view">
+  <text>暂时没有购买记录~</text>
+</view>
+<view wx:for="{{questionlist}}" wx:key="id" class="bank_view">
+  <!-- <image class="title_image" src="../images/title.png"></image> -->
+  <view class="title_view">
+    <view>
+      <text class="title_text ellipsis">{{item.createTime}} 花费 {{item.point}} 积分购买了题库：</text>
+      <text class="title_text comment_content ellipsis">{{item.title}}</text>
+    </view>
+    <view class="bank_message">
+      <!-- <text class='title_message_text intro ellipsis'>所在题库：{{item.bankTitle}}</text> -->
+    </view>
+
+    <view class="allbutton_view">
+      <view data-bankid='{{item.bank}}' data-bankname='{{item.title}}'bindtap="jump_to_bank"  class="button_view">
+        <text>进入题库</text>
+      </view>
+      
+    </view>
+
+  </view>
+
+</view>

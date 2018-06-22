@@ -129,11 +129,11 @@ Page({
           console.log("删除：" + app.d.hostUrl)
           console.log(app.appData.userinfo.username)
           wx.request({
-            url: app.d.hostUrl + '/user_choiceQuestion/deleteById.action',
-            method: 'get',
-            data: {
-              id: questionid
-            },
+            url: app.d.hostUrl + '/choice/info/' + questionid,
+            method: 'delete',
+            // data: {
+            //   id: questionid
+            // },
             success: function (res) {
               setTimeout(function () {
                 wx.hideLoading()

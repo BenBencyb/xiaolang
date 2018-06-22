@@ -14,7 +14,7 @@
           </view>
         </view>
         <view class="do_view">
-          <image data-text="{{item.id}}" data-title="{{item.title}}" bindtap='gotrain' class="do_image" src="../images/do3.png"></image>
+          <image data-count="{{item.count}}" data-value="{{item.value}}" data-text="{{item.id}}" data-title="{{item.title}}" bindtap='checkbuystatus' class="do_image" src="../images/do3.png"></image>
           <text class='title_message_text bankno'>共{{item.count}}题</text>
         </view> 
       </view> 

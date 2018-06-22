@@ -1,10 +1,14 @@
 <view class='train_con' bindtouchstart="touchStart" bindtouchend="touchEnd">
 
-  <view class='head'>
+  <!-- <view class='head'>
     <text>{{questionlist.title}}</text>
     <text>{{index-1+2}}/{{errorquestionlist.length}}</text>
-  </view>
+  </view>  -->
 
+  <view class='title_count_view'>
+    <text>{{questionlist.title}}</text>
+    <!-- <text class='count'>{{index+1}}/{{allquestion.length}}</text>  -->
+  </view>
 
   <view class='question_view'>
     <text class='question_text'>{{questionlist.question}}</text>
@@ -15,23 +19,23 @@
         <text class='letter'>A</text>
       </view>
 
-      <view class='option_text_view' >
-       <text class='option_text'>{{questionlist.choiceA}}</text> 
+      <view class='option_text_view'>
+        <text class='option_text'>{{questionlist.choiceA}}</text>
       </view>
     </view>
 
-    <view class='option_view'  data-id='B' bindtap="changeColor">
+    <view class='option_view' data-id='B' bindtap="changeColor">
 
       <view class="letter_view {{letterid=='B'?'active':''}} {{errorid=='B'?'error':''}}">
         <text class='letter'>B</text>
       </view>
 
       <view class='option_text_view'>
-       <text class='option_text'>{{questionlist.choiceB}}</text>
+        <text class='option_text'>{{questionlist.choiceB}}</text>
       </view>
     </view>
 
-    <view class='option_view'  data-id='C' bindtap="changeColor">
+    <view class='option_view' data-id='C' bindtap="changeColor">
       <view class="letter_view  {{letterid=='C'?'active':''}} {{errorid=='C'?'error':''}}">
         <text class='letter'>C</text>
       </view>
@@ -41,7 +45,7 @@
       </view>
     </view>
 
-    <view class='option_view'  data-id='D' bindtap="changeColor">
+    <view class='option_view' data-id='D' bindtap="changeColor">
       <view class="letter_view {{letterid=='D'?'active':''}} {{errorid=='D'?'error':''}}">
         <text class='letter'>D</text>
       </view>
@@ -50,11 +54,12 @@
         <text class='option_text'>{{questionlist.choiceD}}</text>
       </view>
     </view>
-    
+
   </view>
-<!-- 答案解析 -->
-  <view class="analysis_view {{clickcheckid==1?'checked2':''}}">
-    <text>参考答案：{{questionlist.answer}}\n参考解析：{{questionlist.analysis}}</text>
+  <!-- 答案解析 -->
+  <view class="analysis_view {{clickcheckid==1?'checked2':'check1'}}">
+    <text>参考答案：{{questionlist.answer}}\n</text>
+    <text wx:if='{{questionlist.analysis!=null}}'>\n参考解析：{{questionlist.analysis}}</text>
   </view>
 
 
@@ -62,31 +67,35 @@
     <text>查看答案</text>
   </view>
 
+  <view data-bankid='{{questionlist.bankId}}' class='gobank_view' bindtap='jump_to_bank'>
+    <text>进入题库</text>
+  </view>
+
   <!-- 透明遮盖层，用于退出评分层 -->
-  <view  bindtap="hideModal" animation="{{animationData}}" class="touming_top" wx:if="{{showModalStatus}}">   
-  </view>  
+  <view bindtap="hideModal" animation="{{animationData}}" class="touming_top" wx:if="{{showModalStatus}}">
+  </view>
 
   <!-- 评分遮盖层 -->
-<view animation="{{animationData}}" class="container-column buydes-dialog-container" wx:if="{{showModalStatus}}">  
-    <view class="buydes-dialog-container-top">这道题对你有用吗？评个分吧</view>  
-    <view class="container-column buydes-dialog-container-bottom"> 
+  <view animation="{{animationData}}" class="container-column buydes-dialog-container" wx:if="{{showModalStatus}}">
+    <view class="buydes-dialog-container-top">这道题对你有用吗？评个分吧</view>
+    <view class="container-column buydes-dialog-container-bottom">
       <!-- 评分 -->
       <block wx:for="{{stars}}">
         <image class="star-image" style="left: {{item*80+185}}rpx" src="{{key > item ?selectedSrc : normalSrc}}">
           <view class="item" style="left:0rpx" data-key="{{item+1}}" bindtap="selectRight"></view>
         </image>
-      </block>    
+      </block>
       <view class="mark_btn" bindtap='mark_click'>
         <text>确定</text>
       </view>
-    </view>         
+    </view>
   </view>
 
-<!-- 透明遮盖层，用于退出评分层 -->
-  <view  bindtap="hideModal" animation="{{animationData}}" class="touming" wx:if="{{showModalStatus}}">   
-  </view>    
+  <!-- 透明遮盖层，用于退出评分层 -->
+  <view bindtap="hideModal" animation="{{animationData}}" class="touming" wx:if="{{showModalStatus}}">
+  </view>
 
-<!-- 底部栏 -->
+  <!-- 底部栏 -->
   <!-- <view class='leftandright'>
 
     <view class='bottom_view' bindtap="showModal" bindload="imageLoad">
@@ -104,4 +113,3 @@
   </view> -->
 
 </view>
-

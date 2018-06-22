@@ -1,6 +1,6 @@
-
 /** 整个区域 */
-.wxSearch{
+
+.wxSearch {
   position: absolute;
   top: 43px;
   left: 0;
@@ -8,28 +8,32 @@
   height: 100%;
   /* border-top: 1px #eee solid; */
   background-color: rgba(200, 200, 200, 0.1);
-  z-index: 9999;
+  z-index: 998;
   margin-top: 3px;
 }
 
 /** 搜索框下面的提示区域 */
-.wxSearchInner{
+
+.wxSearchInner {
   background-color: #fff;
- 
 }
 
 /** 搜索热点标题 */
-.wxSearchTitle{
+
+.wxSearchTitle {
   display: block;
   padding: 10px 5px 5px 10px;
   font-size: 13px;
   text-align: left;
 }
-.wxSearchHistory{
+
+.wxSearchHistory {
   margin-top: 5px;
 }
+
 /** 提示样式 */
-.wxSearchMindKeyItem{
+
+.wxSearchMindKeyItem {
   padding: 10px 5px 10px 15px;
   margin-left: 10px;
   border-bottom: 1px solid #eee;
@@ -38,7 +42,8 @@
 }
 
 /** 标签样式 */
-.wxSearchKeyList{
+
+.wxSearchKeyList {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -46,39 +51,42 @@
 }
 
 /** 标签样式 */
-.wxSearchKeyItem{
+
+.wxSearchKeyItem {
   flex: 0 0 auto;
   font-size: 14px;
   text-align: center;
   /* border: 1px solid #eee; */
   margin: 5px;
-  padding: 8px ;
+  padding: 8px;
   border-radius: 8rpx;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
 /** 搜索记录标题栏 */
-.wxSearchHistoryItem{
+
+.wxSearchHistoryItem {
   padding-left: 10px;
   padding-top: 10px;
   padding-right: 5px;
   padding-bottom: 5px;
   display: flex;
-  
 }
 
 /** 搜索记录标题 */
-.wxSearchHistoryItemTitle{
+
+.wxSearchHistoryItemTitle {
   flex: 8;
   font-size: 16px;
 }
 
 /** 搜索记录删除按钮 */
-.wxSearchHistoryItemDel{
+
+.wxSearchHistoryItemDel {
   flex: 1;
   font-size: 13px;
   text-align: center;
-  padding-top:2px;
+  padding-top: 2px;
   padding-bottom: 2px;
   border: 1px solid #eee;
   border-radius: 2px;
@@ -102,9 +110,9 @@
   display: -webkit-flex; */
   display: flex;
   box-sizing: border-box;
-  background-color: #55C5AC;
-  border-top: 1rpx solid #55C5AC;
-  border-bottom: 1rpx solid #55C5AC;
+  background-color: #55c5ac;
+  border-top: 1rpx solid #55c5ac;
+  border-bottom: 1rpx solid #55c5ac;
   z-index: 999;
 }
 
@@ -133,7 +141,6 @@
   border-radius: 8px;
   background: #fff;
   border: 0rpx solid #e6e6ea;
- 
 }
 
 .weui-search-bar__box {
@@ -182,10 +189,21 @@
   white-space: nowrap;
 }
 
-.test{
+.test {
   background-color: red;
 }
 
+/* 无结果显示 */
+
+.noresult_view {
+  height: 600rpx;
+  width: 750rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #878787;
+  font-size: 32rpx;
+}
 
 /* 单条题库显示 */
 
@@ -211,7 +229,6 @@
 
 .title_view {
   width: 450rpx;
- 
   display: display;
   flex-direction: column;
   justify-content: space-around;
@@ -224,7 +241,7 @@
 /* 题库标题文字 */
 
 .title_text {
-   width: 430rpx; 
+  width: 430rpx;
   font-size: 32rpx;
   /* color: #129379; */
   color: #585858;
@@ -232,7 +249,6 @@
   /* text-overflow: ellipsis;
   white-space: nowrap; 
   overflow: hidden; */
-  
 }
 
 /*文字超出省略*/
@@ -241,8 +257,8 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  display: block; 
-  text-align: left
+  display: block;
+  text-align: left;
 }
 
 /* 题库信息 */

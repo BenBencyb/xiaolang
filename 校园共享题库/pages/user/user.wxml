@@ -1,17 +1,17 @@
 <view class="userpanle">
   <!-- 头像 -->
   <image bindtap="userdata_click" class="userinfo-image" src="{{userimg}}"></image>
-  
+
   <view class="userdata_view">
     <!-- 昵称 -->
     <text class="userinfo-nickname">{{nickname}}</text>
     <!-- 积分 -->
-    <text class="userinfo-point">积分：{{point}}</text>  
+    <text class="userinfo-point">积分：{{point}}</text>
   </view>
 
   <view class="signon_btn" bindtap='signon_click'>
-  <!-- 签到按钮 -->
-    <text>签到</text>
+    <!-- 签到按钮 -->
+    <text>{{signstatus}}</text>
   </view>
 
 </view>
@@ -50,21 +50,38 @@
   </view>
 
   <!-- 评论管理 -->
-  <view bindtap='errorquestion_click' class="funtion left2">
+  <view bindtap='commentmanage_click' class="funtion left1">
     <image src="../images/comment.png"></image>
     <text>评论管理</text>
   </view>
 
   <!-- 积分记录 -->
-  <view bindtap='userdata_click' class="funtion right2">
+  <view bindtap='point_click' class="funtion right1">
     <image src="../images/point.png"></image>
     <text>积分记录</text>
   </view>
 
-  <!-- 个人资料 -->
-  <!-- <view bindtap='userdata_click' class="funtion left3">
+  <!-- 信息反馈 -->
+  <view bindtap='checkreport_click' class="funtion left1">
+    <image src="../images/report.png"></image>
+    <text>信息反馈</text>
+  </view>
+
+  <!-- 购买记录 -->
+  <view bindtap='checkbuy_click' class="funtion right1">
+    <image src="../images/buy.png"></image>
+    <text>购买记录</text>
+  </view>
+
+  <!-- 帮助手册  -->
+  <view bindtap='help_click' class="funtion left1">
+    <image src="../images/help.png"></image>
+    <text>帮助手册</text>
+  </view>
+
+  <!-- 个人资料  -->
+  <view bindtap='userdata_click' class="funtion right1">
     <image src="../images/user.png"></image>
     <text>个人资料</text>
-  </view> -->
-
+  </view>
 </view>

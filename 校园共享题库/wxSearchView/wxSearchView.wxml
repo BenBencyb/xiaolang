@@ -1,5 +1,5 @@
 <view class="weui-search-bar">
-   <view class="weui-search-bar__form">
+  <view class="weui-search-bar__form">
     <view class="weui-search-bar__box">
       <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
       <input type="text" class="weui-search-bar__input" placeholder="请输入查询内容" value="{{wxSearchData.value}}" bindinput="wxSearchInput" bindconfirm="wxSearchConfirm" />
@@ -8,10 +8,10 @@
       </view>
     </view>
   </view>
-    <view class="weui-search-bar__cancel-btn" bindtap="wxSearchConfirm">
-         <text wx:if="{{wxSearchData.value.length>0}}" data-key='search'>搜索</text>
-         <text wx:else data-key='back'>返回</text>
-     </view>
+  <view class="weui-search-bar__cancel-btn" bindtap="wxSearchConfirm">
+    <text wx:if="{{wxSearchData.value.length>0}}" data-key='search'>搜索</text>
+    <text wx:else data-key='back'>返回</text>
+  </view>
 </view>
 
 <view class="wxSearch" style="'block';height:{{wxSearchData.view.seachHeight}}px;top:{{wxSearchData.view.barHeight}}px;">
@@ -40,30 +40,29 @@
       </view>
     </view>
 
-     <!-- <view class="wxSearchKey" style="display:{{wxSearchData.value.length>0 ? 'none':'block'}}">
-      <text wx:if="{{wxSearchData.hotKeys[0]}}" class="wxSearchTitle">搜索热点</text>
-      <view class="wxSearchKeyList">
-        <block wx:for="{{wxSearchData.hotKeys}}">
-          <view class="wxSearchKeyItem" bindtap="wxSearchKeyTap" data-key="{{item}}">{{item}}</view>
-        </block>
-      </view>
-    </view> -->
-  </view> 
+
+  </view>
 
   <!-- 显示搜索结果 -->
+  <view class='noresult_view' wx:if='{{banklist.length==0&&condition==1}}'>
+    <text>找不到相关题库~</text>
+  </view>
+
   <view wx:for="{{banklist}}" wx:key="id" class="bank_view">
-        <image class="title_image" src="../images/title.png"></image>
-        <view class="title_view">
-          <view><text class="title_text ellipsis">{{item.title}}</text></view>        
-          <view class="bank_message">
-            <text class='title_message_text type'>{{item.categoryName}}</text>
-            <text class='title_message_text'>价格：{{item.value}} 积分</text>    
-          </view>
-        </view>
-        <view class="do_view">
-          <image data-text="{{item.id}}" data-title="{{item.title}}" bindtap='gotrain' class="do_image" src="../images/do3.png"></image>
-          <text class='title_message_text bankno'>共{{item.count}}题</text>
-        </view> 
-      </view> 
+    <image class="title_image" src="../images/title.png"></image>
+    <view class="title_view">
+      <view>
+        <text class="title_text ellipsis">{{item.title}}</text>
+      </view>
+      <view class="bank_message">
+        <text class='title_message_text type'>{{item.categoryName}}</text>
+        <text class='title_message_text'>价格：{{item.value}} 积分</text>
+      </view>
+    </view>
+    <view class="do_view">
+      <image data-count="{{item.count}}" data-value="{{item.value}}" data-text="{{item.id}}" data-title="{{item.title}}" bindtap='checkbuystatus' class="do_image" src="../images/do3.png"></image>
+      <text class='title_message_text bankno'>共{{item.count}}题</text>
+    </view>
+  </view>
 
 </view>

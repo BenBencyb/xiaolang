@@ -7,6 +7,9 @@ Page({
    */
   data: {
     id: 0,
+    pointlist: [0, 10, 20, 30, 40, 50],
+    pointindex: 0,
+    point: 0,
     banktype: [],
     topindex: 0,
     index: 0,
@@ -92,7 +95,7 @@ Page({
 
   // 选择器改变内容
   bindPickerChange: function (e) {
-    
+
     this.setData({
       banktypename: this.data.banktype[this.data.topindex].lowerCategories[this.data.index].name
     })
@@ -137,12 +140,12 @@ Page({
         that.setData({ [objectMultiArray2]: that.data.banktype[0].lowerCategories })
 
         for (var i = 0; i < that.data.banktype.length; i++) {
-          for (var j = 0; j < that.data.banktype[i].lowerCategories.length; j++){
+          for (var j = 0; j < that.data.banktype[i].lowerCategories.length; j++) {
             if (that.data.banktype[i].lowerCategories[j].name == that.data.oldbanktype) {
               console.log("找到相同type")
-              that.setData({ topindex: i, index:j, banktypename: that.data.banktype[i].lowerCategories[j].name })
+              that.setData({ topindex: i, index: j, banktypename: that.data.banktype[i].lowerCategories[j].name })
             }
-          }  
+          }
         }
 
         wx.stopPullDownRefresh()
@@ -155,6 +158,19 @@ Page({
 
   },
 
+  // 所属题库选择器改变内容
+  bindPickerChange_point: function (e) {
+    console.log(e)
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      pointindex: e.detail.value
+    })
+    console.log(this.data.pointlist[this.data.pointindex])
+    this.setData({
+      point: this.data.pointlist[this.data.pointindex]
+    })
+  },
+
   //修改题库信息
   modify_click: function () {
     wx.showLoading({
@@ -163,19 +179,18 @@ Page({
     var that = this
     console.log("修改：" + app.d.hostUrl)
     console.log(app.appData.userinfo.username)
-    console.log("要修改的题库id"+that.data.id)
+    console.log("要修改的题库id" + that.data.id)
     wx.request({
       url: app.d.hostUrl + '/questionBank/info',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
+      
       method: 'put',
       data: {
         id: that.data.id,
         title: that.data.bankname,
         intro: that.data.bankintro,
         categoryName: that.data.banktypename,
-        userId: app.appData.userinfo.username
+        userId: app.appData.userinfo.username,
+        value: that.data.point
       },
       success: function (res) {
         setTimeout(function () {

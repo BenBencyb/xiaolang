@@ -61,13 +61,14 @@ page {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  border: 1rpx solid #fff;
+  border: 1rpx solid #9DD1C6;
   border-radius: 15rpx;
   color: #fff;
-  width: 130rpx;
-  height: 55rpx;
-  font-size: 25rpx;
+  width: 150rpx;
+  height: 70rpx;
+  font-size: 28rpx;
   margin-top: 50rpx;
+  background-color: #439886;
 }
 
 /* 整个数据面板 */
@@ -124,7 +125,7 @@ page {
   flex-direction: row;
   flex-wrap: wrap;
   width: 750rpx;
-  height: 420rpx;
+  height: auto;
   /* margin-top: 6rpx; */
 }
 
@@ -132,7 +133,7 @@ page {
 
 .funtion {
   width: 374rpx;
-  height: 215rpx;
+  height: 170rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,18 +154,12 @@ page {
   border-bottom: 1rpx solid #F2F2F2;
 }
 
-/* 左边第二个功能面板 */
-
-.left2 {
-  border-right: 1rpx solid #F2F2F2;
-  border-bottom: 1rpx solid #F2F2F2;
-}
 
 /* 功能图标 */
 
 .funtion image {
-  height: 65rpx;
-  width: 65rpx;
+  height: 60rpx;
+  width: 60rpx;
 }
 
 /* 功能文字 */

@@ -6,18 +6,13 @@ App({
    */
   onLaunch: function () {
     var that = this;
-    // this.getusermess();
     that.getopenid();
-    // setTimeout(function () {
-
-    // }, 5000)
   },
 
   /**
    * 当小程序启动，或从后台进入前台显示，会触发 onShow
    */
   onShow: function (options) {
-    //this.search_user();
   },
 
   /**
@@ -42,28 +37,10 @@ App({
   },
 
   d: {
-    hostUrl: 'http://localhost:8080/'
-
-    // hostUrl: 'https://sib.myzqu.cn'
+    //hostUrl: 'http://10.85.4.65:8080/'
+      //hostUrl: 'http://localhost:8080/'
+     hostUrl: 'https://sib.myzqu.cn'
   },
-
-
-  // getusermess: function () {
-  //   var that = this
-  //   wx.getUserInfo({
-  //     success: res => {
-  //       // 可以将 res 发送给后台解码出 unionId
-  //       console.log("app.js获取用户微信基本信息：")
-  //       console.log(res.userInfo)
-  //       that.appData.userInfo = res.userInfo
-  //     },
-  //     fail: function (res) {
-  //       console.log(res)
-  //       //that.getusermess()
-  //     }
-  //   })
-  // },
-
 
   //获取微信openid
   getopenid: function () {
@@ -120,7 +97,7 @@ App({
         else{
           console.log("该微信用户没有注册")
           wx.redirectTo({
-            url: '../request/request',
+            url: '/pages/request/request',
           })
         }
 
@@ -143,19 +120,7 @@ register: function () {
     complete: function (res) {
       console.log("注册成功：")
       console.log(res)
-      // if (res.data.code == 0) {
-      //   console.log("该微信用户已注册")
-      //   //将用户id和昵称存在app
-      //   that.appData.userinfo = {
-      //     username: res.data.data.id, nickname: res.data.data.nickname
-      //   }
-      //   console.log("当前登录用户：" + that.appData.userinfo.username)
-      //   console.log("当前登录用户昵称：" + that.appData.userinfo.nickname)
-      // }
-      // else {
-      //   console.log("该微信用户没有注册")
-      // }
-
+      
     }
   })
 }

@@ -1,18 +1,31 @@
 <view class='train_con'>
 
   <view class='head'>
-    <text>{{bankname}}</text>
-    <text class='count'>{{index+1}}/{{allquestion.length}}</text>
+    <view class='mode_view'>
+      <view data-modeid="0" bindtap="changemode" class="onemode_view left_mode {{modeid=='0'?'mode1_checked':''}}">
+        <text>练习模式</text>
+      </view>
+      <view data-modeid="1" bindtap="changemode" class="onemode_view right_mode {{modeid=='1'?'mode2_checked':''}}">
+        <text>背题模式</text>
+      </view>
+    </view>
+
   </view>
 
+ 
+
   <view bindtouchstart="touchStart" bindtouchend="touchEnd" style='width:100%;height:100%;display: flex;flex-direction: column;justify-content: center;align-items: center;'>
+    <view class='title_count_view'>
+      <text>{{bankname}}</text>
+      <text class='count'>{{index+1}}/{{allquestion.length}}</text>
+    </view>
 
     <view class='question_view'>
       <text class='question_text'>{{questionlist.question}}</text>
 
       <view class='option_view' data-id="A" bindtap="changeColor">
 
-        <view class="letter_view {{letterid=='A'?'active':''}} {{errorid=='A'?'error':''}}">
+        <view class="letter_view {{modeid==1&&questionlist.answer=='A'?'active':''}} {{modeid==0&&letterid=='A'?'active':''}} {{modeid==0&&errorid=='A'?'error':''}}">
           <text class='letter'>A</text>
         </view>
 
@@ -23,7 +36,7 @@
 
       <view class='option_view' data-id='B' bindtap="changeColor">
 
-        <view class="letter_view {{letterid=='B'?'active':''}} {{errorid=='B'?'error':''}}">
+        <view class="letter_view {{modeid==1&&questionlist.answer=='B'?'active':''}} {{modeid==0&&letterid=='B'?'active':''}} {{modeid==0&&errorid=='B'?'error':''}}">
           <text class='letter'>B</text>
         </view>
 
@@ -33,7 +46,7 @@
       </view>
 
       <view class='option_view' data-id='C' bindtap="changeColor">
-        <view class="letter_view  {{letterid=='C'?'active':''}} {{errorid=='C'?'error':''}}">
+        <view class="letter_view {{modeid==1&&questionlist.answer=='C'?'active':''}} {{modeid==0&&letterid=='C'?'active':''}} {{modeid==0&&errorid=='C'?'error':''}}">
           <text class='letter'>C</text>
         </view>
 
@@ -43,7 +56,7 @@
       </view>
 
       <view class='option_view' data-id='D' bindtap="changeColor">
-        <view class="letter_view {{letterid=='D'?'active':''}} {{errorid=='D'?'error':''}}">
+        <view class="letter_view {{modeid==1&&questionlist.answer=='D'?'active':''}} {{modeid==0&&letterid=='D'?'active':''}} {{modeid==0&&errorid=='D'?'error':''}}">
           <text class='letter'>D</text>
         </view>
 
@@ -52,17 +65,41 @@
         </view>
       </view>
 
+
+
     </view>
     <!-- 答案解析 -->
     <view>
-      <view class="analysis_view {{clickcheckid==1?'checked2':''}}">
-        <text>参考答案：{{questionlist.answer}}\n\n参考解析：{{questionlist.analysis}}</text>
+      <view class="analysis_view {{clickcheckid==1?'checked2':'check1'}}">
+        <view class='answerandre'>
+          <text>参考答案：{{questionlist.answer}}\n</text>
+          <text class='re_text' bindtap='reporterrors'>报错</text>
+        </view>
+        <text wx:if='{{questionlist.analysis!=null}}'>\n参考解析：{{questionlist.analysis}}</text>
         <text>\n评分：{{questionlist.starLevel}}/5</text>
 
-        <view class="inputview" hidden="{{hiddenName}}">
-          <textarea placeholder="写下你的评论吧~"bindinput="commentInput" focus="{{focus}}"></textarea>
-          <view class='comment_btn'><text>发表</text></view>
+        <text style='margin-bottom:20rpx;'>\n评论({{comment_size}})：</text>
+
+        <view wx:if='{{commentlist.length==0}}' class='nocomment_view'>
+          <text>还没有人评论~</text>
         </view>
+
+        <!-- 评论 -->
+        <view wx:for="{{commentlist}}" wx:key="id" class="comment_view">
+          <image src="{{item.icon}}" class="user_image"></image>
+          <view class='rightpart_view'>
+            <view class='top_view'>
+              <text class='nickname_text'>{{item.nickname}}</text>
+              <text class='index_text'>#{{commentlist.length-index}}</text>
+            </view>
+            <text class='comment_text'>{{item.content}}</text>
+            <view class='time_text'>
+              <text data-id="{{item.id}}" bindtap='delete_click' wx:if='{{item.userId==username}}' style='margin-right:20rpx;color:#55c5ac'>删除</text>
+              <text>{{item.createTime}}</text>
+            </view>
+          </view>
+        </view>
+
       </view>
 
     </view>
@@ -98,6 +135,21 @@
   <view bindtap="hideModal" animation="{{animationData}}" class="touming" wx:if="{{showModalStatus}}">
   </view>
 
+  <!-- 评论框 -->
+  <view class="input_view" hidden="{{hiddenName}}">
+    <textarea fixed="true" placeholder-style="color:#C6C6C6" show-confirm-bar="false" cursor-spacing="3"  placeholder="写下你的评论吧~" bindinput="commentInput"></textarea>
+    <view class='comment_btn' bindtap='addcomment'>
+      <text>发表</text>
+    </view>
+  </view>
+
+  <!-- 报错框 -->
+  <view class='report_view' hidden="{{reporthidden}}">
+    <text>报错</text>
+    <textarea bindinput='report_error_Input'></textarea>
+    <view bindtap='report_error_click'>确定</view>
+  </view>
+
   <!-- 底部栏 -->
   <view class='leftandright'>
 
@@ -106,7 +158,7 @@
       <image wx:else class="bottom_image" src='../images/score.png' animation="{{animPlus}}" bindtap="plus"></image>
     </view>
 
-    <view class='bottom_view' >
+    <view class='bottom_view'>
       <image wx:if="{{questionlist.favoriteState == '已收藏'}}" data-condition="1" class="bottom_image" src="../images/collected.png" bindtap="collect_click"></image>
       <image wx:else data-condition="0" class="bottom_image" src="../images/collect.png" bindtap="collect_click"></image>
     </view>
@@ -121,5 +173,6 @@
 
   </view>
 
+ 
 
 </view>

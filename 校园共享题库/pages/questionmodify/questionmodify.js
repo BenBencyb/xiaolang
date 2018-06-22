@@ -247,9 +247,7 @@ Page({
       console.log(app.appData.userinfo.username)
       wx.request({
         url: app.d.hostUrl + '/choice/info',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded'
-        },
+        
         method: 'put',
         data: {
           id: that.data.questionid,

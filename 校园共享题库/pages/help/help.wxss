@@ -1,0 +1,51 @@
+/* 整体 */
+
+.con_view {
+  display: flex;
+  flex-direction: column;
+  padding: 50rpx;
+}
+
+/* 顶部文字 */
+
+.toptext_view {
+  font-size: 45rpx;
+  height: 80rpx;
+  width: 650rpx;
+  border-bottom: 1rpx solid #f2f2f2;
+  margin-bottom: 15rpx;
+}
+
+/* 问题文字0 */
+
+.question_text0 {
+  color: #b4b4b4;
+  font-size: 45rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 单个问答区域 */
+
+.qaa_view {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1rpx solid #f2f2f2;
+  margin-bottom: 15rpx;
+}
+
+/* 问题文字 */
+
+.question_text {
+  color: #b4b4b4;
+  font-size: 32rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 回答文字 */
+
+.answer_text {
+  color: #838383;
+  font-size: 32rpx;
+  line-height: 50rpx;
+  margin-bottom: 25rpx;
+}

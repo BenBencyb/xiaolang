@@ -12,7 +12,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    modeid: 0,
+    username: null,
     hiddenName: true,
+    reporthidden: true,
+    reportmessage: "",
+    comment: "",
+    commentlist: [],
+    comment_page: 1,
+    comment_size: 0,
     focus: false,
     index: 0,
     bankname: '',
@@ -26,6 +34,7 @@ Page({
 
     collect_flag: 0,
 
+    timeoutflag: 0,//超时标志
     // 遮罩层变量
     animationData: "",//动画数据
     showModalStatus: false,//遮罩层显示状态
@@ -120,8 +129,12 @@ Page({
     if (that.data.questionlist.rating == 0 && that.data.key != 0) {
       that.hideModal()
       console.log(that.data.key)
+      console.log("用户id：" + app.appData.userinfo.username)
       wx.request({
         url: app.d.hostUrl + '/rating/addRating',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
         method: "post",
         data: {
           userId: app.appData.userinfo.username,
@@ -241,6 +254,16 @@ Page({
     }
     clearInterval(interval); // 清除setInterval
     time = 0;
+    if (this.data.reporthidden == false) {
+      this.setData({
+        reporthidden: true
+      });
+    }
+    if (this.data.hiddenName == false) {
+      this.setData({
+        hiddenName: true
+      });
+    }
   },
 
   //收藏按钮
@@ -322,7 +345,7 @@ Page({
   changeColor: function (e) {
     // console.log(e)
     var that = this
-    if (that.data.condition == 0) {
+    if (that.data.condition == 0 && that.data.modeid == 0) {
       that.setData({
         letterid: e.currentTarget.dataset.id
       });
@@ -340,7 +363,11 @@ Page({
   onLoad: function (options) {
     console.log(options.bankid)
     console.log(options.bankname)
-    this.setData({ bankid: options.bankid, bankname: options.bankname })
+    this.setData({
+      bankid: options.bankid,
+      bankname: options.bankname,
+      username: app.appData.userinfo.username
+    })
     this.getquestion()
   },
 
@@ -391,6 +418,58 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    var that = this
+    if (that.data.clickcheckid == 1) {
+      console.log('触底')
+
+
+      var b1 = []
+      var page = 1
+
+      that.setData({ comment_page: that.data.comment_page + 1 }, () => {
+        console.log('页数增加到' + that.data.comment_page)
+
+      })
+      page = that.data.comment_page
+      wx.request({
+        url: app.d.hostUrl + '/comment/getComment',
+        method: 'get',
+        data: {
+          questionId: that.data.questionlist.id,
+          page: page,
+          size: 10
+        },
+        success: function (res) {
+          console.log("新申请的评论数据：")
+          console.log(res)
+          //console.log("总页数" + res.data.data.pages)
+          if (res.data.code == 0) {
+            if (that.data.comment_page <= res.data.data.pages) {//当前页数小于等于总页数
+              b1 = res.data.data.rows//给b1赋值新申请的数据
+              console.log("b1：")
+              console.log(b1)
+              that.setData({ commentlist: that.data.commentlist.concat(b1) }, () => {
+                wx.hideLoading()
+                console.log("本地评论增加成功")
+              })
+            }
+            else {
+              that.setData({ comment_page: res.data.data.pages }, () => {
+                wx.hideLoading()
+                console.log('没有新评论')
+                wx.showToast({
+                  title: '没有更多评论了~',
+                  icon: 'none',
+                  duration: 1000
+                })
+              })
+            }
+          }
+
+
+        }
+      })
+    }
 
   },
 
@@ -423,7 +502,7 @@ Page({
 
         setTimeout(function () {
           wx.hideLoading()
-        }, 300)
+        }, 1000)
       }
     })
 
@@ -432,6 +511,7 @@ Page({
   // 查看答案
   checkanswer_click: function () {
     var that = this
+    that.getcomment()//获取评论
     var istrue = 1
     var answer = that.data.letterid
     that.setData({ condition: 1, clickcheckid: 1 })//用户已答题，不可再点击
@@ -483,6 +563,7 @@ Page({
   // 上一题  
   lastquestion_click: function () {
     var that = this
+
     if (that.data.index == 0) {
       wx.showToast({
         title: '当前是第一题',
@@ -492,8 +573,15 @@ Page({
     }
     else {
       that.setData({ index: that.data.index - 1 })
-      that.setData({ questionlist: that.data.allquestion[that.data.index] })
-      that.setData({ condition: 0, clickcheckid: 0, letterid: '', errorid: '' })
+      that.setData({
+        questionlist: that.data.allquestion[that.data.index],
+        comment_page: 1
+      }, () => {
+        that.getcomment()
+      })
+      if (that.data.modeid == 0) {
+        that.setData({ condition: 0, clickcheckid: 0, letterid: '', errorid: '' })
+      }
       that.setData({ hiddenName: true })
       that.setData({ focus: false })
       if (that.data.questionlist.useranswer != null) {//用户已选择
@@ -516,6 +604,7 @@ Page({
   // 下一题
   nextquestion_click: function () {
     var that = this
+
     if (that.data.index == that.data.allquestion.length - 1) {
       wx.showToast({
         title: '已经是最后一题',
@@ -525,8 +614,15 @@ Page({
     }
     else {
       that.setData({ index: that.data.index + 1 })
-      that.setData({ questionlist: that.data.allquestion[that.data.index] })
-      that.setData({ condition: 0, clickcheckid: 0, letterid: '', errorid: '' })
+      that.setData({
+        questionlist: that.data.allquestion[that.data.index],
+        comment_page: 1
+      }, () => {
+        that.getcomment()
+      })
+      if (that.data.modeid == 0) {
+        that.setData({ condition: 0, clickcheckid: 0, letterid: '', errorid: '' })
+      }
       that.setData({ hiddenName: true })
       that.setData({ focus: false })
       if (that.data.questionlist.useranswer != null) {//用户已选择
@@ -546,18 +642,299 @@ Page({
     }
   },
 
-  //点击评论
+  //点击评论按钮
   bindButtonTap: function () {
     if (this.data.clickcheckid == 1) {
-      this.setData({
-        hiddenName: !this.data.hiddenName
-      })
-      this.setData({
-        focus: true
-      })
+      if (this.data.hiddenName == true) {
+        this.setData({
+          hiddenName: !this.data.hiddenName
+        }, () => {
+          this.setData({
+            focus: true
+          })
+        })
+      }
+      else {
+        this.setData({
+          focus: false
+        }, () => {
+          this.setData({
+            hiddenName: !this.data.hiddenName
+          })
+        })
+      }
+
     }
 
   },
 
+  // 输入评论内容
+  commentInput: function (event) {
+    this.setData({ comment: event.detail.value })
+  },
+
+  // 获取token
+  get_token: function (options) {
+    var that = this
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.request({
+      url: app.d.hostUrl + '/wechat/token',
+      method: 'get',
+
+      success: function (res) {
+        console.log(res.data.data.token)
+        that.comment_test(res.data.data.token)
+      },
+      complete: function (res) {
+      }
+    })
+  },
+
+  // 微信文本检测接口
+  comment_test: function (token) {
+    var that = this
+    wx.request({
+      url: 'https://api.weixin.qq.com/wxa/msg_sec_check?access_token=' + token,
+      method: 'post',
+      data: {
+        content: that.data.comment
+      },
+      success: function (res) {
+        console.log(res)
+        if (res.data.errcode == 40001) {
+          console.log("发生错误")
+          
+          that.setData({ timeoutflag: that.data.timeoutflag +1 },()=>{
+            if (that.data.timeoutflag >= 5) {
+              console.log("连接超时")
+              wx.showToast({
+                title: '连接超时',
+                icon: 'none',
+                duration: 1500
+              })
+              that.setData({ timeoutflag: 1 })
+            }
+            else{
+              that.comment_test(token)
+            }
+          })
+          
+        }
+        if (res.data.errcode == 0) {
+          console.log("内容正常")
+          that.addcomment()
+        }
+        if (res.data.errcode == 87014) {
+          console.log("内容含有违法违规内容")
+          wx.showToast({
+            title: '内容含有违法违规内容',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      complete: function (res) {
+
+      }
+    })
+  },
+
+  // 添加评论
+  addcomment: function () {
+    var that = this
+
+    console.log(app.appData.userinfo.username)
+    console.log("添加评论" + app.d.hostUrl)
+    wx.request({
+      url: app.d.hostUrl + '/comment/addComment',
+      method: 'post',
+      data: {
+        userId: app.appData.userinfo.username,
+        questionId: that.data.questionlist.id,
+        bankId: that.data.bankid,
+        content: that.data.comment
+      },
+      success: function (res) {
+        console.log(res)
+        if (res.data.code == 0) {
+          that.setData({ focus: false, hiddenName: true })
+          that.getcomment()
+          wx.showToast({
+            title: '发表成功',
+            icon: 'none',
+            duration: 2000
+          })
+
+        }
+        else {
+          wx.showToast({
+            title: '发生错误',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 300)
+      }
+    })
+
+  },
+
+  //获取评论
+  getcomment: function () {
+    var that = this
+    console.log(app.appData.userinfo.username)
+    console.log("获取评论" + app.d.hostUrl)
+    wx.request({
+      url: app.d.hostUrl + '/comment/getComment',
+      method: 'get',
+      data: {
+        questionId: that.data.questionlist.id,
+        page: 1,
+        size: 10
+      },
+      success: function (res) {
+        console.log(res)
+        if (res.data.code == 0) {
+          that.setData({
+            commentlist: res.data.data.rows,
+            comment_size: res.data.data.total
+          })
+
+        }
+        else {
+          that.setData({ commentlist: [], comment_size: 0 })
+        }
+        setTimeout(function () {
+          wx.hideLoading()
+        }, 300)
+      }
+    })
+
+  },
+
+  // 删除评论
+  delete_click: function (e) {
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除吗？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '',
+          })
+          console.log('用户点击确定')
+          console.log(e)
+          var id = e.currentTarget.dataset.id
+          console.log("要删除的评论id：" + id)
+          console.log(app.appData.userinfo.username)
+          wx.request({
+            url: app.d.hostUrl + '/comment/updateComment',
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'put',
+            data: {
+              id: id
+            },
+            success: function (res) {
+              setTimeout(function () {
+                wx.hideLoading()
+              }, 2000)
+
+              console.log(res)
+              wx.showToast({
+                title: '删除成功',
+                icon: 'success',
+                duration: 800,
+              })
+            },
+            complete: function (res) {
+              setTimeout(function () {
+                that.getcomment()
+              }, 800)
+
+            }
+          })
+
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+
+  },
+
+  // 改变模式
+  changemode: function (e) {
+    var that = this
+    console.log(e.currentTarget.dataset.modeid)
+    if (e.currentTarget.dataset.modeid == 1) {
+      that.setData({
+        clickcheckid: 1
+      });
+    }
+    else {
+      if (!that.data.questionlist.answerstatus)
+        that.setData({
+          clickcheckid: 0
+        });
+    }
+    that.setData({
+      modeid: e.currentTarget.dataset.modeid
+    });
+    console.log("模式id：" + that.data.modeid)
+  },
+
+  // 点击报错按钮
+  reporterrors: function () {
+    this.setData({
+      reporthidden: !this.data.reporthidden
+    })
+  },
+
+  // 输入报错内容
+  report_error_Input: function (event) {
+    this.setData({ reportmessage: event.detail.value })
+  },
+
+  //确定报错按钮
+  report_error_click: function () {
+    var that = this
+    wx.request({
+      url: app.d.hostUrl + '/message/addMessage',
+      method: 'post',
+      data: {
+        questionId: that.data.questionlist.id,
+        bankId: that.data.questionlist.bankId,
+        sender: app.appData.userinfo.username,
+        message: that.data.reportmessage
+      },
+      success: function (res) {
+        console.log(res)
+        if (res.data.code == 0) {
+          wx.showToast({
+            title: '提交成功',
+            icon: 'success',
+            duration: 1500,
+          })
+          that.setData({
+            reporthidden: !that.data.reporthidden
+          })
+        }
+        else {
+          wx.showToast({
+            title: '提交失败',
+            icon: 'none',
+            duration: 1500,
+          })
+        }
+      }
+    })
+  }
 
 })

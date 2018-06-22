@@ -1,0 +1,17 @@
+<view class='con_view'>
+
+  <view class='toptext_view'>
+    <text class='question_text0'>常见问题：</text>
+  </view>
+
+  <view class='qaa_view'>
+    <text class='question_text'>如何获得积分？</text>
+    <text class='answer_text'>您可以通过以下途径获得积分：\n 1、新用户可以一次性获得100点积分。\n2、每天签到可以获得5点积分。\n  3、给题目评分可以获得1点积分。\n4、上传题库和题目，其他用户购买该题库后，可以获得相应积分。</text>
+  </view>
+
+  <view class='qaa_view'>
+    <text class='question_text'>如何上传题库和题目？</text>
+    <text class='answer_text'>以下是上传步骤：\n 1、点击个人中心的题库管理。\n2、点击右下角的加号图标。\n  3、如果之前没有创建过题库，请先创建题库。\n4、填写相应信息，创建题库。\n5、点击上传题目，填写相应信息，上传题目\n注意事项：上传题目必须要有题库</text>
+  </view>
+
+</view>

@@ -1,6 +1,6 @@
 <view class="con">
   <view class="inputview">
-    <text class="input_tips">题库名称</text> 
+    <text class="input_tips">题库名称</text>
   </view>
 
   <view class="inputview">
@@ -15,21 +15,33 @@
     <textarea bindinput="bankintroInput"></textarea>
   </view>
 
-   <view class="inputview">
+  <view class="inputview">
     <text class="input_tips">题库类别</text>
   </view>
 
   <view class="inputview">
-      <picker range-key='name' mode="multiSelector" bindchange="bindPickerChange" bindcolumnchange="bindColumnChange" value='{{index}}' range="{{objectMultiArray}}">
-        <view class="picker">
-         {{objectMultiArray[0][topindex].name}}/{{objectMultiArray[1][index].name}}
-        </view>
-      </picker>
+    <picker range-key='name' mode="multiSelector" bindchange="bindPickerChange" bindcolumnchange="bindColumnChange" value='{{index}}' range="{{objectMultiArray}}">
+      <view class="picker">
+        {{objectMultiArray[0][topindex].name}}/{{objectMultiArray[1][index].name}}
+      </view>
+    </picker>
   </view>
 
-  <view class="loginBtnView"> 
-  <button class="loginBtn"  bindtap="createclick">创建</button>  
- </view> 
+  <view class="inputview">
+    <text class="input_tips">所需积分</text>
+  </view>
+
+  <view class="inputview">
+    <picker  bindchange="bindPickerChange_point" value='{{pointindex}}' range="{{pointlist}}">
+      <view class="picker">
+        {{pointlist[pointindex]}}
+      </view>
+    </picker>
+  </view>
+
+  <view class="loginBtnView">
+    <button class="loginBtn" bindtap="createclick">创建</button>
+  </view>
 
 
 </view>

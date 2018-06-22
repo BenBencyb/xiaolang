@@ -1,4 +1,5 @@
   {
-    "navigationBarTitleText": "推荐题库",
-    "enablePullDownRefresh": true
+    "navigationBarTitleText": "动态",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 50
   }

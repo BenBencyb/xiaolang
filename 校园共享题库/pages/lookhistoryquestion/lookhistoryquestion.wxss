@@ -1,3 +1,25 @@
 page {
-  background-color: #fff;
+  background-color: #fafafa;
+}
+
+/* 题库标题和当前题目、总题目数 */
+
+.title_count_view {
+  
+  margin-top: 30rpx;
+  
+}
+
+/* 跳转到题库 */
+.gobank_view{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35rpx;
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  height: 100rpx;
+  background-color: #55c5ac;
+  color: #fff;
 }

@@ -17,22 +17,95 @@
   position: fixed;
   top: 0;
   width: 100%;
-  height: 150rpx;
+  height: 100rpx;
   display: flex;
   flex-direction: column;
+  /* justify-content: center; *//* align-items: center;  *//* border-bottom: 1rpx solid #55c5ac; *//* background-color: #55c5ac; */
+  color: #aaa;
+  font-size: 33rpx;
+  padding: 0 20rpx 20rpx 20rpx;
+}
+
+/* 题库标题和当前题目、总题目数 */
+
+.title_count_view {
+  width: 650rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 110rpx;
+  margin-bottom: 30rpx;
+  font-size: 30rpx;
+  color: #aaa;
+}
+
+/* 模式区域 */
+
+.mode_view {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* align-items: center; */
+  height: 80rpx;
+  width: 750rpx;
+  font-size: 26rpx;
+  margin-bottom: 10rpx;
+  background-color: #fff;
+}
+
+/* 单个模式区域 */
+
+.onemode_view {
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-bottom: 1rpx solid #55c5ac;
+  height: 35rpx;
+  border-top: 1rpx solid #e0e0e0;
+  border-bottom: 1rpx solid #e0e0e0;
+  /* border-left: 1rpx solid #e0e0e0; */
+  padding: 13rpx 22rpx;
+  color: #000;
+}
+
+/* 练习模式 */
+
+.left_mode {
+  border-left: 1rpx solid #e0e0e0;
+  border-radius: 30rpx 0 0 30rpx;
+}
+
+/* 背题模式 */
+
+.right_mode {
+  border-right: 1rpx solid #e0e0e0;
+  border-radius: 0 30rpx 30rpx 0;
+}
+
+/* 练习模式（选中状态） */
+
+.mode1_checked {
   background-color: #55c5ac;
   color: #fff;
+  border-top: 1rpx solid #55c5ac;
+  border-bottom: 1rpx solid #55c5ac;
+  border-left: 1rpx solid #55c5ac;
+}
+
+/* 背题模式（选中状态） */
+
+.mode2_checked {
+  background-color: #55c5ac;
+  color: #fff;
+  border-top: 1rpx solid #55c5ac;
+  border-bottom: 1rpx solid #55c5ac;
+  border-right: 1rpx solid #55c5ac;
 }
 
 /* 当前题目/总题目数 */
 
 .count {
-  margin-top: 20rpx;
   font-size: 33rpx;
-  margin-bottom: 15rpx;
 }
 
 /* 问题和选项整体 */
@@ -41,7 +114,6 @@
   width: 650rpx;
   display: flex;
   flex-direction: column;
-  margin-top: 180rpx;
 }
 
 /* 问题 */
@@ -72,7 +144,7 @@
   align-items: center;
   border: 2rpx solid #55c5ac;
   margin-right: 25rpx;
-  background-color: #fff;
+  background-color: #fafafa;
   color: #55c5ac;
 }
 
@@ -123,21 +195,42 @@
 
 /* 答案解析(查看前) */
 
-.analysis_view {
-  width: 0rpx;
-  font-size: 0rpx;
-  margin-top: 0rpx;
+.analysis_view.check1 {
+  width: 0;
+  font-size: 0;
+  margin-top: 0;
   display: flex;
-  border: 0rpx solid #aaa;
+  border: 0 solid #aaa;
+}
+
+.analysis_view.check1 view {
+  width: 0;
+  margin: 0;
+  height: 0;
+}
+
+.analysis_view.check1 image {
+  width: 0;
+  margin: 0;
+  border: 0;
+  height: 0;
+}
+
+.analysis_view.check1 text {
+  font-size: 0;
+  width: 0;
+  margin: 0;
+  height: 0;
 }
 
 /* 答案解析（查看后） */
 
 .analysis_view.checked2 {
+  height: auto;
   width: 650rpx;
   font-size: 32rpx;
   margin-top: 50rpx;
-  margin-bottom: 130rpx;
+  margin-bottom: 99rpx;
   display: flex;
   flex-direction: column;
 }
@@ -147,7 +240,7 @@
 .checkanswer_view {
   width: 200rpx;
   height: 75rpx;
-  background-color: #fff;
+  background-color: #fafafa;
   color: #55c5ac;
   display: flex;
   justify-content: center;
@@ -166,10 +259,61 @@
   height: 0rpx;
   line-height: 0rpx;
   font-size: 0rpx;
-  border: 0rpx solid #55c5ac;
+  border: 0 solid #55c5ac;
   border-radius: 0rpx;
   margin-top: 0rpx;
   margin-bottom: 0rpx;
+}
+
+/* 评论框和按钮区域 */
+
+.input_view {
+  height: 300rpx;
+  position: fixed;
+  bottom: 500rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  /* padding: 15rpx; */
+  width: 700rpx;
+  z-index: 996rpx;
+  background-color: #fff;
+  border: 1rpx solid #55c5ac; 
+  border-radius: 20rpx;
+  
+}
+
+/* 评论输入框 */
+
+.input_view>textarea {
+  width: 664rpx;
+  padding: 20rpx;
+  font-size: 32rpx;
+  color: #909090;
+  height: 200rpx;  
+  /* border-radius: 12rpx; */
+  border-radius: 18rpx 18rpx 0 0;
+  /* background-color: #FAFAFA; */
+  box-shadow: 0rpx 0rpx 20rpx #888888 inset;
+}
+
+/* 发表评论按钮 */
+
+.comment_btn {
+  width: 100%;
+  height: 80rpx;
+  /* margin-left: 15rpx; */
+  font-size: 34rpx;
+  background-color: #55c5ac; 
+  color: #fff;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  border: 1rpx solid #55c5ac; 
+  border-radius: 0 0 18rpx 18rpx;
 }
 
 /* 答题底部的(评论、评分和分享)图片 */
@@ -230,7 +374,7 @@
   background-color: #fff;
   position: fixed;
   bottom: 101rpx;
-  z-index: 998;
+  z-index: 996;
   border-top: 1rpx solid #e8e8e8;
 }
 

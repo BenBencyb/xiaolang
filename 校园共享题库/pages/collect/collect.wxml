@@ -1,23 +1,27 @@
 <view wx:if="{{questionlist.length==0}}" class="tips_view">
   <text>你还没有收藏过题目~</text>
 </view>
- <view wx:for="{{questionlist}}" wx:key="id" class="bank_view">      
-        <!-- <image class="title_image" src="../images/title.png"></image> -->
-        <view class="title_view">
-          <view><text class="title_text ellipsis">{{item.question}}</text></view>        
-          <view class="bank_message">
-            <text class='title_message_text intro ellipsis'>所属题库：{{item.title}}</text> 
-            <text class='title_message_text'>收藏时间：{{item.createTime}}</text>
-       
-          </view>
+<view wx:for="{{questionlist}}" wx:key="id" class="bank_view">
+  <!-- <image class="title_image" src="../images/title.png"></image> -->
+  <view class="title_view">
+    <view>
+      <text class="title_text ellipsis">{{item.question}}</text>
+    </view>
+    <view class="bank_message">
+      <text class='title_message_text intro ellipsis'>所属题库：{{item.title}}</text>
+      <text class='title_message_text'>收藏时间：{{item.createTime}}</text>
 
-          <view class="allbutton_view">
-            
-            <view data-id="{{item.id}}" bindtap='delete_click' class="button_view delete">
-              <text>取消收藏</text>
-            </view>
-          </view>
+    </view>
 
-        </view>
-        
-      </view> 
+    <view class="allbutton_view">
+      <view bindtap='look_click' data-id='{{item.questionId}}' data-name='{{item.title}}' class="button_view">
+        <text>进入题目</text>
+      </view>
+      <view data-questionid="{{item.questionId}}" data-bankid="{{item.bankId}}" bindtap='delete_click' class="button_view delete">
+        <text>取消收藏</text>
+      </view>
+    </view>
+
+  </view>
+
+</view>

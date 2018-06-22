@@ -1,44 +1,148 @@
 page {
-  background-color: #fff;
+  background-color: #fafafa;
 }
 
-/* 评论view */
+/* 答案和报错 */
 
-.inputview {
+.answerandre {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  align-content: center;
-  padding-top: 115rpx;
-  margin-bottom: 15rpx;
-  width: 100%;
+  justify-content: space-between;
 }
 
-/* 评论输入框 */
+/* 报错 */
 
-textarea {
-  border: 1rpx solid #aaa;
-  width: 520rpx;
-  padding: 15rpx;
-  font-size: 35rpx;
-  color: #909090;
-  height: 50rpx;
-  border-radius: 12rpx;
-  /* margin-bottom: 20rpx; */
-}
-
-/* 发表评论按钮 */
-
-.comment_btn {
-  width: 95rpx;
-  height: 35rpx;
-  margin-left: 15rpx;
-  font-size: 35rpx;
-  /* background-color: #55c5ac; */
+.re_text {
   color: #55c5ac;
+  font-size: 28rpx;
+}
+
+/* 报错窗口 */
+
+.report_view {
+  position: fixed;
+  bottom: 400;
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 400rpx;
+  width: 650rpx;
+  background-color: #fff;
+  border: 1rpx solid #55c5ac;
+  border-radius: 20rpx;
+ 
+}
+
+/* 报错文字 */
+
+.report_view>text {
+  font-size: 34rpx;
+  color: #55c5ac;
+  margin: 15rpx;
+}
+
+/* 报错输入框 */
+
+.report_view>textarea {
+  font-size: 30rpx;
+  width: 650rpx;
+  padding: 0;
+  margin: 0;
+  border-top: 1rpx solid #55c5ac;
+  box-shadow: 0rpx 0rpx 20rpx #888888 inset;
+}
+
+/* 报错确定按钮 */
+
+.report_view>view {
+  font-size: 34rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80rpx;
+  background-color: #55c5ac;
+  color: #fff;
+  border-radius: 0 0 18rpx 18rpx;
+}
+
+
+
+/* 没人评论提醒文字 */
+
+.nocomment_view {
+  height: 180rpx;
+  width: 650rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #909090;
+}
+
+/* 单条评论 */
+
+.comment_view {
+  display: flex;
+  height: auto;
+  width: 650rpx;
+  font-size: 32rpx;
+  margin-top: 35rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+/* 用户头像 */
+
+.user_image {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  border: 1rpx solid #cecece;
+}
+
+/* 顶部文字 */
+
+.top_view {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 昵称文字 */
+
+.nickname_text {
+  color: #757575;
+}
+
+/* 评论文字 */
+
+.comment_text {
+  color: #2b2b2b;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 评论时间文字 */
+
+.time_text {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 26rpx;
+  color: #9b9b9b;
+}
+
+/*楼层数字 */
+
+.index_text {
+  font-size: 26rpx;
+  color: #9b9b9b;
+}
+
+/* 评论右边部分 */
+
+.rightpart_view {
+  display: flex;
+  flex-direction: column;
+  width: 550rpx;
+  margin-left: 35rpx;
 }

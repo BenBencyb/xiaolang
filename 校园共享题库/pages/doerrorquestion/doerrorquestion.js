@@ -169,7 +169,7 @@ Page({
   onLoad: function (options) {
     console.log(options)
     this.get_error_question()
-    this.setData({ questionid: options.id })
+    this.setData({ questionid: options.id, bankname: options.bankname })
     this.setData({ index: options.sort })
     this.getquestion()
   },
@@ -300,7 +300,7 @@ Page({
     wx.request({
       url: app.d.hostUrl + '/answerSheet/list/' + app.appData.userinfo.username + '/fault',
       method: 'get',
-      
+
       complete: function (res) {
         console.log(res.data.data)
         that.setData({ errorquestionlist: res.data.data })
@@ -318,11 +318,10 @@ Page({
         duration: 2000
       })
     }
-    else
-    {   
+    else {
       that.setData({ index: that.data.index - 2 + 1 })
       console.log("上一题id:" + that.data.errorquestionlist[that.data.index].questionId)
-      that.setData({ questionid: that.data.errorquestionlist[that.data.index].questionId }        )
+      that.setData({ questionid: that.data.errorquestionlist[that.data.index].questionId })
 
       that.getquestion()
 
@@ -341,18 +340,27 @@ Page({
         duration: 2000
       })
     }
-    else
-    {
-    that.setData({ index: that.data.index - 1 + 2 })
-    console.log("下一题id:" + that.data.errorquestionlist[that.data.index].questionId)
-    that.setData({ questionid: that.data.errorquestionlist[that.data.index].questionId })
+    else {
+      that.setData({ index: that.data.index - 1 + 2 })
+      console.log("下一题id:" + that.data.errorquestionlist[that.data.index].questionId)
+      that.setData({ questionid: that.data.errorquestionlist[that.data.index].questionId })
 
-    that.getquestion()
+      that.getquestion()
 
-    that.setData({ condition: 0, clickcheckid: 0, letterid: '', errorid: '' })
+      that.setData({ condition: 0, clickcheckid: 0, letterid: '', errorid: '' })
     }
   },
 
-  
+  //跳到题库做题
+  jump_to_bank: function (e) {
+    var bankid = e.currentTarget.dataset.bankid
+    var bankname = this.data.bankname
+    console.log("题库id：" + bankid)
+    console.log("题库名称：" + bankname)
+    wx.navigateTo({
+      url: '../train/train?bankid=' + bankid + '&bankname=' + bankname
+    })
+  },
+
 
 })

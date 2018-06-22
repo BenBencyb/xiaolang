@@ -10,6 +10,7 @@ Page({
     winHeight: 0,//首页页面高度
     // tab切换  
     currentTab: 0,// 切换页面
+    point: 0,//用户积分
     searchValue: '',//搜索内容
     banklist: [],//精选题库数据
     banklist_page: 1,//精选题库页数
@@ -26,8 +27,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+    })
     this.getbanklist();
-    // this.getbanklist_hot();
+    // this.search_point();
 
     // this.getbanktype();
     var that = this;
@@ -125,7 +129,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    if (this.data.currentTab==0){
+    if (this.data.currentTab == 0) {
       this.getbanklist();
       this.setData({ banklist_page: 1 }, () => {
         console.log('精选页数恢复1')
@@ -137,13 +141,18 @@ Page({
         console.log('热门页数恢复1')
       })
     }
-    
+    if (this.data.currentTab == 2) {
+      this.getbanktype();
+    }
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    wx.showLoading({
+      title: '加载中',
+    })
     var that = this
     var b1 = []
     var condition = "star_level"
@@ -163,7 +172,9 @@ Page({
       condition = "frequency"
       page = that.data.hotbanklist_page
     }
-
+    if (that.data.currentTab == 2) {
+      wx.hideLoading()
+    }
     wx.request({
       url: app.d.hostUrl + '/questionBank/info/sort',
       method: 'get',
@@ -183,12 +194,14 @@ Page({
             console.log("b1：")
             console.log(b1)
             that.setData({ banklist: that.data.banklist.concat(b1) }, () => {
+              wx.hideLoading()
               console.log("本地精选题库增加成功")
               that.setheight()
             })
           }
           else {
             that.setData({ banklist_page: res.data.data.pages }, () => {
+              wx.hideLoading()
               console.log('精选题库没有新数据')
               wx.showToast({
                 title: '没有更多数据了~',
@@ -205,12 +218,14 @@ Page({
             console.log("b1：")
             console.log(b1)
             that.setData({ hotbanklist: that.data.hotbanklist.concat(b1) }, () => {
+              wx.hideLoading()
               console.log("本地热门题库增加成功")
               that.setheight()
             })
           }
           else {
             that.setData({ hotbanklist_page: res.data.data.pages }, () => {
+              wx.hideLoading()
               console.log('热门题库没有新数据')
               wx.showToast({
                 title: '没有更多数据了~',
@@ -257,7 +272,10 @@ Page({
         var int = setInterval(function () {
           time = time + 1
           console.log("循环执行..")
-          if (app.appData.winHeight != 0) clearInterval(int)
+          if (app.appData.winHeight != 0) {
+            wx.hideLoading()
+            clearInterval(int)
+          }
           that.setheight()
 
           if (time == 100) {
@@ -315,6 +333,7 @@ Page({
       method: 'get',
 
       complete: function (res) {
+
         console.log("题库类别数据：")
         console.log(res.data.data[0].lowerCategories)
         that.setData({ alltypelist: res.data.data[0].lowerCategories })
@@ -353,37 +372,137 @@ Page({
     })
   },
 
+  //查询是否已经购买该题库
+  checkbuystatus: function (e) {
+    var that = this
+    var value = e.currentTarget.dataset.value
+    var bankid = e.currentTarget.dataset.text
+    var count = e.currentTarget.dataset.count
+
+    if(count==0){
+      wx.showToast({
+        title: '该题库暂无题目',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+    else{
+      console.log("需要积分：" + value)
+      if (value == 0) {
+        that.gotrain(e)
+      }
+      else {
+        wx.request({
+          url: app.d.hostUrl + '/buy/info',
+          method: 'get',
+          data: {
+            userId: app.appData.userinfo.username,
+            bankId: bankid
+          },
+          complete: function (res) {
+            console.log(res)
+            if (res.data.code == 11000) {
+              console.log("查询不到购买记录")
+              that.buybank(e)
+            }
+            if (res.data.code == 0) {
+              console.log("已经购买")
+              that.gotrain(e)
+            }
+            if (res.data.code == 2005) {
+              console.log("该题库是自己的")
+              that.gotrain(e)
+            }
+
+          }
+        })
+      }
+    }
+
+    
+  },
+
+  // 购买题库
+  buybank: function (e) {
+    var that = this
+    var value = e.currentTarget.dataset.value
+    var bankid = e.currentTarget.dataset.text
+    console.log(value)
+    console.log(bankid)
+    wx.showModal({
+      title: '提示',
+      content: '购买该题库需要' + value + "积分，是否购买？",
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          wx.request({
+            url: app.d.hostUrl + '/buy/info',
+            method: 'post',
+            data: {
+              user: app.appData.userinfo.username,
+              bank: bankid
+            },
+            complete: function (res) {
+              console.log(res)
+              if (res.data.code == 0) {
+                console.log("购买成功")
+                that.gotrain(e)
+              }
+              if (res.data.code == 8003) {
+                console.log("用户积分不够")
+                wx.showToast({
+                  title: '你的积分不足',
+                  icon: 'none',
+                  duration: 2000
+                })
+              }
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+
+        }
+      }
+    })
+
+
+  },
+
+  // 查询用户积分
+  search_point: function () {
+    var that = this
+    wx.request({
+      url: app.d.hostUrl + '/points/points',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'get',
+      data: {
+        userId: app.appData.userinfo.username
+      },
+      success: function (res) {
+        console.log("查询用户积分：")
+        console.log(res)
+        that.setData({ point: res.data.data.points })
+        console.log("本地数据：")
+        console.log("积分：" + that.data.point)
+        wx.stopPullDownRefresh()
+
+      }
+    })
+
+  },
+
   // 做题
   gotrain: function (e) {
-    if (app.appData.userinfo == null) {
-      wx.showModal({
-        title: '提示',
-        content: '请先登录',
-        confirmText: '去登录',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-            wx.redirectTo({
-              url: '../login/login',
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-            wx.switchTab({
-              url: '../index/index',
-            })
-          }
-        }
-      })
-    }
-    else {
-      var bankid = e.currentTarget.dataset.text
-      var bankname = e.currentTarget.dataset.title
-      console.log("题库id：" + bankid)
-      console.log("题库名称：" + bankname)
-      wx.navigateTo({
-        url: '../train/train?bankid=' + bankid + '&bankname=' + bankname
-      })
-    }
+    var bankid = e.currentTarget.dataset.text
+    var bankname = e.currentTarget.dataset.title
+    console.log("题库id：" + bankid)
+    console.log("题库名称：" + bankname)
+    wx.navigateTo({
+      url: '../train/train?bankid=' + bankid + '&bankname=' + bankname
+    })
+
   },
 
   //设置显示题库部分的高度
@@ -407,16 +526,16 @@ Page({
         console.log("阴影高度：" + res[3].height + "px");
 
         if (that.data.currentTab == 0) {//切换到精选页面
-          console.log(res[0].height + res[1].height + res[3].height + res[2].height * that.data.banklist.length + 30)
-          app.appData.winHeight = res[0].height + res[1].height + res[3].height + res[2].height * that.data.banklist.length + that.data.banklist.length * 3
+          console.log(res[0].height + res[1].height + res[3].height + res[2].height * that.data.banklist.length + that.data.banklist.length * 3)
+          app.appData.winHeight = res[2].height * that.data.banklist.length + that.data.banklist.length * 3
         }
         if (that.data.currentTab == 1) {//切换到热门页面
           console.log(res[0].height + res[1].height + res[3].height + res[2].height * that.data.hotbanklist.length + 30)
-          app.appData.winHeight = res[0].height + res[1].height + res[3].height + res[2].height * that.data.hotbanklist.length + that.data.hotbanklist.length * 3
+          app.appData.winHeight = res[2].height * that.data.hotbanklist.length + that.data.hotbanklist.length * 3
         }
         if (that.data.currentTab == 2) {//切换到分类页面
           console.log(that.data.SystemHeight)
-          app.appData.winHeight = that.data.SystemHeight
+          app.appData.winHeight = that.data.SystemHeight - (res[0].height + res[1].height + res[3].height)
         }
       }
 
@@ -429,6 +548,7 @@ Page({
         that.setData({
           winHeight: app.appData.winHeight
         })
+
       });
 
     })

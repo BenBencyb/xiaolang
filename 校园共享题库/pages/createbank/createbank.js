@@ -7,6 +7,9 @@ Page({
    */
   data: {
     id: 0,
+    pointlist:[0,10,20,30,40,50],
+    pointindex: 0,
+    point: 0,
     banktype: [],
     topindex: 0,
     index: 0,
@@ -161,6 +164,19 @@ Page({
 
   },
 
+  // 所属题库选择器改变内容
+  bindPickerChange_point: function (e) {
+    console.log(e)
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      pointindex: e.detail.value
+    })
+    console.log(this.data.pointlist[this.data.pointindex])
+    this.setData({
+      point: this.data.pointlist[this.data.pointindex]
+    })
+  },
+
   //创建题库
   createclick: function () {
     var that = this
@@ -193,7 +209,8 @@ Page({
           title: that.data.bankname,
           intro: that.data.bankintro,
           userId: app.appData.userinfo.username,
-          categoryName: that.data.banktypename
+          categoryName: that.data.banktypename,
+          value: that.data.point,
         },
         success:function(res){
           setTimeout(function () {

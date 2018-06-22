@@ -16,7 +16,7 @@
           </view>
         </view>
         <view class="do_view"> 
-          <image data-sort="{{item.sort}}" data-id="{{item.questionId}}" data-sheetid="{{item.id}}" bindtap='gotrain' class="do_image" src="../images/do3.png"></image>
+          <image data-bankname="{{item.bankTitle}}" data-sort="{{item.sort}}" data-id="{{item.questionId}}" data-sheetid="{{item.id}}" bindtap='gotrain' class="do_image" src="../images/do3.png"></image>
          
         </view>  
       </view> 

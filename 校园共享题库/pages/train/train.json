@@ -1,3 +1,10 @@
 {
-  "navigationBarTitleText": "答题"
+  "navigationBarTitleText": "答题",
+  "onReachBottomDistance": 50,
+  
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#fff",
+  "backgroundTextStyle": "light"
+  
 }

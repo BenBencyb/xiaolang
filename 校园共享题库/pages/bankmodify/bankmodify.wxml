@@ -27,6 +27,18 @@
       </picker>
   </view>
 
+  <view class="inputview">
+    <text class="input_tips">所需积分</text>
+  </view>
+
+  <view class="inputview">
+    <picker  bindchange="bindPickerChange_point" value='{{pointindex}}' range="{{pointlist}}">
+      <view class="picker">
+        {{pointlist[pointindex]}}
+      </view>
+    </picker>
+  </view>
+
   <view class="loginBtnView"> 
   <button class="loginBtn"  bindtap="modify_click">修改</button>  
  </view> 

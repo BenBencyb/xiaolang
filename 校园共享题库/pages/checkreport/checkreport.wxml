@@ -1,0 +1,25 @@
+<view wx:if="{{questionlist.length==0}}" class="tips_view">
+  <text>暂时没有用户反馈~</text>
+</view>
+<view wx:for="{{questionlist}}" wx:key="id" class="bank_view">
+  <!-- <image class="title_image" src="../images/title.png"></image> -->
+  <view class="title_view">
+    <view>
+      <text class="title_text ellipsis">{{item.createTime}} 收到用户 {{item.nickname}} 反馈：</text>
+      <text class="title_text comment_content ellipsis">{{item.message}}</text>
+    </view>
+    <view class="bank_message">
+      <text class='title_message_text intro ellipsis'>所在题库：{{item.bankTitle}}</text>
+      <text class='title_message_text intro ellipsis'>所在题目：{{item.question}}</text>
+    </view>
+
+    <view class="allbutton_view">
+      <view bindtap='look_click' data-id='{{item.questionId}}' data-name='{{item.bankTitle}}' class="button_view">
+        <text>进入题目</text>
+      </view>
+      
+    </view>
+
+  </view>
+
+</view>

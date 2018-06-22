@@ -23,7 +23,12 @@
     "pages/changepassword/changepassword",
     "pages/recommend/recommend",
     "pages/request/request",
-    "pages/collect/collect"
+    "pages/collect/collect",
+    "pages/comment/comment",
+    "pages/point/point",
+    "pages/checkreport/checkreport",
+    "pages/checkbuy/checkbuy",
+    "pages/help/help"
   ],
   "window":{
     "backgroundColor":"#55C5AC",
@@ -45,10 +50,11 @@
       },
       {
         "pagePath": "pages/recommend/recommend",
-        "text": "推荐",
-        "iconPath": "pages/images/recommend.png",
-        "selectedIconPath": "pages/images/recommend2.png"
+        "text": "动态",
+        "iconPath": "pages/images/new.png",
+        "selectedIconPath": "pages/images/new2.png"
       },
+     
       {
         "pagePath": "pages/user/user",
         "text": "用户",

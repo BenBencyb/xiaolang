@@ -166,8 +166,8 @@ Page({
         size: that.data.max
       },
       success: function (res) {
-        console.log(res)
-        if(res.data.status==0){
+        console.log(res.data.data)
+        if (res.data.code==2100){
           wx.showModal({
             confirmText:'去创建',
             title: '提示',

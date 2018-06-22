@@ -175,10 +175,16 @@ Page({
       },
       success: function (res) {
         console.log(res)
-        that.setData({
-          banklist: res.data.data.rows
-        })
-        
+        if (res.data.data){
+          that.setData({
+            banklist: res.data.data.rows
+          })
+        }
+        else{
+          that.setData({
+            banklist: []
+          })
+        }
       },
       complete: function (res) {
         wx.stopPullDownRefresh()
@@ -233,7 +239,7 @@ Page({
             method: 'delete',
            
             success: function (res) {
-              setTimeout(function () {
+              setTimeout(function () { 
                 wx.hideLoading()
               }, 2000)
 

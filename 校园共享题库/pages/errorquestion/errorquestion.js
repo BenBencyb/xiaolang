@@ -97,11 +97,12 @@ Page({
     var id = e.currentTarget.dataset.id
     var sheetid = e.currentTarget.dataset.sheetid
     var sort = e.currentTarget.dataset.sort-1
+    var bankname = e.currentTarget.dataset.bankname
     console.log("题库id：" + id)
     console.log("错题专用id：" + sort)
     console.log("记录id：" + sheetid)
     wx.navigateTo({
-      url: '../doerrorquestion/doerrorquestion?id=' + id + "&sort=" + sort
+      url: '../doerrorquestion/doerrorquestion?id=' + id + "&sort=" + sort + "&bankname=" + bankname
     })
   }
 

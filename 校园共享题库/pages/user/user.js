@@ -12,7 +12,8 @@ Page({
     nickname: null,
     allRecord: null,
     faultRecord: null,
-    point: null
+    point: null,
+    signstatus: "签到"
   },
 
   /**
@@ -21,6 +22,7 @@ Page({
   onLoad: function (options) {
     this.search_no()
     this.search_point()
+    this.check_sign_status()
     console.log(app.appData.userinfo.userimg)
     if (app.appData.userinfo.userimg == null) {
       app.appData.userinfo.userimg = "../images/default.png"
@@ -55,7 +57,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.check_sign_status()
   },
 
   /**
@@ -78,6 +80,7 @@ Page({
   onPullDownRefresh: function () {
     this.search_no()
     this.search_point()
+    this.check_sign_status()
   },
 
   /**
@@ -107,7 +110,7 @@ Page({
       success: function (res) {
         console.log("查询用户错题总答题数量：")
         //console.log("接收到的数据")
-        //console.log(res.data.data)
+        console.log(res)
         that.setData({ allRecord: res.data.data.all, faultRecord: res.data.data.error })
         console.log("本地数据：")
         console.log("已做题：" + that.data.allRecord)
@@ -144,13 +147,19 @@ Page({
   search_point: function () {
     var that = this
     wx.request({
-      url: app.d.hostUrl + '/user/info/' + app.appData.userinfo.username,
+      url: app.d.hostUrl + '/user/points',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
       method: 'get',
+      data: {
+        userId: app.appData.userinfo.username
+      },
       success: function (res) {
         console.log("查询用户积分：")
-        //console.log(res.data.data.value)
-        that.setData({ point: res.data.data.value })
-        //console.log("本地数据：")
+        console.log(res)
+        that.setData({ point: res.data.data })
+        console.log("本地数据：")
         console.log("积分：" + that.data.point)
         wx.stopPullDownRefresh()
 
@@ -162,9 +171,10 @@ Page({
 
   //签到按钮
   signon_click: function () {
+    var that = this
     console.log(app.appData.userinfo.username)
     wx.request({
-      url: app.d.hostUrl + '/points/sign',
+      url: app.d.hostUrl + '/attendance/sign',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
@@ -189,8 +199,9 @@ Page({
             icon: 'none',
             duration: 1500
           })
+          that.setData({ signstatus: "已签到" })
         }
-        else{
+        else {
           wx.showToast({
             title: '发生错误',
             icon: 'none',
@@ -202,6 +213,33 @@ Page({
     })
   },
 
+  // 检查用户是否已签到
+  check_sign_status: function () {
+    var that = this
+    wx.request({
+      url: app.d.hostUrl + '/attendance/state',
+      method: 'get',
+      data: {
+        userId: app.appData.userinfo.username
+      },
+      success: function (res) {
+        console.log(res)
+        if (res.data.code == 4008) {
+          console.log("用户未签到")
+          that.setData({ signstatus: "签到" })
+        }
+        if (res.data.code == 0) {
+          console.log("用户已签到")
+          that.setData({ signstatus: "已签到" })
+        }
+
+        // console.log("积分：" + that.data.point)
+        // wx.stopPullDownRefresh()
+
+      }
+    })
+
+  },
   //跳转到题目收藏
   collect_click: function () {
     wx.navigateTo({
@@ -235,6 +273,40 @@ Page({
     wx.navigateTo({
       url: '../errorquestion/errorquestion'
     })
-  }
+  },
 
+  //跳转到评论管理
+  commentmanage_click: function () {
+    wx.navigateTo({
+      url: '../comment/comment'
+    })
+  },
+
+  //跳转到积分记录
+  point_click: function () {
+    wx.navigateTo({
+      url: '../point/point'
+    })
+  },
+
+  //跳转到用户反馈
+  checkreport_click: function () {
+    wx.navigateTo({
+      url: '../checkreport/checkreport'
+    })
+  },
+
+  //跳转到购买记录
+  checkbuy_click: function () {
+    wx.navigateTo({
+      url: '../checkbuy/checkbuy'
+    })
+  },
+
+  //跳转到帮助文档
+  help_click: function () {
+    wx.navigateTo({
+      url: '../help/help'
+    })
+  }
 })
